@@ -17,6 +17,7 @@ use Neiron\Arhitecture\Kernel\RequestInterface;
 class Neiron implements ApplicationInterface {
     private $container = array();
     public function __construct() {
+        spl_autoload_register(array($this, 'classLoader'), false);
         $this['routing'] = new Routing();
     }
     public function get($name, $pattern, $handler) {
@@ -30,6 +31,22 @@ class Neiron implements ApplicationInterface {
     }
     public function delete($name, $pattern, $handler) {
         return $this['routing']->addRoute($name, $pattern, $handler, RequestInterface::METH_DELETE);
+    }
+    public function classLoader($class) {
+        $class .= $this['dir.root'];
+        if (isset($this['pathes'])) {
+            $class .= str_replace(
+                array_keys($this['pathes']),
+                array_values($this['pathes']), 
+                $class
+            );
+        }
+        $class .= '.php';
+        if (file_exists($class)) {
+            require_once $class;
+            return;
+        }
+        throw new \ErrorException(sprintf('Класс "%s" не найден!', $class));
     }
     public function offsetExists($offset) {
         return array_key_exists($offset, $this->container);
