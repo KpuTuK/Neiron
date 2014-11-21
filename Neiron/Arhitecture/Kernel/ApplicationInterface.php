@@ -6,15 +6,15 @@
  * and open the template in the editor.
  */
 
-namespace Neiron\Arhitecture;
+namespace Neiron\Arhitecture\Kernel;
 
 /**
  *
  * @author KpuTuK
  */
 interface ApplicationInterface extends \ArrayAccess  {
-    public function get($pattern, $handler);
-    public function post($pattern, $handler);
-    public function put($pattern, $handler);
-    public function delete($pattern, $handler);
+    public function get($name, $pattern, $handler);
+    public function post($name, $pattern, $handler);
+    public function put($name, $pattern, $handler);
+    public function delete($name, $pattern, $handler);
 }
