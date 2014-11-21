@@ -7,8 +7,9 @@
  */
 
 namespace Neiron\Kernel;
-use Neiron\Arhitecture\ApplicationInterface;
+use Neiron\Arhitecture\Kernel\ApplicationInterface;
 use Neiron\Arhitecture\Kernel\RequestInterface;
+require_once dirname(__DIR__) . '/Arhitecture/Kernel/ApplicationInterface.php';
 /**
  * Description of Neiron
  *
@@ -16,7 +17,14 @@ use Neiron\Arhitecture\Kernel\RequestInterface;
  */
 class Neiron implements ApplicationInterface {
     private $container = array();
-    public function __construct() {
+    public function __construct(array $options = array()) {
+        if ( ! isset($options['dir.root'])) {
+            $options['dir.root'] = dirname(dirname(__DIR__)) .'/';
+        }
+        if ( ! isset($options['pathes'])) {
+            $options['pathes'] = array();
+        }
+        $this->container = $options;
         spl_autoload_register(array($this, 'classLoader'), false);
         $this['routing'] = new Routing();
     }
@@ -33,20 +41,18 @@ class Neiron implements ApplicationInterface {
         return $this['routing']->addRoute($name, $pattern, $handler, RequestInterface::METH_DELETE);
     }
     public function classLoader($class) {
-        $class .= $this['dir.root'];
-        if (isset($this['pathes'])) {
-            $class .= str_replace(
-                array_keys($this['pathes']),
-                array_values($this['pathes']), 
-                $class
-            );
-        }
-        $class .= '.php';
-        if (file_exists($class)) {
-            require_once $class;
+        $path .= $this['dir.root'];
+        $path .= str_replace(
+            array_keys($this['pathes']),
+            array_values($this['pathes']), 
+            $class
+        );
+        $path .= '.php';
+        if (file_exists($path)) {
+            require_once $path;
             return;
         }
-        throw new \ErrorException(sprintf('Класс "%s" не найден!', $class));
+        throw new \ErrorException(sprintf('Класс "%s" не найден!', $path));
     }
     public function offsetExists($offset) {
         return array_key_exists($offset, $this->container);
