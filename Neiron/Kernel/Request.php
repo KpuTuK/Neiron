@@ -8,17 +8,45 @@
 
 namespace Neiron\Kernel;
 use Neiron\Arhitecture\Kernel\RequestInterface;
+use Neiron\Arhitecture\Kernel\ApplicationInterface;
+use Neiron\Kernel\Request\ControllerResolver;
 /**
  * Description of Request
  *
  * @author KpuTuK
  */
 class Request implements RequestInterface {
+    /**
+     * @var \Neiron\Arhitecture\Kernel\ApplicationInterface
+     */
+    private $container;
     private $globals = array();
-    public function __construct() {
+    private $uri = null;
+    private $method;
+    public function __construct(ApplicationInterface $container) {
+        $this->container = $container;
         $this->globals($GLOBALS);
+        $this->method($this->server('REQUEST_METHOD'));
     }
-    public function create($uri = null, $method = self::METH_GET) {}
+    public function create($uri = null, $method = null) {
+        return new ControllerResolver(
+            $this->container['routing']->match(
+                $this->decodeDetectUri($uri), 
+                $this->method($method)
+            ),
+            $this->container
+        );
+    }
+    private function decodeDetectUri($uri = null) {
+        if ($uri === null) {
+            if ( ! empty($this->server('PATH_INFO'))) {
+                $uri = $this->server('PATH_INFO');
+            }elseif ( ! empty($this->server('REQUEST_URI'))) {
+                $uri = $this->server('REQUEST_URI');
+            }
+        }
+        return $this->uri(rawurldecode(rtrim($uri .'/')));
+    }
     /**
      * @param type $name
      * @param type $value
@@ -45,6 +73,12 @@ class Request implements RequestInterface {
         if ($name !== null && $value !== null) {
            return $glob[$name] = $value;
         }
+    }
+    public function method($method = null) {
+        return isset($method) ? $this->method = $method : $this->method;
+    }
+    public function uri($uri = null) {
+        return isset($uri) ?  $this->uri = $uri : $this->uri;
     }
     /**
      * @param type $name
