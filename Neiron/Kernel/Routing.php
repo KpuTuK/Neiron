@@ -56,7 +56,7 @@ class Routing implements RoutingInterface {
     public function match($uri = null, $method = RequestInterface::METH_GET) {
         if (array_key_exists($uri, $this->patterns[$method])) {
             return array(
-                'controller' => $this->patterns[$method][$uri],
+                'handler' => $this->patterns[$method][$uri],
                 'params' => array()
             );
         }
@@ -69,6 +69,7 @@ class Routing implements RoutingInterface {
                 );
             }
         }
+        return array();
     }
     private function getParams($params) {
         foreach ($params as $key => $value) {
