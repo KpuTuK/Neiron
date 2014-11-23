@@ -24,9 +24,14 @@ class Neiron implements ApplicationInterface {
         if ( ! isset($options['pathes'])) {
             $options['pathes'] = array();
         }
+        if ( ! isset($options['routes'])) {
+            $options['routes'] = array();
+        }
         $this->container = $options;
         spl_autoload_register(array($this, 'classLoader'), false);
         $this['routing'] = new Routing();
+        $this['routing']->addRoutes($this['routes']);
+        $this['request'] = new Request($this);
     }
     public function get($name, $pattern, $handler) {
         return $this['routing']->addRoute($name, $pattern, $handler, RequestInterface::METH_GET);
@@ -74,5 +79,11 @@ class Neiron implements ApplicationInterface {
             throw new \InvalidArgumentException();
         }
         unset($this->container[$offset]);
+    }
+    public function run() {
+        $this['request']
+            ->create()
+            ->execute()
+        ;
     }
 }
