@@ -17,8 +17,10 @@ interface RequestInterface {
     const METH_POST = 'POST';
     const METH_PUT = 'PUT';
     const METH_DELETE = 'DELETE';
-    public function create($uri = null, $method = RequestInterface::METH_GET);
+    public function create($uri = null, $method = null);
     public function globals($name = null, $value = null);
+    public function uri($uri = null);
+    public function method($method = null);
     public function server($name = null, $value = null);
     public function get($name = null, $value = null);
     public function post($name = null, $value = null);
