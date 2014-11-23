@@ -45,7 +45,7 @@ class Request implements RequestInterface {
                 $uri = $this->server('REQUEST_URI');
             }
         }
-        return $this->uri(rawurldecode(rtrim($uri .'/')));
+        return $this->uri(rawurldecode(rtrim($uri, '/')));
     }
     /**
      * @param type $name
