@@ -3,7 +3,7 @@
  * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Kernel\Request;
-use Neiron\Arhitecture\Kernel\ApplicationInterface;
+use Neiron\Arhitecture\Kernel\DIContainerInterface;
 /**
  * Определитель контроллеров
  * @author KpuTuK
@@ -29,7 +29,7 @@ class ControllerResolver {
      * @param \Neiron\Arhitecture\Kernel\ApplicationInterface $container Dipendicy Inection контейнер
      * @throws \InvalidArgumentException Исключение выбрасываемое в случае ошибки валидации параметров
      */
-    public function __construct(array $options, ApplicationInterface $container) {
+    public function __construct(array $options, DIContainerInterface $container) {
         if ( ! is_string($options['handler']) && ! is_object($options['handler'])) {
             throw new \InvalidArgumentException(sprintf(
                 'Параметр "handler" должен быть "string|object" вместо "%s"!',
@@ -52,6 +52,7 @@ class ControllerResolver {
      * @throws \ErrorException 
      */
     public function execute() {
+        // Если контроллер вида ns@action
         if (is_string($this->options['handler'])) {
             list($class, $action) = explode('@', $this->options['handler']);
             $obj = new $class($this->container);
@@ -63,6 +64,7 @@ class ControllerResolver {
             $obj->atfer();
             $response = $obj->$action($this->options['params']);
             $obj->beforle();
+        // Если конроллер анонимная функция
         } else {
             $this->options['params']['dic'] = $this->container;
             $response = $this->options['handler']($this->options['params']);
