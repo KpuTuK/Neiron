@@ -1,29 +1,28 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * PHP 5x framework с открытым иходным кодом
  */
-
 namespace Neiron\Kernel\Request;
 use Neiron\Arhitecture\Kernel\ApplicationInterface;
 /**
  * Определитель контроллеров
- *
  * @author KpuTuK
+ * @version 1.0.0
+ * @package Neiron framework
+ * @category Kernel
+ * @link
  */
 class ControllerResolver {
-    /**
-     * Dipendicy Inection контейнер
-     * @var ApplicationInterface
-     */
-    private $container;
     /**
      * Массив параметров контроллера
      * @var array 
      */
     private $options;
+    /**
+     * Dipendicy Inection контейнер
+     * @var ApplicationInterface
+     */
+    private $container;
     /**
      * Конструктор класса
      * @param array $options Массив параметров контроллера
@@ -49,7 +48,7 @@ class ControllerResolver {
     }
     /**
      * Выполняет контроллер
-     * @return type
+     * @return \Neiron\Arhitecture\Kernel\ResponseInterface
      * @throws \ErrorException 
      */
     public function execute() {
@@ -58,17 +57,16 @@ class ControllerResolver {
             $obj = new $class($this->container);
             if ($obj instanceof \Neiron\Arhitecture\Kernel\ControllerInterface) {
                 throw new \ErrorException(
-                    'Контроллер должен реализовывать интерфейс "\Neiron\Arhitecture\Kernel\ControllerInterface"!'
+                    'Контроллер должен реализовать интерфейс "\Neiron\Arhitecture\Kernel\ControllerInterface"!'
                 );
             }
             $obj->atfer();
             $response = $obj->$action($this->options['params']);
             $obj->beforle();
-            return $response;
         } else {
             $this->options['params']['dic'] = $this->container;
             $response = $this->options['handler']($this->options['params']);
         }
-        return $response;
+        return $this->container['response']->setContent($response);
     }
 }
