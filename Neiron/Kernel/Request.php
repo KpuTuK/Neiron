@@ -8,7 +8,7 @@
 
 namespace Neiron\Kernel;
 use Neiron\Arhitecture\Kernel\RequestInterface;
-use Neiron\Arhitecture\Kernel\ApplicationInterface;
+use Neiron\Arhitecture\Kernel\DIContainerInterface;
 use Neiron\Kernel\Request\ControllerResolver;
 /**
  * Description of Request
@@ -23,7 +23,7 @@ class Request implements RequestInterface {
     private $globals = array();
     private $uri = null;
     private $method;
-    public function __construct(ApplicationInterface $container) {
+    public function __construct(DIContainerInterface $container) {
         $this->container = $container;
         $this->globals($GLOBALS);
         $this->method($this->server('REQUEST_METHOD'));
