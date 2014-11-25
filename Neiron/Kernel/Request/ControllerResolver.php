@@ -20,7 +20,7 @@ class ControllerResolver {
     private $options;
     /**
      * Dipendicy Inection контейнер
-     * @var ApplicationInterface
+     * @var \Neiron\Arhitecture\Kernel\ApplicationInterface
      */
     private $container;
     /**
