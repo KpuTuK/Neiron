@@ -47,10 +47,19 @@ class Request implements RequestInterface {
         }
         return $this->uri(rawurldecode(rtrim($uri, '/')));
     }
-    public function refer($refer = null) {
+    /**
+     * Задает/выдает (если есть) адрес страницы, которая привела браузер пользователя на эту страницу
+     * @param string $refer Адрес страницы
+     * @return mixed Если есть (или указан) адрес страницы то выдает его или возвращает false
+     */
+    public function referer($refer = null) {
         if ($refer != null) {
-            $this->server('HTTP_REFFER', $refer);
+            $this->server('HTTP_REFERER', $refer);
         }
+        if ($this->server('HTTP_REFERER') !== null) {
+            return $this->server('HTTP_REFERER');
+        }
+        return false;
     }
     /**
      * @param type $name
