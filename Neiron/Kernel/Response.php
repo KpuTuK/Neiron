@@ -33,6 +33,14 @@ class Response implements ResponseInterface {
         $this->headers = new ResponseHeaders(array('Content-Type:' =>  'text/html; charset=utf-8'), $request);
     }
     /**
+     * Перенаправляет пользователя по заданному url
+     * @param string $url Url перенаправления
+     */
+    public function redirect($url) {
+        $this->headers->headers('Location', $url);
+        $this->headers->sendHeaders();
+    }
+    /**
      * Сохраняет выводит заголовки
      * @param mixed $name Массив заголовков или ключ заголовка
      * @param string $value Содержимое заголовка
