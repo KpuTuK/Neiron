@@ -17,7 +17,12 @@ use Neiron\Kernel\Request\ControllerResolver;
  */
 class Request implements RequestInterface {
     /**
-     * @var \Neiron\Arhitecture\Kernel\ApplicationInterface
+     *
+     * @var \Neiron\Arhitecture\Kernel\Response\ResponseHeadersInterface
+     */
+    public $cookies;
+    /**
+     * @var \Neiron\Arhitecture\Kernel\DIContainerInteface
      */
     private $container;
     private $globals = array();
@@ -26,6 +31,7 @@ class Request implements RequestInterface {
     public function __construct(DIContainerInterface $container) {
         $this->container = $container;
         $this->globals($GLOBALS);
+        $this->cookies = $this->container['cookie'] = new Cookies($this);
         $this->method($this->server('REQUEST_METHOD'));
     }
     public function create($uri = null, $method = null) {
