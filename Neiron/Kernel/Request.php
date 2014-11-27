@@ -47,6 +47,11 @@ class Request implements RequestInterface {
         }
         return $this->uri(rawurldecode(rtrim($uri, '/')));
     }
+    public function refer($refer = null) {
+        if ($refer != null) {
+            $this->server('HTTP_REFFER', $refer);
+        }
+    }
     /**
      * @param type $name
      * @param type $value
