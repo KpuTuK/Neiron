@@ -3,6 +3,7 @@
  * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Kernel\Response;
+use Neiron\Arhitecture\Kernel\Response\ResponseHeadersInterface;
 use Neiron\Arhitecture\Kernel\RequestInterface;
 /**
  * Класс для управления заголовками вывода
@@ -12,7 +13,8 @@ use Neiron\Arhitecture\Kernel\RequestInterface;
  * @category Kernel
  * @link
  */
-class ResponseHeaders {
+class ResponseHeaders implements ResponseHeadersInterface {
+    private $cookies = array();
     /**
      * Массив заголовков
      * @var array
@@ -33,6 +35,7 @@ class ResponseHeaders {
             }
         }
         $this->headers = array_replace($list, $headers);
+        $this->cookies = $request->cookies->getAll(true);
     }
     /**
      * Удаляет/добавляет/выводит заголовки
@@ -60,12 +63,27 @@ class ResponseHeaders {
            return $this->headers[$name] = $value;
         }
     }
+    /**
+     * Отпраляет заголовки если они еще не были отправлены
+     * @return \Neiron\Kernel\Response\ResponseHeaders
+     */
     public function sendHeaders() {
         if (headers_sent()) {
             return $this;
         }
         foreach ($this->headers as $key => $value) {
-            header($key . $value);
+            header($key .' '. $value);
+        }
+        foreach ($this->cookies as $cookie) {
+            setcookie(
+                $cookie['key'],
+                $cookie['value'],
+                $cookie['ttl'], 
+                $cookie['path'], 
+                $cookie['domain'], 
+                $cookie['secure'], 
+                $cookie['httponly']
+            );
         }
         return $this;
     }
@@ -77,7 +95,7 @@ class ResponseHeaders {
         return $this->parseAccept($this->headers['Accept-Encoding']);
     }
     /**
-     * 
+     * Выводит Accept заголовки
      * @return array
      */
     public function getAccepts() {
@@ -103,7 +121,7 @@ class ResponseHeaders {
         return $list;
     }
     /**
-     * Прассит
+     * Прассит Accept Заголовки
      * @param string $accept
      * @return array
      */
