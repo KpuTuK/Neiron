@@ -24,4 +24,10 @@ interface RequestInterface {
     public function server($name = null, $value = null);
     public function get($name = null, $value = null);
     public function post($name = null, $value = null);
+    /**
+     * Задает/выдает (если есть) адрес страницы, которая привела браузер пользователя на эту страницу
+     * @param string $refer Адрес страницы
+     * @return mixed Если есть (или указан) адрес страницы то выдает его или возвращает false
+     */
+    public function referer($refer = null);
 }
