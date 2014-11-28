@@ -22,7 +22,7 @@ class Neiron implements ApplicationInterface {
     /**
      * Весрсия согласно дате релиза с пометками beta|stable
      */
-    const DAYVERSION = '25.11.14 beta';
+    const DAYVERSION = '28.11.14 beta';
     /**
      * Dependicy Inection контейнер
      * @var array
