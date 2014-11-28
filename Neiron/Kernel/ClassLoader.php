@@ -42,6 +42,14 @@ class ClassLoader {
         $this->pathes[(string)$class] = (string)$namespace;
     }
     /**
+     * Добавляет класс и генерирует путь к нему согласно psr0
+     * @deprecated Данный способ по состоянию на 21 октября 2014 года PSR-0 был помечен как устаревший
+     * @param sring $class Имя класса
+     */
+    public function addPathPsr0($class) {
+        $this->pathes[$class] = strtr($class, '_', '/');
+    }
+    /**
      * Добавляет массив классов и пространств имен к ним
      * @param array $pathes Массив классов и пространств имен к ним
      */
