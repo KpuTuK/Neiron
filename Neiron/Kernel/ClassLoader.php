@@ -1,17 +1,15 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-namespace Neiron\Kernel;
-
 /**
- * Description of ClassLoader
- *
+ * PHP 5x framework с открытым иходным кодом
+ */
+namespace Neiron\Kernel;
+/**
+ * Автоматический загрузчик классов
  * @author KpuTuK
+ * @version 1.0.0
+ * @package Neiron framework
+ * @category Kernel
+ * @link
  */
 class ClassLoader {
     /**
@@ -27,8 +25,6 @@ class ClassLoader {
     /**
      * Конструктор класса
      * @param mixed $rootDir Корневая директория классов
-     * @param mixed $driver Обьект драйвера кеширования путей
-     * @group test
      */
     public function __construct($rootDir = null) {
         $this->rootDir = $rootDir;
