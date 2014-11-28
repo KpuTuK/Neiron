@@ -4,6 +4,7 @@
  */
 namespace Neiron\Kernel\Request;
 use Neiron\Arhitecture\Kernel\DIContainerInterface;
+use Neiron\Arhitecture\Kernel\Request\ControllerResolverInterface;
 /**
  * Определитель контроллеров
  * @author KpuTuK
@@ -12,21 +13,21 @@ use Neiron\Arhitecture\Kernel\DIContainerInterface;
  * @category Kernel
  * @link
  */
-class ControllerResolver {
+class ControllerResolver implements ControllerResolverInterface {
     /**
      * Массив параметров контроллера
      * @var array 
      */
     private $options;
     /**
-     * Dipendicy Inection контейнер
-     * @var \Neiron\Arhitecture\Kernel\ApplicationInterface
+     * Dependency injection контейнер
+     * @var \Neiron\Arhitecture\Kernel\DIContainerInterface
      */
     private $container;
     /**
      * Конструктор класса
      * @param array $options Массив параметров контроллера
-     * @param \Neiron\Arhitecture\Kernel\ApplicationInterface $container Dipendicy Inection контейнер
+     * @param \Neiron\Arhitecture\Kernel\DIContainerInterface $container Dependency injection контейнер
      * @throws \InvalidArgumentException Исключение выбрасываемое в случае ошибки валидации параметров
      */
     public function __construct(array $options, DIContainerInterface $container) {
