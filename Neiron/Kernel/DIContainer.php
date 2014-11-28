@@ -5,7 +5,7 @@
 namespace Neiron\Kernel;
 use Neiron\Arhitecture\Kernel\DIContainerInterface;
 /**
- * Dependicy Inection Контейнер
+ * Dependency injection Контейнер
  * @author KpuTuK
  * @version 1.0.0
  * @package Neiron framework
@@ -28,9 +28,9 @@ class DIContainer implements DIContainerInterface {
         }
     }
     /**
-     * Сохраняет обьект в функцию
-     * @param string $name
-     * @param mixed $class
+     * Создает функцию при вызове которой каждый раз будет вызван конструктор класса
+     * @param string $name Имя функции
+     * @param mixed $class Пространство имен или обьект класса
      */
     public function setInstance($name, $class) {
         $this->offsetSet($name, function ($values) use ($class) {
@@ -41,9 +41,9 @@ class DIContainer implements DIContainerInterface {
         });
     }
     /**
-     * Заменяет содержимое контейнера по ключу
-     * @param type $name
-     * @param type $value
+     * Меняет содержимое в контейнере по ключу
+     * @param string $name
+     * @param mixed $value
      */
     public function rewind($name, $value) {
         $this->offsetUnset($name);

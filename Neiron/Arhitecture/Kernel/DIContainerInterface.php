@@ -4,7 +4,7 @@
  */
 namespace Neiron\Arhitecture\Kernel;
 /**
- * Класс для реализации Dependicy Inection контейнера
+ * Класс для реализации Dependency injection контейнера
  * @author KpuTuK
  * @version 1.0.0
  * @package Neiron framework
@@ -13,15 +13,15 @@ namespace Neiron\Arhitecture\Kernel;
  */
 interface DIContainerInterface extends \ArrayAccess {
     /**
-     * 
-     * @param type $name
-     * @param type $class
+     * Создает функцию при вызове которой каждый раз будет вызван конструктор класса
+     * @param string $name Имя функции
+     * @param mixed $class Пространство имен или обьект класса
      */
     public function setInstance($name, $class);
     /**
-     * 
-     * @param type $name
-     * @param type $value
+     * Меняет содержимое в контейнере по ключу
+     * @param string $name
+     * @param mixed $value
      */
     public function rewind($name, $value);
 }
