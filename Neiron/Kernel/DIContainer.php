@@ -3,7 +3,9 @@
  * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Kernel;
+
 use Neiron\Arhitecture\Kernel\DIContainerInterface;
+
 /**
  * Dependency injection Контейнер
  * @author KpuTuK
@@ -12,7 +14,8 @@ use Neiron\Arhitecture\Kernel\DIContainerInterface;
  * @category Kernel
  * @link
  */
-class DIContainer implements DIContainerInterface {
+class DIContainer implements DIContainerInterface
+{
     /**
      * Контейнер
      * @var array
@@ -22,7 +25,8 @@ class DIContainer implements DIContainerInterface {
      * Конструктор класса
      * @param array $values 
      */
-    public function __construct(array $values = array()) {
+    public function __construct(array $values = array())
+    {
         foreach ($values as $offset => $value) {
             $this->offsetSet($offset, $value);
         }
@@ -32,7 +36,8 @@ class DIContainer implements DIContainerInterface {
      * @param string $name Имя функции
      * @param mixed $class Пространство имен или обьект класса
      */
-    public function setInstance($name, $class) {
+    public function setInstance($name, $class)
+    {
         $this->offsetSet($name, function ($values) use ($class) {
             if (is_object($class)) {
                 return (new \ReflectionObject($class))->newInstance($values);
@@ -45,7 +50,8 @@ class DIContainer implements DIContainerInterface {
      * @param string $name
      * @param mixed $value
      */
-    public function rewind($name, $value) {
+    public function rewind($name, $value)
+    {
         $this->offsetUnset($name);
         $this->offsetSet($name, $value);
     }
@@ -54,7 +60,8 @@ class DIContainer implements DIContainerInterface {
      * @param string $offset Проверяемый параметр
      * @return bool true параметр найден или false если параметр отсутсвует
      */
-    public function offsetExists($offset) {
+    public function offsetExists($offset)
+    {
         return array_key_exists($offset, $this->container);
     }
     /**
@@ -63,10 +70,11 @@ class DIContainer implements DIContainerInterface {
      * @param mixed $value Сохраняемое содержимое
      * @throws \InvalidArgumentException Исключение выбрасываемое в случае если ключ уже существует в контейнере
      */
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value)
+    {
         if ($this->offsetExists($offset)) {
             throw new \InvalidArgumentException(
-                sprintf('Параметр "%s" уже существует!', $offset)
+            sprintf('Параметр "%s" уже существует!', $offset)
             );
         }
         $this->container[$offset] = $value;
@@ -77,10 +85,11 @@ class DIContainer implements DIContainerInterface {
      * @return mixed Содержимое
      * @throws \InvalidArgumentException Исключение выбрасываемое в случае отсутствия ключа в контейнере
      */
-    public function offsetGet($offset) {
-        if ( ! $this->offsetExists($offset)) {
+    public function offsetGet($offset)
+    {
+        if (!$this->offsetExists($offset)) {
             throw new \InvalidArgumentException(
-                sprintf('Параметр "%s" не существует!', $offset)
+            sprintf('Параметр "%s" не существует!', $offset)
             );
         }
         return $this->container[$offset];
@@ -90,10 +99,11 @@ class DIContainer implements DIContainerInterface {
      * @param string $offset Ключ содержимого
      * @throws \InvalidArgumentException Исключение выбрасываемое в случае отсутствия ключа в контейнере
      */
-    public function offsetUnset($offset) {
-        if ( ! $this->offsetExists($offset)) {
+    public function offsetUnset($offset)
+    {
+        if (!$this->offsetExists($offset)) {
             throw new \InvalidArgumentException(
-                sprintf('Параметр "%s" не существует!', $offset)
+            sprintf('Параметр "%s" не существует!', $offset)
             );
         }
         unset($this->container[$offset]);

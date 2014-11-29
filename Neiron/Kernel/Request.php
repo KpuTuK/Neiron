@@ -3,9 +3,11 @@
  * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Kernel;
+
 use Neiron\Arhitecture\Kernel\RequestInterface;
 use Neiron\Arhitecture\Kernel\DIContainerInterface;
 use Neiron\Kernel\Request\ControllerResolver;
+
 /**
  * Обработчик запросов к серверу
  * @author KpuTuK
@@ -14,7 +16,8 @@ use Neiron\Kernel\Request\ControllerResolver;
  * @category Kernel
  * @link
  */
-class Request implements RequestInterface {
+class Request implements RequestInterface
+{
     /**
      * Обьект класса для работы с cookie
      * @var \Neiron\Arhitecture\Kernel\CookieInterface
@@ -32,7 +35,8 @@ class Request implements RequestInterface {
      * Конструктор класса
      * @param \Neiron\Arhitecture\Kernel\DIContainerInterface $container
      */
-    public function __construct(DIContainerInterface $container) {
+    public function __construct(DIContainerInterface $container)
+    {
         $this->container = $container;
         $this->globals($GLOBALS);
         $this->cookies = $this->container['cookie'] = new Cookies($this);
@@ -50,23 +54,20 @@ class Request implements RequestInterface {
      * @return \Neiron\Kernel\Request\ControllerResolver
      */
     public function create(
-            $uri = null, 
-            $method = null,
-            $get = null,
-            $post = null,
-            $server = null,
-            $files = null
-    ) {
+        $uri = null, 
+        $method = null, 
+        $get = null, $post = null, 
+        $server = null, 
+        $files = null
+    ){
         $this->get($get);
         $this->post($post);
         $this->server($server);
         $this->globals($files, null, '_FILES');
         return new ControllerResolver(
-            $this->container['routing']->match(
-                $this->decodeDetectUri($uri), 
-                $this->method($method)
-            ),
-            $this->container
+                $this->container['routing']->match(
+                        $this->decodeDetectUri($uri), $this->method($method)
+                ), $this->container
         );
     }
     /**
@@ -74,11 +75,12 @@ class Request implements RequestInterface {
      * @param mixed $uri URI строка
      * @return string  Декодированная строка
      */
-    private function decodeDetectUri($uri = null) {
+    private function decodeDetectUri($uri = null)
+    {
         if ($uri === null) {
-            if ( ! empty($this->server('PATH_INFO'))) {
+            if (!empty($this->server('PATH_INFO'))) {
                 $uri = $this->server('PATH_INFO');
-            }elseif ( ! empty($this->server('REQUEST_URI'))) {
+            } elseif (!empty($this->server('REQUEST_URI'))) {
                 $uri = $this->server('REQUEST_URI');
             }
         }
@@ -89,7 +91,8 @@ class Request implements RequestInterface {
      * @param string $refer Адрес страницы
      * @return mixed Если есть (или указан) адрес страницы то выдает его или возвращает false
      */
-    public function referer($refer = null) {
+    public function referer($refer = null)
+    {
         if ($refer != null) {
             $this->server('HTTP_REFERER', $refer);
         }
@@ -105,7 +108,8 @@ class Request implements RequestInterface {
      * @param mixed $var Индех переменной
      * @return mixed
      */
-    public function globals($name = null, $value = null, $var = false) {
+    public function globals($name = null, $value = null, $var = false)
+    {
         $glob = $var ? $this->globals[$var] : $this->globals;
         // Слияние массивов с заменой
         if (is_array($name)) {
@@ -124,7 +128,7 @@ class Request implements RequestInterface {
         }
         // Запись переменной
         if ($name !== null && $value !== null) {
-           return $glob[$name] = $value;
+            return $glob[$name] = $value;
         }
     }
     /**
@@ -132,7 +136,8 @@ class Request implements RequestInterface {
      * @param mixed $method Метод запроса
      * @return string Метод запроса
      */
-    public function method($method = null) {
+    public function method($method = null)
+    {
         return isset($method) ? $this->method = $method : $this->method;
     }
     /**
@@ -140,8 +145,9 @@ class Request implements RequestInterface {
      * @param mixed $uri URI запроса
      * @return string URI запроса
      */
-    public function uri($uri = null) {
-        return isset($uri) ?  $this->uri = $uri : $this->uri;
+    public function uri($uri = null)
+    {
+        return isset($uri) ? $this->uri = $uri : $this->uri;
     }
     /**
      * Сохраняет/выводит данные пременной $_SERVER
@@ -149,7 +155,8 @@ class Request implements RequestInterface {
      * @param mixed $value Значение переменной
      * @return mixed
      */
-    public function server($name = null, $value = null) {
+    public function server($name = null, $value = null)
+    {
         return $this->globals($name, $value, '_SERVER');
     }
     /**
@@ -158,7 +165,8 @@ class Request implements RequestInterface {
      * @param mixed $value Значение переменной
      * @return mixed
      */
-    public function get($name = null, $value = null) {
+    public function get($name = null, $value = null)
+    {
         return $this->globals($name, $value, '_GET');
     }
     /**
@@ -167,7 +175,8 @@ class Request implements RequestInterface {
      * @param mixed $value Значение переменной
      * @return mixed
      */
-    public function post($name = null, $value = null) {
+    public function post($name = null, $value = null)
+    {
         return $this->globals($name, $value, '_POST');
     }
     /**
@@ -176,7 +185,8 @@ class Request implements RequestInterface {
      * @param mixed $value Значение переменной
      * @return mixed
      */
-    public function files($name = null, $value = null) {
+    public function files($name = null, $value = null)
+    {
         return $this->globals($name, $value, '_FILES');
     }
 }

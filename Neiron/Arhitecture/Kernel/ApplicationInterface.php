@@ -11,7 +11,8 @@ namespace Neiron\Arhitecture\Kernel;
  * @category Kernel
  * @link
  */
-interface ApplicationInterface {
+interface ApplicationInterface 
+{
     /**
      * Добавляет обработчик роута по паттерну вызываемого методом GET
      * @param sring $name Имя роута

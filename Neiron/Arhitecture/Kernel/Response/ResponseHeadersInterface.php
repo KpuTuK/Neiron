@@ -11,7 +11,8 @@ namespace Neiron\Arhitecture\Kernel\Response;
  * @category Kernel
  * @link
  */
-interface ResponseHeadersInterface {
+interface ResponseHeadersInterface 
+{
     /**
      * Удаляет/добавляет/выводит заголовки
      * @param mixed $name Массив заголовков или имя заголовка

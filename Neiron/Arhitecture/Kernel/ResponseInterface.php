@@ -3,6 +3,7 @@
  * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Arhitecture\Kernel;
+
 /**
  * Интерфейс реализации класса для работы с выводом
  * @author KpuTuK
@@ -11,7 +12,8 @@ namespace Neiron\Arhitecture\Kernel;
  * @category Kernel
  * @link
  */
-interface ResponseInterface {
+interface ResponseInterface
+{
     /**
      * Сохраняет выводит заголовки
      * @param mixed $name Массив заголовков или ключ заголовка

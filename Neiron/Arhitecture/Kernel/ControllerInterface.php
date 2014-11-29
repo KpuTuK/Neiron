@@ -3,6 +3,7 @@
  * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Arhitecture\Kernel;
+
 /**
  * Главный контроллер
  * @author KpuTuK
@@ -11,7 +12,8 @@ namespace Neiron\Arhitecture\Kernel;
  * @category Kernel
  * @link
  */
-interface ControllerInterface {
+interface ControllerInterface
+{
     /**
      * Функция вызываемая перед вызовом экшена контроллера
      */

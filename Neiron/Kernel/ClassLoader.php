@@ -3,6 +3,7 @@
  * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Kernel;
+
 /**
  * Автоматический загрузчик классов
  * @author KpuTuK
@@ -11,7 +12,8 @@ namespace Neiron\Kernel;
  * @category Kernel
  * @link
  */
-class ClassLoader {
+class ClassLoader
+{
     /**
      * Корневая директория классов
      * @var mixed
@@ -26,7 +28,8 @@ class ClassLoader {
      * Конструктор класса
      * @param mixed $rootDir Корневая директория классов
      */
-    public function __construct($rootDir = null) {
+    public function __construct($rootDir = null)
+    {
         $this->rootDir = $rootDir;
     }
     /**
@@ -34,22 +37,25 @@ class ClassLoader {
      * @param string $class
      * @param string $namespace
      */
-    public function addPath($class, $namespace) {
-        $this->pathes[(string)$class] = (string)$namespace;
+    public function addPath($class, $namespace)
+    {
+        $this->pathes[(string) $class] = (string) $namespace;
     }
     /**
      * Добавляет класс и генерирует путь к нему согласно psr0
      * @deprecated Данный способ по состоянию на 21 октября 2014 года PSR-0 был помечен как устаревший
      * @param sring $class Имя класса
      */
-    public function addPathPsr0($class) {
+    public function addPathPsr0($class)
+    {
         $this->pathes[$class] = strtr($class, '_', '/');
     }
     /**
      * Добавляет массив классов и пространств имен к ним
      * @param array $pathes Массив классов и пространств имен к ним
      */
-    public function addPathes(array $pathes) {
+    public function addPathes(array $pathes)
+    {
         $this->pathes = array_merge($this->patches, $pathes);
     }
     /**
@@ -57,12 +63,11 @@ class ClassLoader {
      * @param string $class Преоразуемый класс
      * @return string Преобразованный класс
      */
-    private function preparePatch($class) {
+    private function preparePatch($class)
+    {
         if (count($this->pathes) !== 0) {
             $class = str_replace(
-                array_keys($this->pathes), 
-                array_values($this->pathes),
-                $class
+                    array_keys($this->pathes), array_values($this->pathes), $class
             );
         }
         return $class;
@@ -73,8 +78,9 @@ class ClassLoader {
      * @return string Полный путь к классу
      * @throws \ErrorException Исключение выбрасываемое в случае отсутствия класса
      */
-    private function getFilePatch($class) {
-        $path = $this->rootDir . $this->preparePatch($class) .'.php';
+    private function getFilePatch($class)
+    {
+        $path = $this->rootDir . $this->preparePatch($class) . '.php';
         $file = str_replace('/', DIRECTORY_SEPARATOR, $path);
         if (file_exists($file)) {
             return $file;
@@ -86,20 +92,23 @@ class ClassLoader {
      * Подключает класс
      * @param string $class Подключаемый класс
      */
-    public function loadClass($class) {
+    public function loadClass($class)
+    {
         require_once $this->getFilePatch($class);
     }
     /**
      * Регистрирует автозагрузчк классов
      * @param booleran $prepend 
      */
-    public function register($prepend = false) {
+    public function register($prepend = false)
+    {
         spl_autoload_register(array($this, 'loadClass'), false, $prepend);
     }
     /**
      * Удаляет автозагрузчик классов
      */
-    public function unregister() {
+    public function unregister()
+    {
         spl_autoload_unregister(array($this, 'loadClass'));
     }
 }

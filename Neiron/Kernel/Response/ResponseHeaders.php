@@ -3,8 +3,10 @@
  * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Kernel\Response;
+
 use Neiron\Arhitecture\Kernel\Response\ResponseHeadersInterface;
 use Neiron\Arhitecture\Kernel\RequestInterface;
+
 /**
  * Класс для управления заголовками вывода
  * @author KpuTuK
@@ -13,7 +15,8 @@ use Neiron\Arhitecture\Kernel\RequestInterface;
  * @category Kernel
  * @link
  */
-class ResponseHeaders implements ResponseHeadersInterface {
+class ResponseHeaders implements ResponseHeadersInterface
+{
     private $cookies = array();
     /**
      * Массив заголовков
@@ -25,13 +28,14 @@ class ResponseHeaders implements ResponseHeadersInterface {
      * @param array $headers Массив заголовков
      * @param \Neiron\Arhitecture\Kernel\RequestInterface $request
      */
-    public function __construct(array $headers, RequestInterface $request) {
+    public function __construct(array $headers, RequestInterface $request)
+    {
         $list = array();
         foreach ($request->server() as $key => $value) {
             if (strpos($key, 'HTTP_') !== false) {
                 $list[
-                    ucfirst(substr(strtolower(strtr($key, '_', '-')), 5)) .':'
-                ] = $value;
+                        ucfirst(substr(strtolower(strtr($key, '_', '-')), 5)) . ':'
+                        ] = $value;
             }
         }
         $this->headers = array_replace($list, $headers);
@@ -43,7 +47,8 @@ class ResponseHeaders implements ResponseHeadersInterface {
      * @param string $value Содержимое заголовка
      * @return mixed
      */
-    public function headers($name = null, $value = null) {
+    public function headers($name = null, $value = null)
+    {
         if (is_array($name)) {
             return $this->headers = array_merge($this->headers, $name);
         }
@@ -60,29 +65,24 @@ class ResponseHeaders implements ResponseHeadersInterface {
         }
         // Запись переменной
         if ($name !== null && $value !== null) {
-           return $this->headers[$name] = $value;
+            return $this->headers[$name] = $value;
         }
     }
     /**
      * Отпраляет заголовки если они еще не были отправлены
      * @return \Neiron\Kernel\Response\ResponseHeaders
      */
-    public function sendHeaders() {
+    public function sendHeaders()
+    {
         if (headers_sent()) {
             return $this;
         }
         foreach ($this->headers as $key => $value) {
-            header($key .' '. $value);
+            header($key . ' ' . $value);
         }
         foreach ($this->cookies as $cookie) {
             setcookie(
-                $cookie['key'],
-                $cookie['value'],
-                $cookie['ttl'], 
-                $cookie['path'], 
-                $cookie['domain'], 
-                $cookie['secure'], 
-                $cookie['httponly']
+                    $cookie['key'], $cookie['value'], $cookie['ttl'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']
             );
         }
         return $this;
@@ -91,14 +91,16 @@ class ResponseHeaders implements ResponseHeadersInterface {
      * Выводит массив кодировок
      * @return array
      */
-    public function getEncodings() {
+    public function getEncodings()
+    {
         return $this->parseAccept($this->headers['Accept-Encoding']);
     }
     /**
      * Выводит Accept заголовки
      * @return array
      */
-    public function getAccepts() {
+    public function getAccepts()
+    {
         $list = array();
         foreach ($this->parseAccept($this->headers['Accept']) as $accept) {
             if (strpos($accept, '/') !== false) {
@@ -111,7 +113,8 @@ class ResponseHeaders implements ResponseHeadersInterface {
      * Выводит массив языков
      * @return array
      */
-    public function getLanguages() {
+    public function getLanguages()
+    {
         $list = array();
         foreach ($this->parseAccept($this->headers['Accept-Language']) as $lang) {
             if (strpos($lang, '-') !== false) {
@@ -125,7 +128,8 @@ class ResponseHeaders implements ResponseHeadersInterface {
      * @param string $accept
      * @return array
      */
-    private function parseAccept($accept) {
+    private function parseAccept($accept)
+    {
         $list = array();
         foreach (explode(',', $accept) as $str) {
             foreach (explode(';', $str) as $param) {

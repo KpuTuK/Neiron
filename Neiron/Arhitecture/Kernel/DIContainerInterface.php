@@ -11,7 +11,8 @@ namespace Neiron\Arhitecture\Kernel;
  * @category Kernel
  * @link
  */
-interface DIContainerInterface extends \ArrayAccess {
+interface DIContainerInterface extends \ArrayAccess 
+{
     /**
      * Создает функцию при вызове которой каждый раз будет вызван конструктор класса
      * @param string $name Имя функции

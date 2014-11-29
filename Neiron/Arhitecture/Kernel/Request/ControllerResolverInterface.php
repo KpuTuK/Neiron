@@ -11,7 +11,8 @@ namespace Neiron\Arhitecture\Kernel\Request;
  * @category Kernel
  * @link
  */
-interface ControllerResolverInterface {
+interface ControllerResolverInterface 
+{
         /**
      * Выполняет контроллер
      * @return \Neiron\Arhitecture\Kernel\ResponseInterface

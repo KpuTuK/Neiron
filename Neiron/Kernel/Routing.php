@@ -1,8 +1,11 @@
 <?php
-namespace Neiron\Kernel;
+ namespace Neiron\Kernel;
+
 use Neiron\Arhitecture\Kernel\RoutingInterface;
 use Neiron\Arhitecture\Kernel\RequestInterface;
-class Routing implements RoutingInterface {
+
+class Routing implements RoutingInterface
+{
     /**
      * Массив роутов
      * @var array 
@@ -20,7 +23,8 @@ class Routing implements RoutingInterface {
      * @param mixed $handler Путь к контроллеру или анонимная функция 
      * @param string $method Метод запроса
      */
-    public function addRoute($name, $pattern, $handler, $method = RequestInterface::METH_GET) {
+    public function addRoute($name, $pattern, $handler, $method = RequestInterface::METH_GET)
+    {
         $regex = $this->compilePattern(rtrim($pattern, '/'));
         $this->routes[$method][$name] = array(
             'handler' => $handler,
@@ -28,8 +32,9 @@ class Routing implements RoutingInterface {
         );
         $this->patterns[$method][$regex] = $handler;
     }
-    private function compilePattern($pattern) {
-        if (false === strpos($pattern, '{')){
+    private function compilePattern($pattern)
+    {
+        if (false === strpos($pattern, '{')) {
             return $pattern;
         }
         return preg_replace_callback('#\{(\w+):(\w+)\}#', function ($match) {
@@ -42,18 +47,16 @@ class Routing implements RoutingInterface {
             return '(?<' . $name . '>' . strtr($prce, $patterns) . ')';
         }, $pattern);
     }
-    public function addRoutes(array $routes = array()) {
+    public function addRoutes(array $routes = array())
+    {
         foreach ($routes as $route) {
             $this->addRoute(
-                $route['name'],
-                $route['pattern'],
-                $route['handler'],
-                $route['method']
+                    $route['name'], $route['pattern'], $route['handler'], $route['method']
             );
         }
     }
-
-    public function match($uri = null, $method = RequestInterface::METH_GET) {
+    public function match($uri = null, $method = RequestInterface::METH_GET)
+    {
         if (array_key_exists($uri, $this->patterns[$method])) {
             return array(
                 'handler' => $this->patterns[$method][$uri],
@@ -71,7 +74,8 @@ class Routing implements RoutingInterface {
         }
         return array();
     }
-    private function getParams($params) {
+    private function getParams($params)
+    {
         foreach ($params as $key => $value) {
             if (is_int($key)) {
                 unset($params[$key]);

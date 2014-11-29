@@ -3,7 +3,9 @@
  * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Kernel;
+
 use Neiron\Arhitecture\Kernel\RequestInterface;
+
 /**
  * Класс для работы с cookie
  * @author KpuTuK
@@ -12,7 +14,8 @@ use Neiron\Arhitecture\Kernel\RequestInterface;
  * @category Kernel
  * @link
  */
-class Cookies {
+class Cookies
+{
     /**
      * Массив ключ => данные cookie
      * @var array 
@@ -23,9 +26,10 @@ class Cookies {
      * @var array 
      */
     private $fromHeader = array();
-    public function __construct(RequestInterface $request) {
-        $this->cookies = $request->globals('_COOKIE') ? 
-            $request->globals('_COOKIE') : array();
+    public function __construct(RequestInterface $request)
+    {
+        $this->cookies = $request->globals('_COOKIE') ?
+                $request->globals('_COOKIE') : array();
     }
     /**
      * Сохраняет Cookie
@@ -39,13 +43,13 @@ class Cookies {
      */
     public function set(
         $key,
-        $value,
+        $value, 
         $ttl = 1,
         $path = '/',
         $domain = null,
         $secure = null,
         $httpOnly = true
-    ) {
+    ){
         $this->fromHeader[] = array(
             'key' => $key,
             'value' => $value,
@@ -62,7 +66,8 @@ class Cookies {
      * @param string $key Наименование cookie
      * @return mixed Если cookie задана то вернет ее содержимое если нет то false
      */
-    public function get($key) {
+    public function get($key)
+    {
         if (isset($this->cookies[$key])) {
             return $this->cookies[$key];
         }
@@ -72,9 +77,10 @@ class Cookies {
      * Удаляет cookie
      * @param string $key Наименование cookie
      */
-    public function remove($key) {
+    public function remove($key)
+    {
         if (isset($this->cookies[$key])) {
-            $this->set($key, '', -24*3600);
+            $this->set($key, '', -24 * 3600);
         }
     }
     /**
@@ -82,7 +88,8 @@ class Cookies {
      * @param bool $fromHeaders Если параметр true то вернет массив для заголовков
      * @return type
      */
-    public function getAll($fromHeaders = false) {
+    public function getAll($fromHeaders = false)
+    {
         if ($fromHeaders) {
             return $this->fromHeader;
         }

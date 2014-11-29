@@ -3,8 +3,10 @@
  * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Kernel;
+
 use Neiron\Arhitecture\Kernel\ControllerInterface;
 use Neiron\Arhitecture\Kernel\DIContainerInterface;
+
 /**
  * Главный контроллер
  * @author KpuTuK
@@ -13,7 +15,8 @@ use Neiron\Arhitecture\Kernel\DIContainerInterface;
  * @category Kernel
  * @link
  */
-class Controller implements ControllerInterface {
+class Controller implements ControllerInterface
+{
     /**
      * Dependency injection контейнер
      * @var \Neiron\Arhitecture\Kernel\DIContainerInterface
@@ -38,13 +41,15 @@ class Controller implements ControllerInterface {
      * Конструктор класса
      * @param \Neiron\Arhitecture\Kernel\DIContainerInterface $container Dependency injection контейнер
      */
-    public function __construct(DIContainerInterface $container) {
+    public function __construct(DIContainerInterface $container)
+    {
         $this->container = $container;
         $this->request = $container['request'];
         $this->response = $container['response'];
         $this->routing = $container['routing'];
     }
-    public function pageNotFound() {
+    public function pageNotFound()
+    {
         $this->response->headers(array(
             'HTTP/1.0' => '404 Not Found',
             'Status:' => '404 Not Found'

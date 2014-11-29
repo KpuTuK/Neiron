@@ -3,8 +3,10 @@
  * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Kernel\Request;
+
 use Neiron\Arhitecture\Kernel\DIContainerInterface;
 use Neiron\Arhitecture\Kernel\Request\ControllerResolverInterface;
+
 /**
  * Определитель контроллеров
  * @author KpuTuK
@@ -13,7 +15,8 @@ use Neiron\Arhitecture\Kernel\Request\ControllerResolverInterface;
  * @category Kernel
  * @link
  */
-class ControllerResolver implements ControllerResolverInterface {
+class ControllerResolver implements ControllerResolverInterface
+{
     /**
      * Массив параметров контроллера
      * @var array 
@@ -30,17 +33,17 @@ class ControllerResolver implements ControllerResolverInterface {
      * @param \Neiron\Arhitecture\Kernel\DIContainerInterface $container Dependency injection контейнер
      * @throws \InvalidArgumentException Исключение выбрасываемое в случае ошибки валидации параметров
      */
-    public function __construct(array $options, DIContainerInterface $container) {
-        if ( ! is_string($options['handler']) && ! is_object($options['handler'])) {
+    public function __construct(array $options, DIContainerInterface $container)
+    {
+        if (!is_string($options['handler']) && !is_object($options['handler'])) {
             throw new \InvalidArgumentException(sprintf(
-                'Параметр "handler" должен быть "string|object" вместо "%s"!',
-                gettype($options['handler']))
+                    'Параметр "handler" должен быть "string|object" вместо "%s"!', gettype($options['handler']))
             );
         }
         if (is_string($options['handler'])) {
             if (strpos($options['handler'], '@') === false) {
                 throw new \InvalidArgumentException(
-                    'Параметр "handler" должен быть вида "controllerNamespace@action"!'
+                'Параметр "handler" должен быть вида "controllerNamespace@action"!'
                 );
             }
         }
@@ -52,28 +55,29 @@ class ControllerResolver implements ControllerResolverInterface {
      * @return \Neiron\Arhitecture\Kernel\ResponseInterface
      * @throws \ErrorException 
      */
-    public function execute() {
+    public function execute()
+    {
         // Если контроллер вида ns@action
         if (is_string($this->options['handler'])) {
             list($class, $action) = explode('@', $this->options['handler']);
             if (!class_exists($class)) {
                 $response = (new \Neiron\Kernel\Controller($this->container))
-                    ->pageNotFound();
+                        ->pageNotFound();
             }
             $obj = new $class($this->container);
             if ($obj instanceof \Neiron\Arhitecture\Kernel\ControllerInterface) {
                 throw new \ErrorException(
-                    'Контроллер должен реализовать интерфейс "\Neiron\Arhitecture\Kernel\ControllerInterface"!'
+                'Контроллер должен реализовать интерфейс "\Neiron\Arhitecture\Kernel\ControllerInterface"!'
                 );
             }
             if (!method_exists($obj, $action)) {
                 $response = (new \Neiron\Kernel\Controller($this->container))
-                    ->pageNotFound();
+                        ->pageNotFound();
             }
             $obj->atfer();
             $response = $obj->$action($this->options['params']);
             $obj->beforle();
-        // Если конроллер анонимная функция
+            // Если конроллер анонимная функция
         } else {
             $this->options['params']['dic'] = $this->container;
             $response = $this->options['handler']($this->options['params']);

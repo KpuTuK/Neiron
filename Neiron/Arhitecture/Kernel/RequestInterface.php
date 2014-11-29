@@ -11,7 +11,8 @@ namespace Neiron\Arhitecture\Kernel;
  * @category Kernel
  * @link
  */
-interface RequestInterface {
+interface RequestInterface 
+{
     /**
      * Метод запроса GET
      */
