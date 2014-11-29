@@ -20,4 +20,8 @@ interface ControllerInterface {
      * Функция вызываемая после вызовоа экшена контроллера
      */
     public function beforle();
+    /**
+     * Сообщение об ошибке 404
+     */
+    public function pageNotFound();
 }

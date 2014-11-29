@@ -44,6 +44,12 @@ class Controller implements ControllerInterface {
         $this->response = $container['response'];
         $this->routing = $container['routing'];
     }
+    public function pageNotFound() {
+        $this->response->headers(array(
+            'HTTP/1.0' => '404 Not Found',
+            'Status:' => '404 Not Found'
+        ));
+    }
     /**
      * Функция вызываемая перед вызовом экшена контроллера
      */
