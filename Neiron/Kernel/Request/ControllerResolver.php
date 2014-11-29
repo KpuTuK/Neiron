@@ -56,11 +56,19 @@ class ControllerResolver implements ControllerResolverInterface {
         // Если контроллер вида ns@action
         if (is_string($this->options['handler'])) {
             list($class, $action) = explode('@', $this->options['handler']);
+            if (!class_exists($class)) {
+                $response = (new \Neiron\Kernel\Controller($this->container))
+                    ->pageNotFound();
+            }
             $obj = new $class($this->container);
             if ($obj instanceof \Neiron\Arhitecture\Kernel\ControllerInterface) {
                 throw new \ErrorException(
                     'Контроллер должен реализовать интерфейс "\Neiron\Arhitecture\Kernel\ControllerInterface"!'
                 );
+            }
+            if (!method_exists($obj, $action)) {
+                $response = (new \Neiron\Kernel\Controller($this->container))
+                    ->pageNotFound();
             }
             $obj->atfer();
             $response = $obj->$action($this->options['params']);
