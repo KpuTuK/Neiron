@@ -7,6 +7,7 @@ namespace Neiron\Kernel;
 use Neiron\Arhitecture\Kernel\ApplicationInterface;
 use Neiron\Arhitecture\Kernel\RequestInterface;
 use Neiron\Kernel\DIContainer;
+use Neiron\Arhitecture\Kernel\DIContainerInterface;
 
 /**
  * Базовый класс framework'a
@@ -16,7 +17,8 @@ use Neiron\Kernel\DIContainer;
  * @category Kernel
  * @link
  */
-class Neiron implements ApplicationInterface
+class Neiron extends DIContainer implements ApplicationInterface, 
+    DIContainerInterface
 {
     /**
      * Версия frameworka
@@ -37,11 +39,11 @@ class Neiron implements ApplicationInterface
      */
     public function __construct(array $options = array())
     {
-        $this->container = new DIContainer($this->setup($options));
-        $this->container['routing'] = new Routing();
-        $this->container['routing']->addRoutes($this->container['routes']);
-        $this->container['request'] = new Request($this->container);
-        $this->container['response'] = new Response($this->container['request']);
+        parent::__construct($this->setup($options));
+        $this['routing'] = new Routing();
+        $this['routing']->addRoutes($this['routes']);
+        $this['request'] = new Request($this);
+        $this['response'] = new Response($this['request']);
     }
     /**
      * Настраивает значения по умолчанию для настроек
@@ -62,8 +64,8 @@ class Neiron implements ApplicationInterface
      */
     public function get($name, $pattern, $handler)
     {
-        $this->container['routing']->addRoute(
-                $name, $pattern, $handler, RequestInterface::METH_GET
+        $this['routing']->addRoute(
+            $name, $pattern, $handler, RequestInterface::METH_GET
         );
     }
     /**
@@ -74,8 +76,8 @@ class Neiron implements ApplicationInterface
      */
     public function post($name, $pattern, $handler)
     {
-        $this->container['routing']->addRoute(
-                $name, $pattern, $handler, RequestInterface::METH_GET
+        $this['routing']->addRoute(
+            $name, $pattern, $handler, RequestInterface::METH_GET
         );
     }
     /**
@@ -86,7 +88,7 @@ class Neiron implements ApplicationInterface
      */
     public function put($name, $pattern, $handler)
     {
-        $this->container['routing']->addRoute(
+        $this['routing']->addRoute(
                 $name, $pattern, $handler, RequestInterface::METH_GET
         );
     }
@@ -98,7 +100,7 @@ class Neiron implements ApplicationInterface
      */
     public function delete($name, $pattern, $handler)
     {
-        $this->container['routing']->addRoute(
+        $this['routing']->addRoute(
                 $name, $pattern, $handler, RequestInterface::METH_GET
         );
     }
@@ -107,6 +109,6 @@ class Neiron implements ApplicationInterface
      */
     public function run()
     {
-        echo $this->container['request']->create()->execute()->body();
+        echo $this['request']->create()->execute()->body();
     }
 }
