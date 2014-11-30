@@ -1,9 +1,20 @@
 <?php
- namespace Neiron\Kernel;
+/**
+ * PHP 5x framework с открытым иходным кодом
+ */
+namespace Neiron\Kernel;
 
 use Neiron\Arhitecture\Kernel\RoutingInterface;
 use Neiron\Arhitecture\Kernel\RequestInterface;
 
+/**
+ * Обработчик роутов
+ * @author KpuTuK
+ * @version 1.0.0
+ * @package Neiron framework
+ * @category Kernel
+ * @link
+ */
 class Routing implements RoutingInterface
 {
     /**
@@ -17,10 +28,10 @@ class Routing implements RoutingInterface
      */
     private $patterns = array();
     /**
-     * Добавляет обработчик роута по паттерну
+     * Добавляет роут в обработчик
      * @param string $name Имя роута
-     * @param string $pattern Паттерн обработки uri
-     * @param mixed $handler Путь к контроллеру или анонимная функция 
+     * @param string $pattern Паттерн обработки
+     * @param mixed $handler Анонимная функция или строка вида "пространство имен контроллера@экшен"
      * @param string $method Метод запроса
      */
     public function addRoute($name, $pattern, $handler, $method = RequestInterface::METH_GET)
@@ -32,6 +43,11 @@ class Routing implements RoutingInterface
         );
         $this->patterns[$method][$regex] = $handler;
     }
+    /**
+     * Компилирует паттерн из условного выражения
+     * @param string $pattern Компилируемый паттерн
+     * @return string Скомпилированный паттерн
+     */
     private function compilePattern($pattern)
     {
         if (false === strpos($pattern, '{')) {
@@ -47,6 +63,10 @@ class Routing implements RoutingInterface
             return '(?<' . $name . '>' . strtr($prce, $patterns) . ')';
         }, $pattern);
     }
+    /**
+     * Добавляет массив роутов в обработчик
+     * @param array $routes Массив роутов
+     */
     public function addRoutes(array $routes = array())
     {
         foreach ($routes as $route) {
@@ -55,6 +75,12 @@ class Routing implements RoutingInterface
             );
         }
     }
+    /**
+     * Обрабатывает uri по роуту
+     * @param string $uri Обрабатываемый uri
+     * @param string $method Метод запроса
+     * @return array Массив с даныыми контролера
+     */
     public function match($uri = null, $method = RequestInterface::METH_GET)
     {
         if (array_key_exists($uri, $this->patterns[$method])) {
@@ -74,6 +100,11 @@ class Routing implements RoutingInterface
         }
         return array();
     }
+    /**
+     * Фильтрует и возвращает параметры запроса
+     * @param array $params Паараметры запроса
+     * @return array Параметры запроса
+     */
     private function getParams($params)
     {
         foreach ($params as $key => $value) {
