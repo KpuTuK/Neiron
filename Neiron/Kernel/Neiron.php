@@ -30,7 +30,7 @@ class Neiron implements ApplicationInterface
      * Dependicy Inection контейнер
      * @var array
      */
-    private $container;
+    public $container;
     /**
      * Конструктор класса
      * @param array $options Массив настроек (опционально)
@@ -42,7 +42,6 @@ class Neiron implements ApplicationInterface
         $this->container['routing']->addRoutes($this->container['routes']);
         $this->container['request'] = new Request($this->container);
         $this->container['response'] = new Response($this->container['request']);
-        $this = $this->container;
     }
     /**
      * Настраивает значения по умолчанию для настроек
