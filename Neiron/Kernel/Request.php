@@ -30,7 +30,6 @@ class Request implements RequestInterface
     private $container;
     private $globals = array();
     private $uri = null;
-    private $method;
     /**
      * Конструктор класса
      * @param \Neiron\Arhitecture\Kernel\DIContainerInterface $container
@@ -40,7 +39,6 @@ class Request implements RequestInterface
         $this->container = $container;
         $this->globals($GLOBALS);
         $this->cookies = $this->container['cookie'] = new Cookies($this);
-        $this->method($this->server('REQUEST_METHOD'));
     }
     /**
      * Создает и обрабатывает запрос к серверу
@@ -138,7 +136,10 @@ class Request implements RequestInterface
      */
     public function method($method = null)
     {
-        return isset($method) ? $this->method = $method : $this->method;
+        if ($method !== null) {
+            $this->server('REQUEST_METHOD', $method);
+        }
+        return $this->server('REQUEST_METHOD');
     }
     /**
      * Сохраняет/выводит URI запроса
