@@ -57,31 +57,40 @@ class ControllerResolver implements ControllerResolverInterface
      */
     public function execute()
     {
-        // Если контроллер вида ns@action
         if (is_string($this->options['handler'])) {
-            list($class, $action) = explode('@', $this->options['handler']);
-            if (!class_exists($class)) {
-                $response = (new \Neiron\Kernel\Controller($this->container))
-                        ->pageNotFound();
-            }
-            $obj = new $class($this->container);
-            if ($obj instanceof \Neiron\Arhitecture\Kernel\ControllerInterface) {
-                throw new \ErrorException(
-                'Контроллер должен реализовать интерфейс "\Neiron\Arhitecture\Kernel\ControllerInterface"!'
-                );
-            }
-            if (!method_exists($obj, $action)) {
-                $response = (new \Neiron\Kernel\Controller($this->container))
-                        ->pageNotFound();
-            }
-            $obj->atfer();
-            $response = $obj->$action($this->options['params']);
-            $obj->beforle();
+            $response = $this->getControllerString();
             // Если конроллер анонимная функция
         } else {
             $this->options['params']['dic'] = $this->container;
             $response = $this->options['handler']($this->options['params']);
         }
         return $this->container['response']->setContent($response);
+    }
+    /**
+     * Обрабатывает контроллер вида namespace@action
+     * @return string Строковое представление контента
+     * @throws \ErrorException
+     */
+    private function getControllerString()
+    {
+        list($class, $action) = explode('@', $this->options['handler']);
+            if (!class_exists($class)) {
+                return (new \Neiron\Kernel\Controller($this->container))
+                        ->pageNotFound();
+            }
+            $obj = new $class($this->container);
+            if ( ! $obj instanceof \Neiron\Arhitecture\Kernel\ControllerInterface) {
+                throw new \ErrorException(
+                'Контроллер должен реализовать интерфейс "\Neiron\Arhitecture\Kernel\ControllerInterface"!'
+                );
+            }
+            if (!method_exists($obj, $action)) {
+                return (new \Neiron\Kernel\Controller($this->container))
+                        ->pageNotFound();
+            }
+            $obj->atfer();
+            $response = $obj->$action($this->options['params']);
+            $obj->beforle();
+            return $response;
     }
 }
