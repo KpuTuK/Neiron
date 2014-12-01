@@ -33,7 +33,7 @@ $app = new \Neiron\Kernel\Neiron(array(
 ```
 так и непосредственно через **$app**
 ```php
-$app->container['some.parametr'] = 'содержимое параметра';
+$app['some.parametr'] = 'содержимое параметра';
 ```
 Все параметры записываются в Dependency injection контейнер и становятся доступными в любом месте 
 Роутинг
@@ -44,8 +44,8 @@ $app = new \Neiron\Kernel\Neiron(array(
     'routes' => __DIR__.'/routes.php'
 ));
 $app->get($name, $pattern, $handler);
-$app->container['routing']->addRoute($name, $pattern, $handler, $method);
-$app->container['routing']->addRoutes(__DIR__.'/routes.php');
+$app['routing']->addRoute($name, $pattern, $handler, $method);
+$app['routing']->addRoutes(__DIR__.'/routes.php');
 // Содержимое /routes.php
 return array(
     array(
@@ -56,3 +56,19 @@ return array(
     )
 );
 ```
+HMVC
+-----
+Neiron основывается на паттерне [HMVC](https://ru.wikipedia.org/wiki/HMVC) (пока внутри приложения)
+Для запроса внутри одного конроллера к другому достаточно прописать:
+```php
+// для классов контроллеров
+class TestController implements Neiron\Arhitecture\Kernel\ControllerInterface
+{
+    public function index()
+    {
+        $query = $this->request->create($uri, $method);
+    }
+}
+```
+Данный код запустит запустит контроллер (указанный в массиве роутов и подходящий под данный uri)
+и передаст *$query* обьект класса *Neiron\Kernel\Response*
