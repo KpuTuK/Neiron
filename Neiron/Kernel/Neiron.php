@@ -25,10 +25,6 @@ class Neiron extends DIContainer implements ApplicationInterface,
      */
     const VERSION = '1.0.0';
     /**
-     * Весрсия согласно дате релиза с пометками beta|stable
-     */
-    const DAYVERSION = '28.11.14 beta';
-    /**
      * Dependicy Inection контейнер
      * @var array
      */
