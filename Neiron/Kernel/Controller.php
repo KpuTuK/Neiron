@@ -51,16 +51,23 @@ class Controller implements ControllerInterface
     public function pageNotFound()
     {
         $this->response->headers(array(
-            'HTTP/1.0' => '404 Not Found',
+            $this->request->server('SERVER_PROTOCOL') => '404 Not Found',
             'Status:' => '404 Not Found'
         ));
+        $this->response->setContent('<h1>404 NotFound</h1>');
     }
     /**
      * Функция вызываемая перед вызовом экшена контроллера
      */
-    public function atfer();
+    public function atfer()
+    {
+        
+    }
     /**
      * Функция вызываемая после вызова экшена контроллера
      */
-    public function beforle();
+    public function beforle()
+    {
+        
+    }
 }
