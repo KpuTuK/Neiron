@@ -72,7 +72,8 @@ class TestController implements Neiron\Arhitecture\Kernel\ControllerInterface
 // Для анонимных функций 
 function ($params)
 {
-    $query = $dic['request']->create($uri, $method);
+    // $params['dic'] - Обьект Dependency injection контейнера
+    $query = $params['dic']['request']->create($uri, $method);
 }
 ```
 Данный код запустит запустит контроллер (указанный в массиве роутов и подходящий под данный uri),
