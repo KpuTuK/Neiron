@@ -69,6 +69,12 @@ class TestController implements Neiron\Arhitecture\Kernel\ControllerInterface
         $query = $this->request->create($uri, $method);
     }
 }
+// Для анонимных функций 
+function ($params)
+{
+    $query = $dic['request']->create($uri, $method);
+}
 ```
-Данный код запустит запустит контроллер (указанный в массиве роутов и подходящий под данный uri)
-и передаст `$query` обьект класса `Neiron\Kernel\Response`
+Данный код запустит запустит контроллер (указанный в массиве роутов и подходящий под данный uri),
+сохранит контент запущенного `uri` в `Neiron\Kernel\Response` 
+и передаст `$query` обьект класса `Neiron\Kernel\Response`.
