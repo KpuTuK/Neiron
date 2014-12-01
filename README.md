@@ -71,4 +71,4 @@ class TestController implements Neiron\Arhitecture\Kernel\ControllerInterface
 }
 ```
 Данный код запустит запустит контроллер (указанный в массиве роутов и подходящий под данный uri)
-и передаст *$query* обьект класса *Neiron\Kernel\Response*
+и передаст `$query` обьект класса `Neiron\Kernel\Response`
