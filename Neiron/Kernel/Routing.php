@@ -21,12 +21,22 @@ class Routing implements RoutingInterface
      * Массив роутов
      * @var array 
      */
-    private $routes = array();
+    private $routes = array(
+        'GET' => array(),
+        'POST' => array(),
+        'PUT' => array(),
+        'DELET' => array()
+    );
     /**
      * Массив паттернов и обработчиков
      * @var array
      */
-    private $patterns = array();
+    private $patterns = array(
+        'GET' => array(),
+        'POST' => array(),
+        'PUT' => array(),
+        'DELET' => array()
+    );
     /**
      * Добавляет роут в обработчик
      * @param string $name Имя роута
@@ -98,7 +108,10 @@ class Routing implements RoutingInterface
                 );
             }
         }
-        return array();
+        return array(
+            'handler' => 'Neiron\Kernel\Controller@pageNotFound',
+            'params' => array()
+        );
     }
     /**
      * Фильтрует и возвращает параметры запроса
