@@ -13,9 +13,14 @@ namespace Neiron\Kernel\Utils;
  */
 class ObjectManager implements \ArrayAccess
 {
+    private $object = false;
+    public function __construct($object)
+    {
+        $this->object = (object)$object;
+    }
     public function offsetExists($offset)
     {
-        if (method_exists($this, $offset)) {
+        if (method_exists($this->object ? $this->object : $this, $offset)) {
             return true;
         }
         return false;
@@ -23,7 +28,11 @@ class ObjectManager implements \ArrayAccess
     public function offsetSet($offset, $value)
     {
         if ($this->offsetExists($offset)) {
-            $this->$offset($value);
+            if ($this->object) {
+                $this->object->$offset($value);
+            } else {
+                $this->$offset($value);
+            }
             return true;
         }
         return false;
@@ -31,6 +40,9 @@ class ObjectManager implements \ArrayAccess
     public function offsetGet($offset)
     {
         if ($this->offsetExists($offset)) {
+            if ($this->object) {
+                return $this->object->$offset();
+            }
             return $this->$offset();
         }
     }
