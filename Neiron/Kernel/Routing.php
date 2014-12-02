@@ -97,10 +97,17 @@ class Routing implements RoutingInterface
      * Обрабатывает uri по роуту
      * @param string $uri Обрабатываемый uri
      * @param string $method Метод запроса
+     * @throws ErrorException Исключение выбрасываемое при отсутствии роутов
      * @return array Массив с даныыми контролера
      */
     public function match($uri = null, $method = RequestInterface::METH_GET)
     {
+        if (
+            (count($this->patterns[$method]) === 0) &&
+            (count($this->routes[$method]) === 0)
+        ) {
+            throw new \ErrorException('Не указан ни один роут!');
+        }
         if (array_key_exists($uri, $this->patterns[$method])) {
             return array(
                 'handler' => $this->patterns[$method][$uri],
