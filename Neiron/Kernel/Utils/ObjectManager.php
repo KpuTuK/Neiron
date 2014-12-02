@@ -8,7 +8,6 @@ namespace Neiron\Kernel\Utils;
 
 /**
  * Description of ObjectManager
- *
  * @author KpuTuK
  */
 class ObjectManager implements \ArrayAccess
