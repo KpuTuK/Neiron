@@ -14,6 +14,10 @@ namespace Neiron\Kernel\Utils;
 class ParamManager implements \ArrayAccess
 {
     private $parmetrs = array();
+    public function __construct(array $parametrs = array())
+    {
+        $this->parmetrs = $parametrs;
+    }
     public function offsetExists($offset)
     {
         return array_key_exists($offset, $this->parmetrs);
