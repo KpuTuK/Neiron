@@ -25,5 +25,5 @@ interface ControllerInterface
     /**
      * Сообщение об ошибке 404
      */
-    public function pageNotFound();
+    public function pageNotFound($url = '');
 }

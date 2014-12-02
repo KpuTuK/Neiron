@@ -51,13 +51,18 @@ class Controller implements ControllerInterface
     /**
      * Выдает сообщение об ошибке 404
      */
-    public function pageNotFound()
+    public function pageNotFound($url = '')
     {
         $this->response->headers(array(
             $this->request->server('SERVER_PROTOCOL') => '404 Not Found',
-            'Status:' => '404 Not Found'
+            'Status:' => '404 Not Found',
+            'Refresh:' =>  '3; url=/'
         ));
-        $this->response->setContent('<h1>404 NotFound</h1>');
+        $this->response->setContent('
+            <h1>Не найдено!</h1>
+            <hr>
+            Запрашиваемый адрес "'. $url .'" не найден на сервере!
+        ');
     }
     /**
      * Функция вызываемая перед вызовом экшена контроллера
