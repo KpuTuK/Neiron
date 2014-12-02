@@ -2,7 +2,7 @@
 /**
  * PHP 5x framework с открытым иходным кодом
  */
-namespace Neiron\Arhitecture\Kernel;
+namespace Neiron\API\Kernel;
 /**
  * Интерфейс для реализации базового класса
  * @author KpuTuK

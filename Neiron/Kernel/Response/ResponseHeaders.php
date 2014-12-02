@@ -4,8 +4,8 @@
  */
 namespace Neiron\Kernel\Response;
 
-use Neiron\Arhitecture\Kernel\Response\ResponseHeadersInterface;
-use Neiron\Arhitecture\Kernel\RequestInterface;
+use Neiron\API\Kernel\Response\ResponseHeadersInterface;
+use Neiron\API\Kernel\RequestInterface;
 
 /**
  * Класс для управления заголовками вывода

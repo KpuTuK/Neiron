@@ -2,7 +2,7 @@
 /**
  * PHP 5x framework с открытым иходным кодом
  */
-namespace Neiron\Arhitecture\Kernel\Response;
+namespace Neiron\API\Kernel\Response;
 /**
  * Интерфейс для реализации класса для управления заголовками вывода
  * @author KpuTuK

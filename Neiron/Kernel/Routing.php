@@ -4,8 +4,8 @@
  */
 namespace Neiron\Kernel;
 
-use Neiron\Arhitecture\Kernel\RoutingInterface;
-use Neiron\Arhitecture\Kernel\RequestInterface;
+use Neiron\API\Kernel\RoutingInterface;
+use Neiron\API\Kernel\RequestInterface;
 
 /**
  * Обработчик роутов
@@ -37,6 +37,14 @@ class Routing implements RoutingInterface
         'PUT' => array(),
         'DELET' => array()
     );
+    /**
+     * Конструктор класса
+     * @param array $routes Массив роутов
+     */
+    public function __construct(array $routes = array())
+    {
+        $this->addRoutes($routes);
+    }
     /**
      * Добавляет роут в обработчик
      * @param string $name Имя роута

@@ -4,8 +4,6 @@
  */
 namespace Neiron\Kernel;
 
-use Neiron\Arhitecture\Kernel\RequestInterface;
-
 /**
  * Класс для работы с cookie
  * @author KpuTuK
@@ -26,11 +24,6 @@ class Cookies
      * @var array 
      */
     private $fromHeader = array();
-    public function __construct(RequestInterface $request)
-    {
-        $this->cookies = $request->globals('_COOKIE') ?
-                $request->globals('_COOKIE') : array();
-    }
     /**
      * Сохраняет Cookie
      * @param string $key Наименование cookie
@@ -82,6 +75,14 @@ class Cookies
         if (isset($this->cookies[$key])) {
             $this->set($key, '', -24 * 3600);
         }
+    }
+    /**
+     * Сохраняет массив cookie
+     * @param array $cookies Массив cookie
+     */
+    public function setAll(array $cookies = array())
+    {
+        $this->cookies = array_merge($this->cookies, $cookies);
     }
     /**
      * Возвращает массив всех cookie

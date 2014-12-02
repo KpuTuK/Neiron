@@ -4,9 +4,8 @@
  */
 namespace Neiron\Kernel;
 
-use Neiron\Arhitecture\Kernel\ResponseInterface;
-use Neiron\Kernel\Response\ResponseHeaders;
-use Neiron\Arhitecture\Kernel\RequestInterface;
+use Neiron\API\Kernel\ResponseInterface;
+use Neiron\API\Kernel\Response\ResponseHeadersInterface;
 
 /**
  * Класс для работы с выводом
@@ -25,16 +24,12 @@ class Response implements ResponseInterface
     private $content;
     /**
      * Обьект класса ResponseHeaders
-     * @var \Neiron\Kernel\Response\ResponseHeaders 
+     * @var \Neiron\API\Kernel\Response\ResponseHeadersInterface 
      */
     private $headers = array();
-    /**
-     * Конструктор класса
-     * @param \Neiron\Arhitecture\Kernel\RequestInterface $request Обьект класса Request
-     */
-    public function __construct(RequestInterface $request)
+    public function __construct(ResponseHeadersInterface $headers)
     {
-        $this->headers = new ResponseHeaders(array('Content-Type:' => 'text/html; charset=utf-8'), $request);
+        $this->headers = $headers;
     }
     /**
      * Перенаправляет пользователя по заданному url

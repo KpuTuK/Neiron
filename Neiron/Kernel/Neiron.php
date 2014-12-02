@@ -4,10 +4,10 @@
  */
 namespace Neiron\Kernel;
 
-use Neiron\Arhitecture\Kernel\ApplicationInterface;
-use Neiron\Arhitecture\Kernel\RequestInterface;
+use Neiron\API\Kernel\ApplicationInterface;
+use Neiron\API\Kernel\RequestInterface;
 use Neiron\Kernel\DIContainer;
-use Neiron\Arhitecture\Kernel\DIContainerInterface;
+use Neiron\API\Kernel\DIContainerInterface;
 
 /**
  * Базовый класс framework'a
@@ -36,10 +36,13 @@ class Neiron extends DIContainer implements ApplicationInterface,
     public function __construct(array $options = array())
     {
         parent::__construct($this->setup($options));
-        $this['routing'] = new Routing();
-        $this['routing']->addRoutes($this['routes']);
+        $this['routing'] = new Routing($this['routes']);
+        $this['resolver'] = new Request\ControllerResolver();
+        $this['cookie'] = new Cookies();
         $this['request'] = new Request($this);
-        $this['response'] = new Response($this['request']);
+        $this['response'] = new Response(
+            new Response\ResponseHeaders(array(), $this['request'])
+        );
     }
     /**
      * Настраивает значения по умолчанию для настроек

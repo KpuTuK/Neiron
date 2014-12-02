@@ -4,8 +4,8 @@
  */
 namespace Neiron\Kernel\Request;
 
-use Neiron\Arhitecture\Kernel\DIContainerInterface;
-use Neiron\Arhitecture\Kernel\Request\ControllerResolverInterface;
+use Neiron\API\Kernel\DIContainerInterface;
+use Neiron\API\Kernel\Request\ControllerResolverInterface;
 
 /**
  * Определитель контроллеров
@@ -24,16 +24,16 @@ class ControllerResolver implements ControllerResolverInterface
     private $options;
     /**
      * Dependency injection контейнер
-     * @var \Neiron\Arhitecture\Kernel\DIContainerInterface
+     * @var \Neiron\API\Kernel\DIContainerInterface
      */
     private $container;
     /**
-     * Конструктор класса
+     * Обрабатывает параметры
      * @param array $options Массив параметров контроллера
-     * @param \Neiron\Arhitecture\Kernel\DIContainerInterface $container Dependency injection контейнер
+     * @param \Neiron\APIe\Kernel\DIContainerInterface $container Dependency injection контейнер
      * @throws \InvalidArgumentException Исключение выбрасываемое в случае ошибки валидации параметров
      */
-    public function __construct(array $options, DIContainerInterface $container)
+    public function resolve(array $options, DIContainerInterface $container)
     {
         if (!is_string($options['handler']) && !is_object($options['handler'])) {
             throw new \InvalidArgumentException(sprintf(
@@ -79,9 +79,9 @@ class ControllerResolver implements ControllerResolverInterface
                         ->pageNotFound();
             }
             $obj = new $class($this->container);
-            if ( ! $obj instanceof \Neiron\Arhitecture\Kernel\ControllerInterface) {
+            if ( ! $obj instanceof \Neiron\API\Kernel\ControllerInterface) {
                 throw new \ErrorException(
-                'Контроллер должен реализовать интерфейс "\Neiron\Arhitecture\Kernel\ControllerInterface"!'
+                'Контроллер должен реализовать интерфейс "\Neiron\API\Kernel\ControllerInterface"!'
                 );
             }
             if (!method_exists($obj, $action)) {

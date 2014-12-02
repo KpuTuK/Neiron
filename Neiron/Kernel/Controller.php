@@ -4,8 +4,8 @@
  */
 namespace Neiron\Kernel;
 
-use Neiron\Arhitecture\Kernel\ControllerInterface;
-use Neiron\Arhitecture\Kernel\DIContainerInterface;
+use Neiron\API\Kernel\ControllerInterface;
+use Neiron\API\Kernel\DIContainerInterface;
 
 /**
  * Главный контроллер
@@ -19,27 +19,27 @@ class Controller implements ControllerInterface
 {
     /**
      * Dependency injection контейнер
-     * @var \Neiron\Arhitecture\Kernel\DIContainerInterface
+     * @var \Neiron\API\Kernel\DIContainerInterface
      */
     protected $container;
     /**
      * Обработчик запросов
-     * @var \Neiron\Arhitecture\Kernel\RequestInterface
+     * @var \Neiron\API\Kernel\RequestInterface
      */
     protected $request;
     /**
      * Класс для работы с выводом
-     * @var \Neiron\Arhitecture\Kernel\ResponseInterface 
+     * @var \Neiron\API\Kernel\ResponseInterface 
      */
     protected $response;
     /**
      * Обработчик роутов
-     * @var \Neiron\Arhitecture\Kernel\RoutingInterface
+     * @var \Neiron\API\Kernel\RoutingInterface
      */
     protected $routing;
     /**
      * Конструктор класса
-     * @param \Neiron\Arhitecture\Kernel\DIContainerInterface $container Dependency injection контейнер
+     * @param \Neiron\API\Kernel\DIContainerInterface $container Dependency injection контейнер
      */
     public function __construct(DIContainerInterface $container)
     {
@@ -48,6 +48,9 @@ class Controller implements ControllerInterface
         $this->response = $container['response'];
         $this->routing = $container['routing'];
     }
+    /**
+     * Выдает сообщение об ошибке 404
+     */
     public function pageNotFound()
     {
         $this->response->headers(array(

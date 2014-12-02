@@ -2,7 +2,7 @@
 /**
  * PHP 5x framework с открытым иходным кодом
  */
-namespace Neiron\Arhitecture\Kernel\Request;
+namespace Neiron\API\Kernel\Request;
 /**
  * Определитель контроллеров
  * @author KpuTuK

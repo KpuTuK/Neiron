@@ -4,9 +4,9 @@
  */
 namespace Neiron\Kernel;
 
-use Neiron\Arhitecture\Kernel\RequestInterface;
-use Neiron\Arhitecture\Kernel\DIContainerInterface;
-use Neiron\Kernel\Request\ControllerResolver;
+use Neiron\API\Kernel\RequestInterface;
+use Neiron\API\Kernel\DIContainerInterface;
+use Neiron\API\Kernel\Request\ControllerResolverInterface;
 
 /**
  * Обработчик запросов к серверу
@@ -19,26 +19,36 @@ use Neiron\Kernel\Request\ControllerResolver;
 class Request implements RequestInterface
 {
     /**
+     * @var ControllerResolverInterface
+     */
+    private $resolver;
+    /**
      * Обьект класса для работы с cookie
-     * @var \Neiron\Arhitecture\Kernel\CookieInterface
+     * @var \Neiron\API\Kernel\CookieInterface
      */
     public $cookies;
     /**
      * Обьект Dependency injection контейнера
-     * @var \Neiron\Arhitecture\Kernel\DIContainerInteface
+     * @var \Neiron\API\Kernel\DIContainerInteface
      */
     private $container;
     private $globals = array();
     private $uri = null;
     /**
      * Конструктор класса
-     * @param \Neiron\Arhitecture\Kernel\DIContainerInterface $container
+     * @param \Neiron\API\Kernel\DIContainerInterface $container
      */
-    public function __construct(DIContainerInterface $container)
-    {
+    public function __construct(
+        DIContainerInterface $container, 
+        ControllerResolverInterface $resolver
+    ) {
         $this->container = $container;
         $this->globals($GLOBALS);
-        $this->cookies = $this->container['cookie'] = new Cookies($this);
+        $this->cookies = $container['cookie'];
+        $this->cookies->setAll(
+            $this->globals('_COOKIE') ? $this->globals('_COOKIE') : array()
+        );
+        $this->resolver = $resolver;
     }
     /**
      * Создает и обрабатывает запрос к серверу
@@ -62,7 +72,7 @@ class Request implements RequestInterface
         $this->post($post);
         $this->server($server);
         $this->globals($files, null, '_FILES');
-        return new ControllerResolver(
+        return $this->resolver->resolve(
                 $this->container['routing']->match(
                         $this->decodeDetectUri($uri), $this->method($method)
                 ), $this->container
