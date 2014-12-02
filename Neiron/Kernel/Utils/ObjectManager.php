@@ -13,7 +13,7 @@ namespace Neiron\Kernel\Utils;
 class ObjectManager implements \ArrayAccess
 {
     private $object = false;
-    public function __construct($object)
+    public function __construct($object = null)
     {
         $this->object = (object)$object;
     }
