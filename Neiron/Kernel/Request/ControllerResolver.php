@@ -32,6 +32,7 @@ class ControllerResolver implements ControllerResolverInterface
      * @param array $options Массив параметров контроллера
      * @param \Neiron\APIe\Kernel\DIContainerInterface $container Dependency injection контейнер
      * @throws \InvalidArgumentException Исключение выбрасываемое в случае ошибки валидации параметров
+     * @return \Neiron\API\Kernel\Request\ControllerResolverInterface
      */
     public function resolve(array $options, DIContainerInterface $container)
     {
@@ -49,6 +50,7 @@ class ControllerResolver implements ControllerResolverInterface
         }
         $this->options = $options;
         $this->container = $container;
+        return $this;
     }
     /**
      * Выполняет контроллер
@@ -76,17 +78,17 @@ class ControllerResolver implements ControllerResolverInterface
         list($class, $action) = explode('@', $this->options['handler']);
             if (!class_exists($class)) {
                 return (new \Neiron\Kernel\Controller($this->container))
-                        ->pageNotFound();
+                        ->pageNotFound($class .'/'. $action);
             }
             $obj = new $class($this->container);
-            if ( ! $obj instanceof \Neiron\API\Kernel\ControllerInterface) {
+            if ( ! $obj instanceof \Neiron\Kernel\Controller) {
                 throw new \ErrorException(
-                'Контроллер должен реализовать интерфейс "\Neiron\API\Kernel\ControllerInterface"!'
+                    'Контроллер должен наследовать класс "\Neiron\Kernel\Controller"!'
                 );
             }
             if (!method_exists($obj, $action)) {
-                return (new \Neiron\Kernel\Controller($this->container))
-                        ->pageNotFound();
+                $action = 'pageNotFound';
+                $this->options['params'] = $class .'/'. $action;
             }
             $obj->atfer();
             $response = $obj->$action($this->options['params']);
