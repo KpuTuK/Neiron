@@ -4,7 +4,7 @@
  */
 namespace Neiron\Kernel;
 
-use Neiron\Arhitecture\Kernel\DIContainerInterface;
+use Neiron\API\Kernel\DIContainerInterface;
 
 /**
  * Dependency injection Контейнер
