@@ -89,7 +89,7 @@ class Request implements RequestInterface
             if (!empty($this->server('PATH_INFO'))) {
                 $uri = $this->server('PATH_INFO');
             } elseif (!empty($this->server('REQUEST_URI'))) {
-                $uri = $this->server('REQUEST_URI')[0];
+                $uri = explode('?', $this->server('REQUEST_URI'))[0];
             }
         }
         return $this->uri(rawurldecode(rtrim($uri, '/')));
