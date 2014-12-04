@@ -1,21 +1,27 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * PHP 5x framework с открытым иходным кодом
  */
 namespace Neiron\Kernel\Request;
 
 /**
- * 
- * 
+ * Менеджер параметров
+ * @author KpuTuK
+ * @version 1.0.0
+ * @package Neiron framework
+ * @category Kernel
+ * @link
  */
 class ParameterManager implements \ArrayAccess
 {
     private $data = array();
     public function __construct(array $data)
     {
-        $this->data;
+            $this->data = $data;
+    }
+    public function merge(array $data = array())
+    {
+        $this->data = array_merge($this->data, $data);
     }
     public function offsetExists($offset)
     {
