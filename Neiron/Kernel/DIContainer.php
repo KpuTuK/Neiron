@@ -52,8 +52,13 @@ class DIContainer implements DIContainerInterface
      */
     public function rewind($name, $value)
     {
-        $this->offsetUnset($name);
-        $this->offsetSet($name, $value);
+        if ($this->offsetExists($name)) {
+            $this->offsetUnset($name);
+            return $this->offsetSet($name, $value);
+        }
+        throw new \InvalidArgumentException(
+            sprintf('Параметр "%s" уже существует!', $name)
+        );
     }
     /**
      * Проверяет наличие параметра в контейнере
