@@ -38,10 +38,13 @@ class Neiron extends DIContainer implements ApplicationInterface,
         parent::__construct($this->setup($options));
         $this['routing'] = new Routing($this['routes']);
         $this['cookie'] = new Cookies();
-        $this['request'] = new Request($this, new Request\ControllerResolver());
-        $this['response'] = new Response(
-            new Response\ResponseHeaders(array(), $this['request'])
+        $this['controller.resolver'] = new Request\ControllerResolver();
+        $this['request'] = new Request($this, $this['controller.resolver']);
+        $this['response.headers'] = new Response\ResponseHeaders(
+            array(), 
+            $this['request']
         );
+        $this['response'] = new Response($this['response.headers']);
     }
     /**
      * Настраивает значения по умолчанию для настроек
