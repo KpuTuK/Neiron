@@ -19,7 +19,7 @@ use Neiron\API\Kernel\Request\ControllerResolverInterface;
 class Request implements RequestInterface
 {
     /**
-     * @var ControllerResolverInterface
+     * @var Neiron\API\Kernel\Request\ControllerResolverInterface
      */
     private $resolver;
     /**
@@ -89,7 +89,7 @@ class Request implements RequestInterface
             if (!empty($this->server('PATH_INFO'))) {
                 $uri = $this->server('PATH_INFO');
             } elseif (!empty($this->server('REQUEST_URI'))) {
-                $uri = $this->server('REQUEST_URI');
+                $uri = $this->server('REQUEST_URI')[0];
             }
         }
         return $this->uri(rawurldecode(rtrim($uri, '/')));
