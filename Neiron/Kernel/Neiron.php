@@ -75,7 +75,7 @@ class Neiron extends DIContainer implements ApplicationInterface,
     public function post($name, $pattern, $handler)
     {
         $this['routing']->addRoute(
-            $name, $pattern, $handler, RequestInterface::METH_GET
+            $name, $pattern, $handler, RequestInterface::METH_POST
         );
     }
     /**
@@ -87,7 +87,7 @@ class Neiron extends DIContainer implements ApplicationInterface,
     public function put($name, $pattern, $handler)
     {
         $this['routing']->addRoute(
-                $name, $pattern, $handler, RequestInterface::METH_GET
+                $name, $pattern, $handler, RequestInterface::METH_PUT
         );
     }
     /**
@@ -99,7 +99,7 @@ class Neiron extends DIContainer implements ApplicationInterface,
     public function delete($name, $pattern, $handler)
     {
         $this['routing']->addRoute(
-                $name, $pattern, $handler, RequestInterface::METH_GET
+                $name, $pattern, $handler, RequestInterface::METH_DELETE
         );
     }
     /**
