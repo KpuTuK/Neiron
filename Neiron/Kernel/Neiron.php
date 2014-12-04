@@ -23,7 +23,7 @@ class Neiron extends DIContainer implements ApplicationInterface,
     /**
      * Версия frameworka
      */
-    const VERSION = '1.0.0';
+    const VERSION = '1.3.0-beta';
     /**
      * Dependicy Inection контейнер
      * @var array
@@ -110,6 +110,6 @@ class Neiron extends DIContainer implements ApplicationInterface,
      */
     public function run()
     {
-        echo $this['request']->create()->execute()->body();
+        echo $this['request']->createFromGlobals()->execute()->body();
     }
 }
