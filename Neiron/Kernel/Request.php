@@ -19,9 +19,34 @@ use Neiron\API\Kernel\Request\ControllerResolverInterface;
 class Request implements RequestInterface
 {
     /**
-     * @var Neiron\API\Kernel\Request\ControllerResolverInterface
+     * @var \Neiron\API\Kernel\Request\ControllerResolverInterface
      */
     private $resolver;
+    /**
+     * Обработчик-альтернатива суперглобальной переменной $GLOBALS
+     * @var \Neiron\Kernel\Request\ParameterManager
+     */
+    public $globals;
+    /**
+     * Обработчик-альтернатива глобальной переменной $_SERVER
+     * @var \Neiron\Kernel\Request\ParameterManager
+     */
+    public $server;
+    /**
+     * Обработчик-альтернатива глобальной переменной $_GET
+     * @var \Neiron\Kernel\Request\ParameterManager
+     */
+    public $query;
+    /**
+     * Обработчик-альтернатива глобальной переменной $_POST
+     * @var \Neiron\Kernel\Request\ParameterManager
+     */
+    public $post;
+    /**
+     * Обработчик-альтернатива глобальной переменной $_FILES
+     * @var \Neiron\Kernel\Request\ParameterManager
+     */
+    public $files;
     /**
      * Обьект класса для работы с cookie
      * @var \Neiron\API\Kernel\CookieInterface
@@ -32,7 +57,6 @@ class Request implements RequestInterface
      * @var \Neiron\API\Kernel\DIContainerInteface
      */
     private $container;
-    private $globals = array();
     private $uri = null;
     /**
      * Конструктор класса
@@ -43,39 +67,67 @@ class Request implements RequestInterface
         ControllerResolverInterface $resolver
     ) {
         $this->container = $container;
-        $this->globals($GLOBALS);
+        /**
+         * @todo !!!!!!!
+         */
         $this->cookies = $container['cookie'];
-        $this->cookies->setAll(
-            $this->globals('_COOKIE') ? $this->globals('_COOKIE') : array()
-        );
         $this->resolver = $resolver;
+    }
+    /**
+     * Создает и обрабатывает запрос к серверу заполняя глобальные переменные
+     * @return \Neiron\API\Kernel\Request\ControllerResolverInterface
+     */
+    public function createFromGlobals()
+    {
+        $this->globals = new Request\ParameterManager($GLOBALS);
+        if ( ! isset($this->globals['_FILES'])) {
+            $this->globals['_FILES'] = array();
+        }
+        $this->server = new Request\ParameterManager($this->globals['_SERVER']);
+        if (empty($this->server['REQUEST_METHOD'])) {
+            $this->server['REQUEST_METHOD'] = self::METH_GET;
+        }
+        $this->query = new Request\ParameterManager($this->globals['_GET']);
+        $this->post = new Request\ParameterManager($this->globals['_POST']);
+        $this->files = new Request\ParameterManager($this->globals['_FILES']);
+        
+        return $this->resolver->resolve(
+            $this->container['routing']->match(
+                $this->decodeDetectUri(), 
+                $this->server['REQUEST_METHOD']
+            ), 
+            $this->container
+        );
     }
     /**
      * Создает и обрабатывает запрос к серверу
      * @todo разобраться с cookies
-     * @param mixed  $uri URI запроса
+     * @param string  $uri URI запроса
      * @param mixed  $method Метод запроса
-     * @param mixed  $get Массив данных для переменной $_GET
-     * @param mixed  $post Массив данных для переменной $_POST
-     * @param mixed  $server Массив данных для переменной $_SERVER
-     * @param mixed  $files Массив данных для переменной $_FILES
-     * @return \Neiron\Kernel\Request\ControllerResolver
+     * @param array  $server Массив данных для переменной $_SERVER
+     * @param array  $query Массив данных для переменной $_GET
+     * @param array  $post Массив данных для переменной $_POST
+     * @param array  $files Массив данных для переменной $_FILES
+     * @return \Neiron\API\Kernel\Request\ControllerResolverInterface
      */
     public function create(
-        $uri = null, 
-        $method = null, 
-        $get = null, $post = null, 
-        $server = null, 
-        $files = null
+        $uri, 
+        $method = null,
+        array $server = array(),
+        array $query = array(), 
+        array $post = array(),  
+        array $files = array()
     ){
-        $this->get($get);
-        $this->post($post);
-        $this->server($server);
-        $this->globals($files, null, '_FILES');
+        $this->server->merge($server);
+        $this->query->merge($query);
+        $this->post->merge($post);
+        $this->files->merge($files);
         return $this->resolver->resolve(
-                $this->container['routing']->match(
-                        $this->decodeDetectUri($uri), $this->method($method)
-                ), $this->container
+            $this->container['routing']->match(
+                $this->decodeDetectUri($uri),
+                empty($method) ? $this->server['REQUET_METHOD'] : $method
+            ), 
+            $this->container
         );
     }
     /**
@@ -110,48 +162,6 @@ class Request implements RequestInterface
         return false;
     }
     /**
-     * Сохраняет/выводит данные пременной $GLOBALS
-     * @param mixed $name Имя переменной
-     * @param mixed $value Значение переменной
-     * @param mixed $var Индех переменной
-     * @return mixed
-     */
-    public function globals($name = null, $value = null, $var = false)
-    {
-        $glob = $var ? $this->globals[$var] : $this->globals;
-        // Слияние массивов с заменой
-        if (is_array($name)) {
-            return $this->globals = array_merge($glob, $name);
-        }
-        // Передача всего содержимого
-        if ($name === null && $value === null) {
-            return $glob;
-        }
-        // Проверка на наличие и передача переменной из массива
-        if ($name !== null && $value === null) {
-            if (array_key_exists($name, $glob)) {
-                return $glob[$name];
-            }
-            return false;
-        }
-        // Запись переменной
-        if ($name !== null && $value !== null) {
-            return $glob[$name] = $value;
-        }
-    }
-    /**
-     * Сохраняет/выводит метод запроса
-     * @param mixed $method Метод запроса
-     * @return string Метод запроса
-     */
-    public function method($method = null)
-    {
-        if ($method !== null) {
-            $this->server('REQUEST_METHOD', $method);
-        }
-        return $this->server('REQUEST_METHOD');
-    }
-    /**
      * Сохраняет/выводит URI запроса
      * @param mixed $uri URI запроса
      * @return string URI запроса
@@ -159,45 +169,5 @@ class Request implements RequestInterface
     public function uri($uri = null)
     {
         return isset($uri) ? $this->uri = $uri : $this->uri;
-    }
-    /**
-     * Сохраняет/выводит данные пременной $_SERVER
-     * @param mixed $name Имя переменной
-     * @param mixed $value Значение переменной
-     * @return mixed
-     */
-    public function server($name = null, $value = null)
-    {
-        return $this->globals($name, $value, '_SERVER');
-    }
-    /**
-     * Сохраняет/выводит данные пременной $_GET
-     * @param mixed $name Имя переменной
-     * @param mixed $value Значение переменной
-     * @return mixed
-     */
-    public function get($name = null, $value = null)
-    {
-        return $this->globals($name, $value, '_GET');
-    }
-    /**
-     * Сохраняет/выводит данные пременной $_POST
-     * @param mixed $name Имя переменной
-     * @param mixed $value Значение переменной
-     * @return mixed
-     */
-    public function post($name = null, $value = null)
-    {
-        return $this->globals($name, $value, '_POST');
-    }
-    /**
-     * Сохраняет/выводит данные пременной $_FILES
-     * @param mixed $name Имя переменной
-     * @param mixed $value Значение переменной
-     * @return mixed
-     */
-    public function files($name = null, $value = null)
-    {
-        return $this->globals($name, $value, '_FILES');
     }
 }
