@@ -54,7 +54,7 @@ class Controller implements ControllerInterface
     public function pageNotFound($url = '')
     {
         $this->response->headers(array(
-            $this->request->server('SERVER_PROTOCOL') => '404 Not Found',
+            $this->request->server['SERVER_PROTOCOL'] => '404 Not Found',
             'Status:' => '404 Not Found',
             'Refresh:' =>  '3; url=/'
         ));
