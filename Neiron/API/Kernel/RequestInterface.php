@@ -31,9 +31,9 @@ interface RequestInterface
     const METH_DELETE = 'DELETE';
     /**
      * Создает и обрабатывает запрос к серверу заполняя глобальные переменные
-     * @return \Neiron\API\Kernel\Request\ControllerResolverInterface
+     * @return \Neiron\API\Kernel\RequestInterface
      */
-    public function createFromGlobals();
+    public function initalGlobals();
     /**
      * Создает и обрабатывает запрос к серверу
      * @param string  $uri URI запроса

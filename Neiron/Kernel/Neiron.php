@@ -39,7 +39,8 @@ class Neiron extends DIContainer implements ApplicationInterface,
         $this['routing'] = new Routing($this['routes']);
         $this['cookie'] = new Cookies();
         $this['controller.resolver'] = new Request\ControllerResolver();
-        $this['request'] = new Request($this, $this['controller.resolver']);
+        $this['request'] = (new Request($this, $this['controller.resolver']))
+            ->initalGlobals();
         $this['response.headers'] = new Response\ResponseHeaders(
             array(), 
             $this['request']
@@ -110,6 +111,6 @@ class Neiron extends DIContainer implements ApplicationInterface,
      */
     public function run()
     {
-        echo $this['request']->createFromGlobals()->execute()->body();
+        echo $this['request']->create(null)->execute()->body();
     }
 }

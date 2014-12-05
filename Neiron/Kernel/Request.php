@@ -74,10 +74,10 @@ class Request implements RequestInterface
         $this->resolver = $resolver;
     }
     /**
-     * Создает и обрабатывает запрос к серверу заполняя глобальные переменные
-     * @return \Neiron\API\Kernel\Request\ControllerResolverInterface
+     * Заполняет глобальные переменные
+     * @return \Neiron\API\Kernel\RequestInterface
      */
-    public function createFromGlobals()
+    public function initalGlobals()
     {
         $this->globals = new Request\ParameterManager($GLOBALS);
         if ( ! isset($this->globals['_FILES'])) {
@@ -90,14 +90,7 @@ class Request implements RequestInterface
         $this->query = new Request\ParameterManager($this->globals['_GET']);
         $this->post = new Request\ParameterManager($this->globals['_POST']);
         $this->files = new Request\ParameterManager($this->globals['_FILES']);
-        
-        return $this->resolver->resolve(
-            $this->container['routing']->match(
-                $this->decodeDetectUri(), 
-                $this->server['REQUEST_METHOD']
-            ), 
-            $this->container
-        );
+        return $this;
     }
     /**
      * Создает и обрабатывает запрос к серверу
@@ -125,7 +118,7 @@ class Request implements RequestInterface
         return $this->resolver->resolve(
             $this->container['routing']->match(
                 $this->decodeDetectUri($uri),
-                empty($method) ? $this->server['REQUET_METHOD'] : $method
+                empty($method) ? $this->server['REQUEST_METHOD'] : $method
             ), 
             $this->container
         );
@@ -138,10 +131,10 @@ class Request implements RequestInterface
     private function decodeDetectUri($uri = null)
     {
         if ($uri === null) {
-            if (!empty($this->server('PATH_INFO'))) {
-                $uri = $this->server('PATH_INFO');
-            } elseif (!empty($this->server('REQUEST_URI'))) {
-                $uri = explode('?', $this->server('REQUEST_URI'))[0];
+            if (!empty($this->server['PATH_INFO'])) {
+                $uri = $this->server['PATH_INFO'];
+            } elseif (!empty($this->server['REQUEST_URI'])) {
+                $uri = explode('?', $this->server['REQUEST_URI'])[0];
             }
         }
         return $this->uri(rawurldecode(rtrim($uri, '/')));
@@ -154,10 +147,10 @@ class Request implements RequestInterface
     public function referer($refer = null)
     {
         if ($refer != null) {
-            $this->server('HTTP_REFERER', $refer);
+            $this->server['HTTP_REFERER'] = $refer;
         }
-        if ($this->server('HTTP_REFERER') !== null) {
-            return $this->server('HTTP_REFERER');
+        if ($this->server['HTTP_REFERER'] !== null) {
+            return $this->server['HTTP_REFERER'];
         }
         return false;
     }

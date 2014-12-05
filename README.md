@@ -79,3 +79,8 @@ function ($params)
 Данный код запустит запустит контроллер (указанный в массиве роутов и подходящий под данный uri),
 сохранит контент запущенного `uri` в `Neiron\Kernel\Response` 
 и передаст `$query` обьект класса `Neiron\Kernel\Response`.
+
+### $GLOBALS, $_GET, $_POST, $SERVER, $_FILES
+Для доступа к глобальным переменным используйте свойства:
+*globals* для $GLOBALS
+*query* для $_GET

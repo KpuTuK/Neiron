@@ -21,7 +21,7 @@ class Routing implements RoutingInterface
      * Массив роутов
      * @var array 
      */
-    private $routes = array(
+    public $routes = array(
         'GET' => array(),
         'POST' => array(),
         'PUT' => array(),
@@ -103,8 +103,8 @@ class Routing implements RoutingInterface
     public function match($uri = null, $method = RequestInterface::METH_GET)
     {
         if (
-            (count($this->patterns[$method]) === 0) &&
-            (count($this->routes[$method]) === 0)
+            (empty($this->patterns[$method])) &&
+            (empty($this->routes[$method]))
         ) {
             throw new \ErrorException('Не указан ни один роут!');
         }

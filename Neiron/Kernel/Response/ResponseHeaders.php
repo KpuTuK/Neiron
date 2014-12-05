@@ -26,12 +26,12 @@ class ResponseHeaders implements ResponseHeadersInterface
     /**
      * Конструктор класса
      * @param array $headers Массив заголовков
-     * @param \Neiron\Arhitecture\Kernel\RequestInterface $request
+     * @param \Neiron\API\Kernel\RequestInterface $request
      */
     public function __construct(array $headers, RequestInterface $request)
     {
         $list = array();
-        foreach ($request->server() as $key => $value) {
+        foreach ($request->server as $key => $value) {
             if (strpos($key, 'HTTP_') !== false) {
                 $list[
                         ucfirst(substr(strtolower(strtr($key, '_', '-')), 5)) . ':'
