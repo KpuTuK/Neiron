@@ -90,15 +90,24 @@ function ($params)
 * *cookie* для $_COOKIE
 Для добавления массива переменных в глобальную переменную используйте метод `merge()`
 ```php
-$app['request']->query['get_name'] = 'get value'; // Сохраняет 
+// Запись
+$app['request']->query['get_name'] = 'get value';
+// Вывод
 echo $app['request']->query['get_name']; // Выводит get value 
+// Проверка наличия
 var_dump(isset($app['request']->query['get_name'])); // true
-unset($app['request']->query['get_name']); // Удаляет
+// Удаление
+unset($app['request']->query['get_name']);
+// Проверка наличия
 var_dump(isset($app['request']->query['get_name'])); // false
+// Запись массива
 $app['request']->query->merge(array(
     'value1', 'value2' => 'test'
 ));
+// Проерка наличия первого значения массива
 var_dump(isset($app['request']->query['value1'])); // true
+// Проверка наличия второго значения массива
 var_dump(isset($app['request']->query['value2'])); // true
+// Вывод содержимого второго значения массива
 echo $app['request']->query['value2']; // Выводит test
 ```
