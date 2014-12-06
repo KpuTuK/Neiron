@@ -82,5 +82,23 @@ function ($params)
 
 ### $GLOBALS, $_GET, $_POST, $SERVER, $_FILES
 Для доступа к глобальным переменным используйте свойства:
-*globals* для $GLOBALS
-*query* для $_GET
+* *globals* для $GLOBALS
+* *server* для $_SERVER
+* *query* для $_GET
+* *post* для $_POST
+* *files* для $_FILES
+* *cookie* для $_COOKIE
+Для добавления массива переменных в глобальную переменную используйте метод `merge()`
+```php
+$app['request']->query['get_name'] = 'get value'; // Сохраняет 
+echo $app['request']->query['get_name']; // Выводит get value 
+var_dump(isset($app['request']->query['get_name'])); // true
+unset($app['request']->query['get_name']); // Удаляет
+var_dump(isset($app['request']->query['get_name'])); // false
+$app['request']->query->merge(array(
+    'value1', 'value2' => 'test'
+));
+var_dump(isset($app['request']->query['value1'])); // true
+var_dump(isset($app['request']->query['value2'])); // true
+echo $app['request']->query['value2']; // Выводит test
+```
