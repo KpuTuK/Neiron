@@ -80,7 +80,7 @@ function ($params)
 сохранит контент запущенного `uri` в `Neiron\Kernel\Response` 
 и передаст `$query` обьект класса `Neiron\Kernel\Response`.
 
-### $GLOBALS, $_GET, $_POST, $SERVER, $_FILES
+#Глобальные перемееные
 Для доступа к глобальным переменным используйте свойства:
 * *globals* для $GLOBALS
 * *server* для $_SERVER
@@ -88,7 +88,9 @@ function ($params)
 * *post* для $_POST
 * *files* для $_FILES
 * *cookie* для $_COOKIE
+
 Для добавления массива переменных в глобальную переменную используйте метод `merge()`
+
 ```php
 // Запись
 $app['request']->query['get_name'] = 'get value';
