@@ -7,6 +7,7 @@ namespace Neiron\Kernel;
 use Neiron\API\Kernel\ApplicationInterface;
 use Neiron\API\Kernel\RequestInterface;
 use Neiron\Kernel\DIContainer;
+use Neiron\Kernel\Response\ResponseHeaders;
 use Neiron\API\Kernel\DIContainerInterface;
 
 /**
@@ -39,9 +40,8 @@ class Neiron extends DIContainer implements ApplicationInterface,
         $this['routing'] = new Routing($this['routes']);
         $this['cookie'] = new Cookies();
         $this['controller.resolver'] = new Request\ControllerResolver();
-        $this['request'] = (new Request($this, $this['controller.resolver']))
-            ->initalGlobals();
-        $this['response.headers'] = new Response\ResponseHeaders(
+        $this['request'] = new Request($this, $this['controller.resolver']);
+        $this['response.headers'] = new ResponseHeaders(
             array(), 
             $this['request']
         );
