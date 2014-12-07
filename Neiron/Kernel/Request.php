@@ -120,17 +120,45 @@ class Request implements RequestInterface
         );
     }
     /**
+     * @author  Zend Framework (1.10dev - 2010-01-24)
+     * @license new BSD license (http://framework.zend.com/license/new-bsd).
+     * @copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+     * 
      * Возвращает или определяет и декодирует строку uri
      * @param mixed $uri URI строка
      * @return string  Декодированная строка
+     * 
      */
     private function decodeDetectUri($uri = null)
     {
         if ($uri === null) {
-            if (!empty($this->server['PATH_INFO'])) {
-                $uri = $this->server['PATH_INFO'];
-            } elseif (!empty($this->server['REQUEST_URI'])) {
-                $uri = explode('?', $this->server['REQUEST_URI'])[0];
+            $requestUri = '';
+            if (isset($this->headers['X_ORIGINAL_URL'])) {
+                // IIS with Microsoft Rewrite Module
+                $requestUri = $this->headers['X_ORIGINAL_URL'];
+                unset(
+                    $this->headers['X_ORIGINAL_URL'],
+                    $this->headers['HTTP_X_ORIGINAL_URL'],
+                    $this->headers['UNENCODED_URL'],
+                    $this->headers['IIS_WasUrlRewritten']
+                );
+            } elseif (isset($this->headers['X_REWRITE_URL'])) {
+                // IIS with ISAPI_Rewrite
+                $requestUri = $this->headers['X_REWRITE_URL'];
+                unset($this->headers['X_REWRITE_URL']);
+            } elseif (
+                ($this->server['IIS_WasUrlRewritten'] === '1') && 
+                ($this->server['UNENCODED_URL'] !== '')
+            ) {
+                // IIS7 with URL Rewrite: make sure we get the unencoded URL (double slash problem)
+                $requestUri = $this->server['UNENCODED_URL'];
+                unset($this->server['UNENCODED_URL'], $this->server['IIS_WasUrlRewritten']);
+            } elseif (isset($this->server['REQUEST_URI'])) {
+                $requestUri = explode('?', $this->server['REQUEST_URI'])[0];
+            } elseif ($this->server->has('ORIG_PATH_INFO')) {
+                // IIS 5.0, PHP as CGI
+                $requestUri = $this->server['ORIG_PATH_INFO'];
+                unset($this->server['ORIG_PATH_INFO']);
             }
         }
         $this->setUri(rawurldecode(rtrim($uri, '/')));
@@ -167,5 +195,9 @@ class Request implements RequestInterface
     public function getUri()
     {
         return $this->server['REQUEST_URI'];
+    }
+    public function isAjax()
+    {
+        return 'XMLHttpRequest' === $this->headers['X-Requested-With'];
     }
 }
