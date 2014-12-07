@@ -30,11 +30,6 @@ interface RequestInterface
      */
     const METH_DELETE = 'DELETE';
     /**
-     * Создает и обрабатывает запрос к серверу заполняя глобальные переменные
-     * @return \Neiron\API\Kernel\RequestInterface
-     */
-    public function initalGlobals();
-    /**
      * Создает и обрабатывает запрос к серверу
      * @param string  $uri URI запроса
      * @param mixed  $method Метод запроса
@@ -52,16 +47,4 @@ interface RequestInterface
             array $post = array(),
             array $files = array()
     ) ;
-    /**
-     * Задает/выдает (если есть) адрес страницы, которая привела браузер пользователя на эту страницу
-     * @param string $refer Адрес страницы
-     * @return mixed Если есть (или указан) адрес страницы то выдает его или возвращает false
-     */
-    public function referer($refer = null);
-    /**
-     * Сохраняет/выводит URI запроса
-     * @param mixed $uri URI запроса
-     * @return string URI запроса
-     */
-    public function uri($uri = null);
 }
