@@ -7,6 +7,9 @@ namespace Neiron\Kernel;
 use Neiron\API\Kernel\RequestInterface;
 use Neiron\API\Kernel\DIContainerInterface;
 use Neiron\API\Kernel\Request\ControllerResolverInterface;
+use Neiron\Kernel\Helpers\ParameterManager;
+use Neiron\Kernel\Request\GlobalsManager;
+use Neiron\Kernel\Request\CookieManager;
 
 /**
  * Обработчик запросов к серверу
@@ -49,15 +52,14 @@ class Request implements RequestInterface
     public $files;
     /**
      * Обьект класса для работы с cookie
-     * @var \Neiron\API\Kernel\CookieInterface
+     * @var \Neiron\Kernel\Request\CookieManager
      */
-    public $cookies;
+    public $cookie;
     /**
      * Обьект Dependency injection контейнера
      * @var \Neiron\API\Kernel\DIContainerInteface
      */
     private $container;
-    private $uri = null;
     /**
      * Конструктор класса
      * @param \Neiron\API\Kernel\DIContainerInterface $container
@@ -67,30 +69,20 @@ class Request implements RequestInterface
         ControllerResolverInterface $resolver
     ) {
         $this->container = $container;
-        /**
-         * @todo !!!!!!!
-         */
-        $this->cookies = $container['cookie'];
+        $this->initalizeGlobals();
         $this->resolver = $resolver;
     }
     /**
      * Заполняет глобальные переменные
-     * @return \Neiron\API\Kernel\RequestInterface
      */
-    public function initalGlobals()
+    private function initalizeGlobals()
     {
-        $this->globals = new Request\ParameterManager($GLOBALS);
-        if ( ! isset($this->globals['_FILES'])) {
-            $this->globals['_FILES'] = array();
-        }
-        $this->server = new Request\ParameterManager($this->globals['_SERVER']);
-        if (empty($this->server['REQUEST_METHOD'])) {
-            $this->server['REQUEST_METHOD'] = self::METH_GET;
-        }
-        $this->query = new Request\ParameterManager($this->globals['_GET']);
-        $this->post = new Request\ParameterManager($this->globals['_POST']);
-        $this->files = new Request\ParameterManager($this->globals['_FILES']);
-        return $this;
+        $this->globals = new GlobalsManager($GLOBALS);
+        $this->server = new ParameterManager($this->globals['_SERVER']);
+        $this->query = new ParameterManager($this->globals['_GET']);
+        $this->post = new ParameterManager($this->globals['_POST']);
+        $this->files = new ParameterManager($this->globals['_FILES']);
+        $this->cookie = new CookieManager($this->globals['_COOKIE']);
     }
     /**
      * Создает и обрабатывает запрос к серверу
@@ -105,20 +97,22 @@ class Request implements RequestInterface
      */
     public function create(
         $uri, 
-        $method = null,
+        $method = RequestInterface::METH_GET,
         array $server = array(),
         array $query = array(), 
         array $post = array(),  
-        array $files = array()
+        array $files = array(),
+        array $cookies = array()
     ){
         $this->server->merge($server);
         $this->query->merge($query);
         $this->post->merge($post);
         $this->files->merge($files);
+        $this->cookie->merge($cookies);
         return $this->resolver->resolve(
             $this->container['routing']->match(
                 $this->decodeDetectUri($uri),
-                empty($method) ? $this->server['REQUEST_METHOD'] : $method
+                $this->server['REQUEST_METHOD'] = $method
             ), 
             $this->container
         );
@@ -137,30 +131,39 @@ class Request implements RequestInterface
                 $uri = explode('?', $this->server['REQUEST_URI'])[0];
             }
         }
-        return $this->uri(rawurldecode(rtrim($uri, '/')));
+        $this->setUri(rawurldecode(rtrim($uri, '/')));
+        return $this->getUri();
     }
     /**
-     * Задает/выдает (если есть) адрес страницы, которая привела браузер пользователя на эту страницу
+     * Сохраняет адрес страницы, которая привела браузер пользователя на эту страницу
      * @param string $refer Адрес страницы
-     * @return mixed Если есть (или указан) адрес страницы то выдает его или возвращает false
      */
-    public function referer($refer = null)
+    public function setReferer($refer)
     {
-        if ($refer != null) {
-            $this->server['HTTP_REFERER'] = $refer;
-        }
-        if ($this->server['HTTP_REFERER'] !== null) {
-            return $this->server['HTTP_REFERER'];
-        }
-        return false;
+        $this->server['HTTP_REFERER'] = $refer;
     }
     /**
-     * Сохраняет/выводит URI запроса
-     * @param mixed $uri URI запроса
+     * Возвращает (если есть) адрес страницы, которая привела браузер пользователя на эту страницу
+     * @return mixed Адрес страницы или null в случае его отсутствия
+     */
+    public function getReferer()
+    {
+        return $this->server['HTTP_REFERER'];
+    }
+    /**
+     * Сохраняет URI запроса
+     * @param string $uri URI запроса
+     */
+    public function setUri($uri)
+    {
+        $this->server['REQUEST_URI'] = $uri;
+    }
+    /**
+     * Возвращает URI запроса
      * @return string URI запроса
      */
-    public function uri($uri = null)
+    public function getUri()
     {
-        return isset($uri) ? $this->uri = $uri : $this->uri;
+        return $this->server['REQUEST_URI'];
     }
 }
