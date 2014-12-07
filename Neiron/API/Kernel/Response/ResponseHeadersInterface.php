@@ -14,13 +14,6 @@ namespace Neiron\API\Kernel\Response;
 interface ResponseHeadersInterface 
 {
     /**
-     * Удаляет/добавляет/выводит заголовки
-     * @param mixed $name Массив заголовков или имя заголовка
-     * @param string $value Содержимое заголовка
-     * @return mixed
-     */
-    public function headers($name = null, $value = null);
-    /**
      * Отпраляет заголовки если они еще не были отправлены
      * @return 
      */
