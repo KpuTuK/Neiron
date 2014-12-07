@@ -15,11 +15,7 @@ use Neiron\Kernel\Helpers\ParameterManager;
  */
 class HeaderManager extends ParameterManager
 {
-    /**
-     * @var array
-     */
-    private $cookie;
-    public function __construct(array $server, array $cookie)
+    public function __construct(array $server)
     {
         foreach ($server as $key => $value) {
             if (strpos($key, 'HTTP_') !== false) {
@@ -27,31 +23,5 @@ class HeaderManager extends ParameterManager
             }
         }
         parent::__construct($list);
-        $this->cookie = $cookie;
-    }
-    /**
-     * Отпраляет заголовки если они еще не были отправлены
-     * @return \Neiron\Kernel\Response\ResponseHeaders
-     */
-    public function sendHeaders()
-    {
-        if (headers_sent()) {
-            return $this;
-        }
-        foreach ($this->parameters as $key => $value) {
-            header($key . ' ' . $value);
-        }
-        foreach ($this->cookie as $cookie) {
-            setcookie(
-                $cookie['key'],
-                $cookie['value'],
-                $cookie['ttl'],
-                $cookie['path'],
-                $cookie['domain'],
-                $cookie['secure'],
-                $cookie['httponly']
-            );
-        }
-        return $this;
     }
 }
