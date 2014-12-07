@@ -59,6 +59,7 @@ class Request implements RequestInterface
      * Обьект Dependency injection контейнера
      * @var \Neiron\API\Kernel\DIContainerInteface
      */
+    public $headers;
     private $container;
     /**
      * Конструктор класса
@@ -83,6 +84,7 @@ class Request implements RequestInterface
         $this->post = new ParameterManager($this->globals['_POST']);
         $this->files = new ParameterManager($this->globals['_FILES']);
         $this->cookie = new CookieManager($this->globals['_COOKIE']);
+        $this->headers = new HeaderManager($this->server->getAll());
     }
     /**
      * Создает и обрабатывает запрос к серверу
