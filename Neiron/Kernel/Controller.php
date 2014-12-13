@@ -4,9 +4,6 @@
  */
 namespace Neiron\Kernel;
 
-use Neiron\API\Kernel\ControllerInterface;
-use Neiron\API\Kernel\DIContainerInterface;
-
 /**
  * Главный контроллер
  * @author KpuTuK
@@ -15,33 +12,33 @@ use Neiron\API\Kernel\DIContainerInterface;
  * @category Kernel
  * @link
  */
-class Controller implements ControllerInterface
+abstract class Controller
 {
     /**
      * Dependency injection контейнер
-     * @var \Neiron\API\Kernel\DIContainerInterface
+     * @var \Neiron\Kernel\DIContainer
      */
     protected $container;
     /**
      * Обработчик запросов
-     * @var \Neiron\API\Kernel\RequestInterface
+     * @var \Neiron\Kernel\Request
      */
     protected $request;
     /**
      * Класс для работы с выводом
-     * @var \Neiron\API\Kernel\ResponseInterface 
+     * @var \Neiron\Kernel\Response 
      */
     protected $response;
     /**
      * Обработчик роутов
-     * @var \Neiron\API\Kernel\RoutingInterface
+     * @var \Neiron\Kernel\Routing
      */
     protected $routing;
     /**
      * Конструктор класса
-     * @param \Neiron\API\Kernel\DIContainerInterface $container Dependency injection контейнер
+     * @param \Neiron\Kernel\DIContainer $container Dependency injection контейнер
      */
-    public function __construct(DIContainerInterface $container)
+    public function __construct(DIContainer $container)
     {
         $this->container = $container;
         $this->request = $container['request'];
@@ -49,33 +46,11 @@ class Controller implements ControllerInterface
         $this->routing = $container['routing'];
     }
     /**
-     * Выдает сообщение об ошибке 404
-     */
-    public function pageNotFound($url = '')
-    {
-        $this->response->headers(array(
-            $this->request->server['SERVER_PROTOCOL'] => '404 Not Found',
-            'Status:' => '404 Not Found',
-            'Refresh:' =>  '3; url=/'
-        ));
-        $this->response->setContent('
-            <h1>Не найдено!</h1>
-            <hr>
-            Запрашиваемый адрес "'. $url .'" не найден на сервере!
-        ');
-    }
-    /**
      * Функция вызываемая перед вызовом экшена контроллера
      */
-    public function atfer()
-    {
-        
-    }
+    abstract public function atfer();
     /**
      * Функция вызываемая после вызова экшена контроллера
      */
-    public function beforle()
-    {
-        
-    }
+    abstract public function beforle();
 }
