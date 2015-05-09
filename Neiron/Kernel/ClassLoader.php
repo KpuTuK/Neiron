@@ -81,7 +81,7 @@ class ClassLoader
     private function getFilePatch($class)
     {
         $path = $this->rootDir . $this->preparePatch($class) . '.php';
-        $file = str_replace('/', DIRECTORY_SEPARATOR, $path);
+        $file = str_replace('\\', DIRECTORY_SEPARATOR, $path);
         if (file_exists($file)) {
             return $file;
         } else {
