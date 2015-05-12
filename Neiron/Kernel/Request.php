@@ -10,6 +10,7 @@ use Neiron\API\Kernel\Request\ControllerResolverInterface;
 use Neiron\Kernel\Helpers\ParameterManager;
 use Neiron\Kernel\Request\GlobalsManager;
 use Neiron\Kernel\Request\CookieManager;
+use Neiron\Kernel\Request\HeaderManager;
 
 /**
  * Обработчик запросов к серверу
@@ -84,7 +85,7 @@ class Request implements RequestInterface
         $this->post = new ParameterManager($this->globals['_POST']);
         $this->files = new ParameterManager($this->globals['_FILES']);
         $this->cookie = new CookieManager($this->globals['_COOKIE']);
-        $this->headers = new HeaderManager($this->server->getAll());
+        $this->headers = new HeaderManager((array)$this->server);
     }
     /**
      * Создает и обрабатывает запрос к серверу
@@ -120,10 +121,6 @@ class Request implements RequestInterface
         );
     }
     /**
-     * @author  Zend Framework (1.10dev - 2010-01-24)
-     * @license new BSD license (http://framework.zend.com/license/new-bsd).
-     * @copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
-     * 
      * Возвращает или определяет и декодирует строку uri
      * @param mixed $uri URI строка
      * @return string  Декодированная строка
@@ -133,30 +130,9 @@ class Request implements RequestInterface
     {
         if ($uri === null) {
             $requestUri = '';
-            if (isset($this->headers['X_ORIGINAL_URL'])) {
-                // IIS with Microsoft Rewrite Module
-                $requestUri = $this->headers['X_ORIGINAL_URL'];
-                unset(
-                    $this->headers['X_ORIGINAL_URL'],
-                    $this->headers['HTTP_X_ORIGINAL_URL'],
-                    $this->headers['UNENCODED_URL'],
-                    $this->headers['IIS_WasUrlRewritten']
-                );
-            } elseif (isset($this->headers['X_REWRITE_URL'])) {
-                // IIS with ISAPI_Rewrite
-                $requestUri = $this->headers['X_REWRITE_URL'];
-                unset($this->headers['X_REWRITE_URL']);
-            } elseif (
-                ($this->server['IIS_WasUrlRewritten'] === '1') && 
-                ($this->server['UNENCODED_URL'] !== '')
-            ) {
-                // IIS7 with URL Rewrite: make sure we get the unencoded URL (double slash problem)
-                $requestUri = $this->server['UNENCODED_URL'];
-                unset($this->server['UNENCODED_URL'], $this->server['IIS_WasUrlRewritten']);
-            } elseif (isset($this->server['REQUEST_URI'])) {
+            if (isset($this->server['REQUEST_URI'])) {
                 $requestUri = explode('?', $this->server['REQUEST_URI'])[0];
-            } elseif ($this->server->has('ORIG_PATH_INFO')) {
-                // IIS 5.0, PHP as CGI
+            } elseif ($this->server['ORIG_PATH_INFO']) {
                 $requestUri = $this->server['ORIG_PATH_INFO'];
                 unset($this->server['ORIG_PATH_INFO']);
             }
