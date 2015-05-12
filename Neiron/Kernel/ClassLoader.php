@@ -18,12 +18,12 @@ class ClassLoader
      * Корневая директория классов
      * @var mixed
      */
-    private $rootDir;
+    protected $rootDir;
     /**
      * Массив классов и пространств имен к ним
      * @var array
      */
-    private $pathes = array();
+    protected $pathes = array();
     /**
      * Конструктор класса
      * @param mixed $rootDir Корневая директория классов
@@ -36,34 +36,40 @@ class ClassLoader
      * Доавляет класс и пространство имен в массив
      * @param string $class
      * @param string $namespace
+     * @return \Neiron\Kernel\ClassLoader
      */
     public function addPath($class, $namespace)
     {
         $this->pathes[(string) $class] = (string) $namespace;
+        return $this;
     }
     /**
      * Добавляет класс и генерирует путь к нему согласно psr0
      * @deprecated Данный способ по состоянию на 21 октября 2014 года PSR-0 был помечен как устаревший
      * @param sring $class Имя класса
+     * @return \Neiron\Kernel\ClassLoader
      */
     public function addPathPsr0($class)
     {
         $this->pathes[$class] = strtr($class, '_', '/');
+        return $this;
     }
     /**
      * Добавляет массив классов и пространств имен к ним
      * @param array $pathes Массив классов и пространств имен к ним
+     * @return \Neiron\Kernel\ClassLoader
      */
     public function addPathes(array $pathes)
     {
         $this->pathes = array_merge($this->patches, $pathes);
+        return $this;
     }
     /**
      * Преоразует путь классу согласно пространству имен
      * @param string $class Преоразуемый класс
      * @return string Преобразованный класс
      */
-    private function preparePatch($class)
+    protected function preparePatch($class)
     {
         if (count($this->pathes) !== 0) {
             $class = str_replace(
@@ -78,7 +84,7 @@ class ClassLoader
      * @return string Полный путь к классу
      * @throws \ErrorException Исключение выбрасываемое в случае отсутствия класса
      */
-    private function getFilePatch($class)
+    protected function getFilePatch($class)
     {
         $path = $this->rootDir . $this->preparePatch($class) . '.php';
         $file = str_replace('\\', DIRECTORY_SEPARATOR, $path);
@@ -92,7 +98,7 @@ class ClassLoader
      * Подключает класс
      * @param string $class Подключаемый класс
      */
-    public function loadClass($class)
+    protected function loadClass($class)
     {
         require_once $this->getFilePatch($class);
     }
