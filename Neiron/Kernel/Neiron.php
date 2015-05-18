@@ -24,7 +24,7 @@ class Neiron extends DIContainer implements ApplicationInterface,
     /**
      * Версия frameworka
      */
-    const VERSION = '1.3.0-beta';
+    const VERSION = '0.0.1-alpha';
     /**
      * Dependicy Inection контейнер
      * @var array
@@ -50,7 +50,7 @@ class Neiron extends DIContainer implements ApplicationInterface,
      * Настраивает значения по умолчанию для настроек
      * @param array $options Массив настроек
      */
-    private function setup(array $options = array())
+    protected function setup(array $options = array())
     {
         if (!isset($options['routes'])) {
             $options['routes'] = array();

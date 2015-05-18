@@ -12,7 +12,7 @@ namespace Neiron\Kernel;
  * @category Kernel
  * @link
  */
-abstract class Controller
+class Controller
 {
     /**
      * Dependency injection контейнер
@@ -45,12 +45,4 @@ abstract class Controller
         $this->response = $container['response'];
         $this->routing = $container['routing'];
     }
-    /**
-     * Функция вызываемая перед вызовом экшена контроллера
-     */
-    abstract public function atfer();
-    /**
-     * Функция вызываемая после вызова экшена контроллера
-     */
-    abstract public function beforle();
 }

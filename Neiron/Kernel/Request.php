@@ -25,7 +25,7 @@ class Request implements RequestInterface
     /**
      * @var \Neiron\API\Kernel\Request\ControllerResolverInterface
      */
-    private $resolver;
+    protected $resolver;
     /**
      * Обработчик-альтернатива суперглобальной переменной $GLOBALS
      * @var \Neiron\Kernel\Request\ParameterManager
@@ -61,7 +61,7 @@ class Request implements RequestInterface
      * @var \Neiron\API\Kernel\DIContainerInteface
      */
     public $headers;
-    private $container;
+    protected $container;
     /**
      * Конструктор класса
      * @param \Neiron\API\Kernel\DIContainerInterface $container
@@ -77,7 +77,7 @@ class Request implements RequestInterface
     /**
      * Заполняет глобальные переменные
      */
-    private function initalizeGlobals()
+    protected function initalizeGlobals()
     {
         $this->globals = new GlobalsManager($GLOBALS);
         $this->server = new ParameterManager($this->globals['_SERVER']);
@@ -126,7 +126,7 @@ class Request implements RequestInterface
      * @return string  Декодированная строка
      * 
      */
-    private function decodeDetectUri($uri = null)
+    protected function decodeDetectUri($uri = null)
     {
         if ($uri === null) {
             $requestUri = '';

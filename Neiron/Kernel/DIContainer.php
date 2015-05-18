@@ -20,7 +20,7 @@ class DIContainer implements DIContainerInterface
      * Контейнер
      * @var array
      */
-    private $container = array();
+    protected $container = array();
     /**
      * Конструктор класса
      * @param array $values 

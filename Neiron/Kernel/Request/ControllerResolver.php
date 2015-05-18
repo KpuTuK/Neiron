@@ -21,12 +21,12 @@ class ControllerResolver implements ControllerResolverInterface
      * Массив параметров контроллера
      * @var array 
      */
-    private $options;
+    protected $options;
     /**
      * Dependency injection контейнер
      * @var \Neiron\API\Kernel\DIContainerInterface
      */
-    private $container;
+    protected $container;
     /**
      * Обрабатывает параметры
      * @param array $options Массив параметров контроллера
@@ -73,7 +73,7 @@ class ControllerResolver implements ControllerResolverInterface
      * @return string Строковое представление контента
      * @throws \ErrorException
      */
-    private function getControllerString()
+    protected function getControllerString()
     {
         list($class, $action) = explode('@', $this->options['handler']);
             if (!class_exists($class)) {

@@ -21,12 +21,12 @@ class Response implements ResponseInterface
      * Строковое представение вывода
      * @var string
      */
-    private $content;
+    protected $content;
     /**
      * Обьект класса ResponseHeaders
      * @var \Neiron\API\Kernel\Response\ResponseHeadersInterface 
      */
-    private $headers = array();
+    protected $headers = array();
     public function __construct(ResponseHeadersInterface $headers)
     {
         $this->headers = $headers;
