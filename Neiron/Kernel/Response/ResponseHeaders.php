@@ -44,7 +44,7 @@ class ResponseHeaders implements ResponseHeadersInterface
         if (headers_sent()) {
             return $this;
         }
-        foreach ((array)$this->headers as $key => $value) {
+        foreach ($this->headers->getAll() as $key => $value) {
             header($key . ' ' . $value);
         }
         foreach ($this->cookies as $cookie) {
