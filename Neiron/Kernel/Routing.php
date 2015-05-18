@@ -2,6 +2,7 @@
 /**
  * PHP 5x framework с открытым иходным кодом
  */
+
 namespace Neiron\Kernel;
 
 use Neiron\API\Kernel\RoutingInterface;
@@ -21,7 +22,7 @@ class Routing implements RoutingInterface
      * Массив роутов
      * @var array 
      */
-    public $routes = array(
+    protected $routes = array(
         'GET' => array(),
         'POST' => array(),
         'PUT' => array(),
@@ -31,7 +32,7 @@ class Routing implements RoutingInterface
      * Массив паттернов и обработчиков
      * @var array
      */
-    private $patterns = array(
+    protected $patterns = array(
         'GET' => array(),
         'POST' => array(),
         'PUT' => array(),
@@ -66,7 +67,7 @@ class Routing implements RoutingInterface
      * @param string $pattern Компилируемый паттерн
      * @return string Скомпилированный паттерн
      */
-    private function compilePattern($pattern)
+    protected function compilePattern($pattern)
     {
         if (false === strpos($pattern, '{')) {
             return $pattern;
@@ -133,13 +134,10 @@ class Routing implements RoutingInterface
      * @param array $params Паараметры запроса
      * @return array Параметры запроса
      */
-    private function getParams($params)
+    protected function getParams($params)
     {
-        foreach ($params as $key => $value) {
-            if (is_int($key)) {
-                unset($params[$key]);
-            }
-        }
-        return $params;
+        return array_filter($params, function ($param) {
+            return ! is_int($param);
+        });
     }
 }
