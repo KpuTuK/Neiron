@@ -4,8 +4,6 @@
  */
 namespace Neiron\Kernel;
 
-use Neiron\API\Kernel\DIContainerInterface;
-
 /**
  * Dependency injection Контейнер
  * @author KpuTuK
@@ -14,18 +12,18 @@ use Neiron\API\Kernel\DIContainerInterface;
  * @category Kernel
  * @link
  */
-class DIContainer implements DIContainerInterface
+class DIContainer
 {
     /**
      * Контейнер
      * @var array
      */
-    protected $container = array();
+    protected $container = [];
     /**
      * Конструктор класса
      * @param array $values 
      */
-    public function __construct(array $values = array())
+    public function __construct(array $values = [])
     {
         foreach ($values as $offset => $value) {
             $this->offsetSet($offset, $value);
