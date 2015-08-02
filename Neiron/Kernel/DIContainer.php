@@ -113,4 +113,14 @@ class DIContainer implements DIContainerInterface
         }
         unset($this->container[$offset]);
     }
+    public function __call($name, $arguments) {
+        if ($this->offsetExists($name) &&
+            $this->offsetGet($name) instanceof \Closure)  {
+            return $this{$name}($arguments);
+        }
+        throw new \InvalidArgumentException(sprintf(
+            'Параметр "%s" не существует или не являеться анонимной функцией!',
+            $name
+        ));
+    }
 }
