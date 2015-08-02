@@ -4,11 +4,7 @@
  */
 namespace Neiron\Kernel;
 
-use Neiron\API\Kernel\ApplicationInterface;
-use Neiron\API\Kernel\RequestInterface;
-use Neiron\Kernel\DIContainer;
 use Neiron\Kernel\Response\ResponseHeaders;
-use Neiron\API\Kernel\DIContainerInterface;
 
 /**
  * Базовый класс framework'a
@@ -18,8 +14,7 @@ use Neiron\API\Kernel\DIContainerInterface;
  * @category Kernel
  * @link
  */
-class Neiron extends DIContainer implements ApplicationInterface, 
-    DIContainerInterface
+class Neiron extends DIContainer
 {
     /**
      * Версия frameworka
@@ -34,14 +29,14 @@ class Neiron extends DIContainer implements ApplicationInterface,
      * Конструктор класса
      * @param array $options Массив настроек (опционально)
      */
-    public function __construct(array $options = array())
+    public function __construct(array $options = [])
     {
         parent::__construct($this->setup($options));
         $this['routing'] = new Routing($this['routes']);
         $this['controller.resolver'] = new Request\ControllerResolver();
         $this['request'] = new Request($this, $this['controller.resolver']);
         $this['response.headers'] = new ResponseHeaders(
-            array(), 
+                [], 
             $this['request']
         );
         $this['response'] = new Response($this['response.headers']);
@@ -50,10 +45,10 @@ class Neiron extends DIContainer implements ApplicationInterface,
      * Настраивает значения по умолчанию для настроек
      * @param array $options Массив настроек
      */
-    protected function setup(array $options = array())
+    protected function setup(array $options = [])
     {
         if (!isset($options['routes'])) {
-            $options['routes'] = array();
+            $options['routes'] = [];
         }
         return $options;
     }
