@@ -21,11 +21,6 @@ class Neiron extends DIContainer
      */
     const VERSION = '0.0.1-alpha';
     /**
-     * Dependicy Inection контейнер
-     * @var array
-     */
-    public $container;
-    /**
      * Конструктор класса
      * @param array $options Массив настроек (опционально)
      */
