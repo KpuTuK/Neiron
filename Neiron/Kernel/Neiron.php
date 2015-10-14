@@ -14,7 +14,7 @@ use Neiron\Kernel\Response\ResponseHeaders;
  * @category Kernel
  * @link
  */
-class Neiron extends DIContainer
+class Neiron extends DIContainer implements \ArrayAccess
 {
     /**
      * Версия frameworka
