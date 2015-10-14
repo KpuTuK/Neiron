@@ -12,7 +12,7 @@ namespace Neiron\Kernel;
  * @category Kernel
  * @link
  */
-class DIContainer
+class DependencyInjection implements DependencyInjection\DependencyInjectionInterface
 {
     /**
      * Контейнер

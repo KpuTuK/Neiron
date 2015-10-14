@@ -14,7 +14,7 @@ use Neiron\Kernel\Response\ResponseHeaders;
  * @category Kernel
  * @link
  */
-class Neiron extends DIContainer implements \ArrayAccess
+class Neiron extends DependencyInjection implements \ArrayAccess
 {
     /**
      * Версия frameworka
@@ -26,15 +26,15 @@ class Neiron extends DIContainer implements \ArrayAccess
      */
     public function __construct(array $options = [])
     {
-        parent::__construct($this->setup($options));
+//        parent::__construct($this->setup($options));
         $this['routing'] = new Routing($this['routes']);
-        $this['controller.resolver'] = new Request\ControllerResolver();
-        $this['request'] = new Request($this, $this['controller.resolver']);
-        $this['response.headers'] = new ResponseHeaders(
-                [], 
-            $this['request']
-        );
-        $this['response'] = new Response($this['response.headers']);
+//        $this['controller.resolver'] = new Request\ControllerResolver();
+//        $this['request'] = new Request($this, $this['controller.resolver']);
+//        $this['response.headers'] = new ResponseHeaders(
+//                [], 
+//            $this['request']
+//        );
+//        $this['response'] = new Response($this['response.headers']);
     }
     /**
      * Настраивает значения по умолчанию для настроек
@@ -100,6 +100,6 @@ class Neiron extends DIContainer implements \ArrayAccess
      */
     public function run()
     {
-        echo $this['request']->create(null)->execute()->body();
+//        echo $this['request']->create(null)->execute()->body();
     }
 }
