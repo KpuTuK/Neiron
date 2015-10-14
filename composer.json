@@ -1,5 +1,5 @@
 {
-    "name": "KpuTuK",
+    "name": "NeironPhp/Neiron",
     "description": "PHP 5.x Micro framework",
     "require": {
         "php": ">=5.4"
