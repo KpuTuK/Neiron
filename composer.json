@@ -1,0 +1,7 @@
+{
+    "name": "KpuTuK",
+    "description": "PHP 5.x Micro framework",
+    "require": {
+        "php": ">=5.4"
+    }
+}
