@@ -4,8 +4,6 @@
  */
 namespace Neiron\Kernel;
 
-use Neiron\Kernel\Response\ResponseHeaders;
-
 /**
  * Базовый класс framework'a
  * @author KpuTuK
@@ -26,26 +24,7 @@ class Neiron extends DependencyInjection implements \ArrayAccess
      */
     public function __construct(array $options = [])
     {
-//        parent::__construct($this->setup($options));
-        $this['routing'] = new Routing($this['routes']);
-//        $this['controller.resolver'] = new Request\ControllerResolver();
-//        $this['request'] = new Request($this, $this['controller.resolver']);
-//        $this['response.headers'] = new ResponseHeaders(
-//                [], 
-//            $this['request']
-//        );
-//        $this['response'] = new Response($this['response.headers']);
-    }
-    /**
-     * Настраивает значения по умолчанию для настроек
-     * @param array $options Массив настроек
-     */
-    protected function setup(array $options = [])
-    {
-        if (!isset($options['routes'])) {
-            $options['routes'] = [];
-        }
-        return $options;
+        
     }
     /**
      * Добавляет обработчик роута по паттерну вызываемого методом GET
@@ -100,6 +79,6 @@ class Neiron extends DependencyInjection implements \ArrayAccess
      */
     public function run()
     {
-//        echo $this['request']->create(null)->execute()->body();
+        
     }
 }
