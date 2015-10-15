@@ -4,6 +4,7 @@
  */
 namespace Neiron\Kernel\Http;
 
+use Psr\Http\Message\UriInterface;
 /**
  * Класс-обработчик URI
  * @author KpuTuK
@@ -14,7 +15,7 @@ namespace Neiron\Kernel\Http;
  * @todo Добавить проверки методов with...() 
  *      согласно http://www.php-fig.org/psr/psr-7/
  */
-class Uri implements \Psr\Http\Message\UriInterface {
+class Uri implements UriInterface {
     /**
      * Массив данных uri
      * @var array
@@ -48,12 +49,11 @@ class Uri implements \Psr\Http\Message\UriInterface {
      * @return string Данные авторизации
      */
     public function getAuthority() {
-        if ($this->parseUri['host'] === '') {
+        if (($this->parseUri['host'] === '') || 
+                ($this->parseUri['user']=== '')) {
             return '';
-        } 
-        if ($this->parseUri['user'] !== '') {
-            return $this->getUserInfo() .'@'. $this->parseUri['host'];
         }
+        return $this->getUserInfo() .'@'. $this->parseUri['host'];
     }
     /**
      * Возвращает фрагмент
