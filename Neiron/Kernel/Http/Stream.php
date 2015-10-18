@@ -48,9 +48,9 @@ class Stream implements StreamInterface  {
     }
 
     public function detach() {
-            $return = $this->stream;
-            $this->close();
-            return $return;
+        $return = $this->stream;
+        $this->close();
+        return $return;
     }
 
     public function eof() {
