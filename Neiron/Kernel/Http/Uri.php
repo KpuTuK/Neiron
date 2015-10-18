@@ -11,7 +11,7 @@ use Psr\Http\Message\UriInterface;
  * @version 1.0.0
  * @package Neiron framework
  * @category Kernel
- * @link
+ * @link https://github.com/KpuTuK/Neiron/wiki/Uri-Class
  * @todo Добавить проверки методов with...() 
  *      согласно http://www.php-fig.org/psr/psr-7/
  */
@@ -31,7 +31,7 @@ class Uri implements UriInterface {
         'fragment' => '',
     ];
     /**
-     * Конструктор класса
+     * Создает новый экземпляр класса с указанным uri 
      * @param string $uri Строка uri
      */
     public function __construct($uri) {
