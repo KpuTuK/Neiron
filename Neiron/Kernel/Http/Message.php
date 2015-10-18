@@ -13,12 +13,26 @@ use Psr\Http\Message\StreamInterface;
  * @version 1.0.0
  * @package Neiron framework
  * @category Http-component
- * @link
  */
 class Message implements MessageInterface {
+    /**
+     * Разделитель имени и контента заголовка
+     */
     const HEADER_SEP = ': ';
+    /**
+     * Версия протокола
+     * @var string 
+     */
     protected $protocol = '1.0';
+    /**
+     * Массив заголовков
+     * @var array
+     */
     protected $headers = [];
+    /**
+     * Тело сообщения
+     * @var \Psr\Http\Message\StreamInterface 
+     */
     protected $body;
     /**
      * Возвращает тело сообщения
@@ -86,13 +100,13 @@ class Message implements MessageInterface {
     public function withAddedHeader($name, $value) {
         $headerName = ucfirst($name);
         if ($this->hasHeader($headerName)) {
-            $this->headers[$headerName] = ucfirst($value);
+            $this->headers[$headerName] = $value;
         }
         return $this;
     }
     /**
      * Возвращает экземпляр класса с указанным телом сообщения
-     * @param StreamInterface $body
+     * @param StreamInterface $body Тело сообщения
      * @return \Neiron\Kernel\Http\Message
      */
     public function withBody(StreamInterface $body) {
@@ -102,14 +116,11 @@ class Message implements MessageInterface {
     /**
      * Возвращает экземпляр класса с заменой указанного заголовка
      * @param string $name Имя заголовка без учета регистра
-     * @param type $value
+     * @param string $value Содержимое заголовка
      * @return \Neiron\Kernel\Http\Message
      */
     public function withHeader($name, $value) {
-        $headerName = ucfirst($name);
-        if (!$this->hasHeader($headerName)) {
-            $this->headers[$headerName] = ucfirst((string)$value);
-        }
+        $this->headers[ucfirst((string)$name)] = $value;
         return $this;
     }
     /**
