@@ -35,6 +35,17 @@ class Message implements MessageInterface {
      */
     protected $body;
     /**
+     * Иницилизирует класс с набором заголовков из $_SERVER
+     * @param array $serverVars
+     */
+    public function __construct(array $serverVars) {
+        foreach ($serverVars as $key => $value) {		
+           if (strpos($key, 'HTTP_') !== false) {		
+               $this->headers[substr(strtr($key, '_', '-'), 5)] = $value;		
+            }		
+        }
+    }
+    /**
      * Возвращает тело сообщения
      * @return \Psr\Http\Message\StreamInterface
      */
