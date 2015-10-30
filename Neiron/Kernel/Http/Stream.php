@@ -19,8 +19,8 @@ class Stream implements StreamInterface  {
     protected $options = [];
     protected $stream;
     protected $modes = [
-        ['read'] => ['r+', 'r', 'w+', 'a+', 'x+', 'c+'],
-        ['write'] => ['w', 'w+', 'r+', 'a', 'a+', 'x', 'x+', 'c', 'c+']
+        'read' => ['r+', 'r', 'w+', 'a+', 'x+', 'c+'], 
+        'write' => ['w', 'w+', 'r+', 'a', 'a+', 'x', 'x+', 'c', 'c+'],
     ];
     protected $readable = false;
     protected $writable = false;
@@ -33,20 +33,30 @@ class Stream implements StreamInterface  {
         $this->stream = $stream;
         $mode = $this->getMetadata('mode');
         $this->readable = isset($this->modes['read'][$mode]);
-        $this->writable = isset($this->modes['read'][$mode]);
+        $this->writable = isset($this->modes['write'][$mode]);
     }
     public function withOptions(array $options) {
         $this->options = array_merge($this->options, $options);
         return $this;
     }
+    /**
+     * Считывает все данные от начала до конца из потока в строку.
+     * @return string
+     */
     public function __toString() {
         return $this->getContents();
     }
-
+    /**
+     * Закрывает поток и все основные ресурсы
+     * @return void
+     */
     public function close() {
         return fclose($this->stream);
     }
-
+    /**
+     * Отделяет все ресурсы из потока
+     * @return type
+     */
     public function detach() {
         $return = $this->stream;
         $this->close();
