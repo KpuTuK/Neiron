@@ -14,19 +14,24 @@ use Psr\Http\Message\RequestInterface;
  *
  * @author KpuTuK
  */
-class Request extends ServerRequest implements RequestInterface {
-
-    /**
-     * Dependency Injection Контейнер
-     * @var \Neiron\Kernel\DependencyInjection\DependencyInjectionInterface
-     */
-    protected $container;
-    public function __construct($uri, $method) {
-        parent::__construct($uri);
+class Request extends ServerRequest implements
+    RequestInterface, RequestMethodInterface {
+    public function __construct(
+        $uri = '/',
+        RequestMethodInterface $method = Request::METH_GET,
+        array $server = array(), 
+        array $query = array(), 
+        array $parsedBody = array(), 
+        array $cookies = array(), 
+        array $files = array()
+    ) {
+        parent::__construct(
+            $uri, $server, $query, $parsedBody, $cookies, $files
+        );
         $this->withMethod($method);
     }
     public function getMethod() {
-        
+        return $this->getServerParams()['HTTP_METHOD'];
     }
 
     public function getRequestTarget() {
@@ -35,8 +40,7 @@ class Request extends ServerRequest implements RequestInterface {
 
     public function getUri() {
         return (string) $this->uri->getScheme() . $this->uri->getAuthority() .
-        $this->uri->getHost() . $this->uri->getPort() . $this->uri->getPath() .
-        $this->uri->getQuery() . $this->uri->getFragment();
+        $this->uri->getPath() . $this->uri->getQuery() . $this->uri->getFragment();
     }
 
     public function withMethod($method) {
@@ -48,8 +52,9 @@ class Request extends ServerRequest implements RequestInterface {
     }
 
     public function withUri(\Psr\Http\Message\UriInterface $uri, $preserveHost = false) {
-        
+        $this->uri = $uri;
+        if (false === $preserveHost) {
+            $this->withHeader('Host', $uri->getHost());
+        }
     }
-
-    protected $uri;
 }
