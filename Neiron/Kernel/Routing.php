@@ -5,8 +5,6 @@
 
 namespace Neiron\Kernel;
 
-use Neiron\API\Kernel\RoutingInterface;
-use Neiron\API\Kernel\RequestInterface;
 
 /**
  * Обработчик роутов
@@ -16,7 +14,7 @@ use Neiron\API\Kernel\RequestInterface;
  * @category Kernel
  * @link
  */
-class Routing implements RoutingInterface
+class Routing
 {
     /**
      * Массив роутов
@@ -44,7 +42,7 @@ class Routing implements RoutingInterface
      */
     public function __construct(array $routes = array())
     {
-        $this->addRoutes($routes);
+        $this->withRoutes($routes);
     }
     /**
      * Добавляет роут в обработчик
@@ -53,7 +51,7 @@ class Routing implements RoutingInterface
      * @param mixed $handler Анонимная функция или строка вида "пространство имен контроллера@экшен"
      * @param string $method Метод запроса
      */
-    public function addRoute($name, $pattern, $handler, $method = RequestInterface::METH_GET)
+    public function withRoute($name, $pattern, $handler, $method = RequestInterface::METH_GET)
     {
         $regex = $this->compilePattern(rtrim($pattern, '/'));
         $this->routes[$method][$name] = array(
@@ -86,7 +84,7 @@ class Routing implements RoutingInterface
      * Добавляет массив роутов в обработчик
      * @param array $routes Массив роутов
      */
-    public function addRoutes(array $routes = array())
+    public function withRoutes(array $routes = array())
     {
         foreach ($routes as $route) {
             $this->addRoute(
