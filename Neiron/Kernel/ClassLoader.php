@@ -38,7 +38,7 @@ class ClassLoader
      * @param string $namespace
      * @return \Neiron\Kernel\ClassLoader
      */
-    public function addPath($class, $namespace)
+    public function withPath($class, $namespace)
     {
         $this->pathes[(string) $class] = (string) $namespace;
         return $this;
@@ -49,7 +49,7 @@ class ClassLoader
      * @param sring $class Имя класса
      * @return \Neiron\Kernel\ClassLoader
      */
-    public function addPathPsr0($class)
+    public function withPathPsr0($class)
     {
         $this->pathes[$class] = strtr($class, '_', '/');
         return $this;
@@ -59,7 +59,7 @@ class ClassLoader
      * @param array $pathes Массив классов и пространств имен к ним
      * @return \Neiron\Kernel\ClassLoader
      */
-    public function addPathes(array $pathes)
+    public function withPathes(array $pathes)
     {
         $this->pathes = array_merge($this->patches, $pathes);
         return $this;
