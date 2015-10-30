@@ -53,7 +53,11 @@ class Uri implements UriInterface {
                 ($this->parseUri['user']=== '')) {
             return '';
         }
-        return $this->getUserInfo() .'@'. $this->parseUri['host'];
+        $authority = $this->getUserInfo();
+        $authority .= '@';
+        $authority .= $this->getHost();
+        $authority .= ($this->getPort() !== '') ? ':'. $this->getPort() : '';
+        return $authority; 
     }
     /**
      * Возвращает фрагмент
