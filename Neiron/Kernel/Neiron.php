@@ -34,7 +34,7 @@ class Neiron extends DependencyInjection implements \ArrayAccess
      */
     public function get($name, $pattern, $handler)
     {
-        $this['routing']->addRoute(
+        $this['routing']->withRoute(
             $name, $pattern, $handler, RequestInterface::METH_GET
         );
     }
@@ -46,7 +46,7 @@ class Neiron extends DependencyInjection implements \ArrayAccess
      */
     public function post($name, $pattern, $handler)
     {
-        $this['routing']->addRoute(
+        $this['routing']->withRoute(
             $name, $pattern, $handler, RequestInterface::METH_POST
         );
     }
@@ -58,7 +58,7 @@ class Neiron extends DependencyInjection implements \ArrayAccess
      */
     public function put($name, $pattern, $handler)
     {
-        $this['routing']->addRoute(
+        $this['routing']->withRoute(
                 $name, $pattern, $handler, RequestInterface::METH_PUT
         );
     }
@@ -70,7 +70,7 @@ class Neiron extends DependencyInjection implements \ArrayAccess
      */
     public function delete($name, $pattern, $handler)
     {
-        $this['routing']->addRoute(
+        $this['routing']->withRoute(
                 $name, $pattern, $handler, RequestInterface::METH_DELETE
         );
     }
