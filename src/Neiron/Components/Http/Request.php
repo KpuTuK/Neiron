@@ -99,5 +99,6 @@ class Request extends ServerRequest implements
         if (false === $preserveHost) {
             $cloned->withHeader('Host', $uri->getHost());
         }
+        return $cloned;
     }
 }
