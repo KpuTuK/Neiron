@@ -61,7 +61,7 @@ class ClassLoader
      */
     public function withPathes(array $pathes)
     {
-        $this->pathes = array_merge($this->patches, $pathes);
+        $this->pathes = array_merge($this->pathes, $pathes);
         return $this;
     }
     /**
