@@ -1,24 +1,41 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * PHP 5.4 framework с открытым иходным кодом
  */
 
 namespace Neiron\Components\Http;
 
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\UriInterface;
 /**
- * Description of Request
+ * Обработчик запросов к HTTP серверу
  *
  * @author KpuTuK
+ * @version 1.0.0
+ * @package Neiron framework
+ * @category Http-component
  */
 class Request extends ServerRequest implements
-    RequestInterface, RequestMethodInterface {
+    RequestMethodInterface, RequestInterface 
+{
+    /**
+     * Целевой запрос
+     * @var string
+     */
+    protected $requestTraget = '/';
+    /**
+     * Иницилизирует класс с набором данных запроса
+     * @param string $uri Запрашиваемый URI
+     * @param string $method Метод запроса
+     * @param array $server Массив имитирующий $_SERVER
+     * @param array $query Массив имитирующий $_GET
+     * @param array $parsedBody Массив имитирующий $_POST
+     * @param array $cookies Массив имитирующий $_COOKIE
+     * @param array $files Массив имитирующий $_FILES
+     */
     public function __construct(
         $uri = '/',
-        RequestMethodInterface $method = Request::METH_GET,
+        $method = Request::METH_GET,
         array $server = array(), 
         array $query = array(), 
         array $parsedBody = array(), 
@@ -30,31 +47,57 @@ class Request extends ServerRequest implements
         );
         $this->withMethod($method);
     }
+    /**
+     * Возвращает метод запроса
+     * @return string
+     */
     public function getMethod() {
         return $this->getServerParams()['HTTP_METHOD'];
     }
-
+    /**
+     * Возвращает целевой URI
+     * @return string
+     */
     public function getRequestTarget() {
-        
+        return $this->requestTraget;
     }
-
+    /**
+     * Возвращает URI
+     * @return string
+     */
     public function getUri() {
-        return (string) $this->uri->getScheme() . $this->uri->getAuthority() .
-        $this->uri->getPath() . $this->uri->getQuery() . $this->uri->getFragment();
+        return (string)$this->uri;
     }
-
+    /**
+     * Возвращает клон класса с указанным методом запроса
+     * @param string $method
+     * @return \Neiron\Components\Http\Request
+     */
     public function withMethod($method) {
-        $this->server['HTTP_METHOD'] = $method;
+        $cloned = $this;
+        $cloned->server['HTTP_METHOD'] = $method;
+        return $cloned;
     }
-
+    /**
+     * Возвращает клон класса с указанным целевым URI
+     * @param string $requestTarget
+     * @return \Neiron\Components\Http\Request
+     */
     public function withRequestTarget($requestTarget) {
-        
+        $cloned = $this;
+        $cloned->requestTraget = $requestTarget;
+        return $cloned;
     }
-
-    public function withUri(\Psr\Http\Message\UriInterface $uri, $preserveHost = false) {
-        $this->uri = $uri;
+    /**
+     * Возвращает клон класса с указанным URI 
+     * @param \Psr\Http\Message\UriInterface $uri
+     * @param bool $preserveHost 
+     */
+    public function withUri(UriInterface $uri, $preserveHost = false) {
+        $cloned = $this;
+        $cloned->uri = $uri;
         if (false === $preserveHost) {
-            $this->withHeader('Host', $uri->getHost());
+            $cloned->withHeader('Host', $uri->getHost());
         }
     }
 }
