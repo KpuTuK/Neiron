@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Neiron\Kernel\Http;
+namespace Neiron\Components\Http;
 
 use Psr\Http\Message\RequestInterface;
 /**

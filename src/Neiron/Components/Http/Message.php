@@ -2,7 +2,7 @@
 /**
  * PHP 5x framework с открытым иходным кодом
  */
-namespace Neiron\Kernel\Http;
+namespace Neiron\Components\Http;
 
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;

@@ -6,13 +6,12 @@
  * and open the template in the editor.
  */
 
-namespace Neiron\Kernel\Http;
+namespace Neiron\Components\DependencyInjection;
 
 /**
- * Description of Response
  *
  * @author KpuTuK
  */
-class Response {
+interface DependencyInjectionInterface extends \ArrayAccess {
     //put your code here
 }

@@ -4,7 +4,7 @@
  * PHP 5.4 framework с открытым иходным кодом
  */
 
-namespace Neiron\Kernel\Http;
+namespace Neiron\Components\Http;
 
 /**
  * Интерфейс определяющй константы метода запроса

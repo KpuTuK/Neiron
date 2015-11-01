@@ -2,7 +2,7 @@
 /**
  * PHP 5x framework с открытым иходным кодом
  */
-namespace Neiron\Kernel;
+namespace Neiron\Components\DependencyInjection;
 
 /**
  * Dependency injection Контейнер
