@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5x framework с открытым иходным кодом
+ * PHP 5.4 framework с открытым иходным кодом
  */
 namespace Neiron\Components\Http;
 
@@ -15,10 +15,6 @@ use Psr\Http\Message\StreamInterface;
  * @category Http-component
  */
 class Message implements MessageInterface {
-    /**
-     * Разделитель имени и контента заголовка
-     */
-    const HEADER_SEP = ': ';
     /**
      * Версия протокола
      * @var string 
@@ -55,7 +51,7 @@ class Message implements MessageInterface {
     /**
      * Возвращает все значения указанного заголовка сообщения
      * @param string $name Имя заголовка без учета регистра
-     * @return type
+     * @return string
      */
     public function getHeader($name) {
         $headerName = ucfirst($name);
@@ -72,10 +68,9 @@ class Message implements MessageInterface {
         $headerName = ucfirst($name);
         if ($this->hasHeader($headerName)) {
             if (is_string($this->headers[$headerName])) {
-                return (string)$headerName . 
-                self::HEADER_SEP . $this->headers[$headerName];
+                return (string)$headerName . ': ' . $this->headers[$headerName];
             } else {
-                return (string)$headerName . self::HEADER_SEP .
+                return (string)$headerName . ': ' .
                 implode(', ', $this->headers[$headerName]);
             }
         }
@@ -103,56 +98,62 @@ class Message implements MessageInterface {
         return array_key_exists($name, $this->headers);
     }
     /**
-     * Возвращает экземпляр класса с заменой значения указанного заголовка
+     * Возвращает клон экземпляра класса с заменой значения указанного заголовка
      * @param string $name Имя заголовка без учета регистра
      * @param array|string $value Значение указанного заголовка
      * @return \Neiron\Kernel\Http\Message
      */
     public function withAddedHeader($name, $value) {
         $headerName = ucfirst($name);
-        if ($this->hasHeader($headerName)) {
-            $this->headers[$headerName] = $value;
+        $cloned = clone $this;
+        if ($cloned->hasHeader($headerName)) {
+            $cloned->headers[$headerName] = $value;
         }
-        return $this;
+        unset($cloned->headers[$headerName]);
+        return $cloned;
     }
     /**
-     * Возвращает экземпляр класса с указанным телом сообщения
+     * Возвращает клон экземпляра класса с указанным телом сообщения
      * @param StreamInterface $body Тело сообщения
      * @return \Neiron\Kernel\Http\Message
      */
     public function withBody(StreamInterface $body) {
-        $this->body = $body;
+        $cloned = clone $this;
+        $cloned->body = $body;
         return $this;
     }
     /**
-     * Возвращает экземпляр класса с заменой указанного заголовка
+     * Возвращает клон экземпляра класса с заменой указанного заголовка
      * @param string $name Имя заголовка без учета регистра
      * @param string $value Содержимое заголовка
      * @return \Neiron\Kernel\Http\Message
      */
     public function withHeader($name, $value) {
-        $this->headers[ucfirst((string)$name)] = $value;
-        return $this;
+        $cloned = clone $this;
+        $cloned->headers[ucfirst($name)] = $value;
+        return $cloned;
     }
     /**
-     * Принимает версию HTTP протокола
+     * Возвращает клон экземпляра класса с заменой указанного протокола
      * @param string $version версия HTTP протокола
      * @return \Neiron\Kernel\Http\Message
      */
     public function withProtocolVersion($version) {
-        $this->protocol = (string)$version;
-        return $this;
+        $cloned = clone $this;
+        $cloned->protocol = (string)$version;
+        return $cloned;
     }
     /**
-     * Возвращает экземпляр класса без указанного заголовка
+     * Возвращает клон экземпляра класса без указанного заголовка
      * @param string $name Имя заголовка без учета регистра
      * @return \Neiron\Kernel\Http\Message
      */
     public function withoutHeader($name) {
         $headerName = ucfirst($name);
-        if ($this->hasHeader($headerName)) {
-            unset($this->headers[$headerName]);
+        $cloned = clone $this;
+        if ($cloned->hasHeader($headerName)) {
+            unset($cloned->headers[$headerName]);
         }
-        return $this;
+        return $cloned;
     }
 }
