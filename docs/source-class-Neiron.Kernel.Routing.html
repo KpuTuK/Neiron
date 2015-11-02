@@ -5,7 +5,7 @@
 	<meta name="generator" content="ApiGen 2.8.0" />
 	<meta name="robots" content="noindex" />
 
-	<title>File src/Neiron/Kernel/Routing.php | ClassLoader</title>
+	<title>File src/Neiron/Kernel/Routing.php | Neiron Framework</title>
 
 	<script type="text/javascript" src="resources/combined.js?3223022049"></script>
 	<script type="text/javascript" src="elementlist.js?70546983"></script>
@@ -92,15 +92,24 @@
 			<li>
 				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
 			</li>
+			<li>
+				<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
 		</ul>
 		<ul>
+			<li>
+				<a href="neiron-framework-api-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
 		</ul>
 	</div>
 
 <pre><code><span id="1" class="l"><a class="l" href="#1">  1: </a><span class="xlang">&lt;?php</span>
 </span><span id="2" class="l"><a class="l" href="#2">  2: </a><span class="php-comment">/**
-</span></span><span id="3" class="l"><a class="l" href="#3">  3: </a><span class="php-comment"> * PHP 5x framework с открытым иходным кодом
-</span></span><span id="4" class="l"><a class="l" href="#4">  4: </a><span class="php-comment"> */</span>
+</span></span><span id="3" class="l"><a class="l" href="#3">  3: </a><span class="php-comment">     * PHP 5x framework с открытым иходным кодом
+</span></span><span id="4" class="l"><a class="l" href="#4">  4: </a><span class="php-comment">     */</span>
 </span><span id="5" class="l"><a class="l" href="#5">  5: </a>
 </span><span id="6" class="l"><a class="l" href="#6">  6: </a><span class="php-keyword1">namespace</span> Neiron\Kernel;
 </span><span id="7" class="l"><a class="l" href="#7">  7: </a>
@@ -169,14 +178,14 @@
 </span><span id="70" class="l"><a class="l" href="#70"> 70: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword1">false</span> === <span class="php-keyword2">strpos</span>(<span class="php-var">$pattern</span>, <span class="php-quote">'{'</span>)) {
 </span><span id="71" class="l"><a class="l" href="#71"> 71: </a>            <span class="php-keyword1">return</span> <span class="php-var">$pattern</span>;
 </span><span id="72" class="l"><a class="l" href="#72"> 72: </a>        }
-</span><span id="73" class="l"><a class="l" href="#73"> 73: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">preg_replace_callback</span>(<span class="php-quote">'#\{(\w+):(\w+)\}#'</span>, <span class="php-keyword1">function</span> (<span class="php-var">$match</span>) {
+</span><span id="73" class="l"><a class="l" href="#73"> 73: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">preg_replace_callback</span>(<span class="php-quote">'#\{(\w+):(\w+)\}#'</span>, <span class="php-keyword1">function</span>(<span class="php-var">$match</span>) {
 </span><span id="74" class="l"><a class="l" href="#74"> 74: </a>            <span class="php-var">$patterns</span> = <span class="php-keyword1">array</span>(
 </span><span id="75" class="l"><a class="l" href="#75"> 75: </a>                <span class="php-quote">'i'</span> =&gt; <span class="php-quote">'[0-9]+'</span>,
 </span><span id="76" class="l"><a class="l" href="#76"> 76: </a>                <span class="php-quote">'s'</span> =&gt; <span class="php-quote">'[a-zA-Z\.\-_%]+'</span>,
 </span><span id="77" class="l"><a class="l" href="#77"> 77: </a>                <span class="php-quote">'x'</span> =&gt; <span class="php-quote">'[a-zA-Z0-9\.\-_%]+'</span>,
 </span><span id="78" class="l"><a class="l" href="#78"> 78: </a>            );
 </span><span id="79" class="l"><a class="l" href="#79"> 79: </a>            <span class="php-keyword1">list</span>(, <span class="php-var">$name</span>, <span class="php-var">$prce</span>) = <span class="php-var">$match</span>;
-</span><span id="80" class="l"><a class="l" href="#80"> 80: </a>            <span class="php-keyword1">return</span> <span class="php-quote">'(?&lt;'</span> . <span class="php-var">$name</span> . <span class="php-quote">'&gt;'</span> . <span class="php-keyword2">strtr</span>(<span class="php-var">$prce</span>, <span class="php-var">$patterns</span>) . <span class="php-quote">')'</span>;
+</span><span id="80" class="l"><a class="l" href="#80"> 80: </a>            <span class="php-keyword1">return</span> <span class="php-quote">'(?&lt;'</span>.<span class="php-var">$name</span>.<span class="php-quote">'&gt;'</span>.<span class="php-keyword2">strtr</span>(<span class="php-var">$prce</span>, <span class="php-var">$patterns</span>).<span class="php-quote">')'</span>;
 </span><span id="81" class="l"><a class="l" href="#81"> 81: </a>        }, <span class="php-var">$pattern</span>);
 </span><span id="82" class="l"><a class="l" href="#82"> 82: </a>    }
 </span><span id="83" class="l"><a class="l" href="#83"> 83: </a>    <span class="php-comment">/**
@@ -217,7 +226,7 @@
 </span><span id="118" class="l"><a class="l" href="#118">118: </a>        }
 </span><span id="119" class="l"><a class="l" href="#119">119: </a>        <span class="php-var">$matches</span> = <span class="php-keyword1">array</span>();
 </span><span id="120" class="l"><a class="l" href="#120">120: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$this</span>-&gt;routes[<span class="php-var">$method</span>] <span class="php-keyword1">as</span> <span class="php-var">$route</span>) {
-</span><span id="121" class="l"><a class="l" href="#121">121: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">preg_match</span>(<span class="php-quote">'#^'</span> . <span class="php-var">$route</span>[<span class="php-quote">'pattern'</span>] . <span class="php-quote">'$#s'</span>, <span class="php-var">$uri</span>, <span class="php-var">$matches</span>)) {
+</span><span id="121" class="l"><a class="l" href="#121">121: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">preg_match</span>(<span class="php-quote">'#^'</span>.<span class="php-var">$route</span>[<span class="php-quote">'pattern'</span>].<span class="php-quote">'$#s'</span>, <span class="php-var">$uri</span>, <span class="php-var">$matches</span>)) {
 </span><span id="122" class="l"><a class="l" href="#122">122: </a>                <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(
 </span><span id="123" class="l"><a class="l" href="#123">123: </a>                    <span class="php-quote">'handler'</span> =&gt; <span class="php-var">$route</span>[<span class="php-quote">'handler'</span>],
 </span><span id="124" class="l"><a class="l" href="#124">124: </a>                    <span class="php-quote">'params'</span> =&gt; <span class="php-var">$this</span>-&gt;getParams(<span class="php-var">$matches</span>)
@@ -236,14 +245,14 @@
 </span></span><span id="137" class="l"><a class="l" href="#137">137: </a><span class="php-comment">     */</span>
 </span><span id="138" class="l"><a class="l" href="#138">138: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> <a id="_getParams" href="#_getParams">getParams</a>(<span class="php-var">$params</span>)
 </span><span id="139" class="l"><a class="l" href="#139">139: </a>    {
-</span><span id="140" class="l"><a class="l" href="#140">140: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">array_filter</span>(<span class="php-var">$params</span>, <span class="php-keyword1">function</span> (<span class="php-var">$param</span>) {
+</span><span id="140" class="l"><a class="l" href="#140">140: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">array_filter</span>(<span class="php-var">$params</span>, <span class="php-keyword1">function</span>(<span class="php-var">$param</span>) {
 </span><span id="141" class="l"><a class="l" href="#141">141: </a>            <span class="php-keyword1">return</span> ! <span class="php-keyword2">is_int</span>(<span class="php-var">$param</span>);
 </span><span id="142" class="l"><a class="l" href="#142">142: </a>        });
 </span><span id="143" class="l"><a class="l" href="#143">143: </a>    }
 </span><span id="144" class="l"><a class="l" href="#144">144: </a></span>}</code></pre>
 
 	<div id="footer">
-		ClassLoader API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+		Neiron Framework API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
 	</div>
 </div>
 </div>
