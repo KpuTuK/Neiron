@@ -36,7 +36,7 @@ class DependencyInjection implements DependencyInjectionInterface
      */
     public function setInstance($name, $class)
     {
-        $this->offsetSet($name, function ($values) use ($class) {
+        $this->offsetSet($name, function($values) use ($class) {
             if (is_object($class)) {
                 return (new \ReflectionObject($class))->newInstance($values);
             }
@@ -90,7 +90,7 @@ class DependencyInjection implements DependencyInjectionInterface
      */
     public function offsetGet($offset)
     {
-        if (!$this->offsetExists($offset)) {
+        if ( ! $this->offsetExists($offset)) {
             throw new \InvalidArgumentException(
             sprintf('Параметр "%s" не существует!', $offset)
             );
@@ -104,7 +104,7 @@ class DependencyInjection implements DependencyInjectionInterface
      */
     public function offsetUnset($offset)
     {
-        if (!$this->offsetExists($offset)) {
+        if ( ! $this->offsetExists($offset)) {
             throw new \InvalidArgumentException(
             sprintf('Параметр "%s" не существует!', $offset)
             );
@@ -113,7 +113,7 @@ class DependencyInjection implements DependencyInjectionInterface
     }
     public function __call($name, $arguments) {
         if ($this->offsetExists($name) &&
-            $this->offsetGet($name) instanceof \Closure)  {
+            $this->offsetGet($name) instanceof \Closure) {
             return $this{$name}($arguments);
         }
         throw new \InvalidArgumentException(sprintf(
