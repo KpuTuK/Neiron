@@ -15,7 +15,7 @@ use Psr\Http\Message\StreamInterface;
  *
  * @author KpuTuK
  */
-class Stream implements StreamInterface  {
+class Stream implements StreamInterface {
     protected $options = [];
     protected $stream;
     protected $modes = [
