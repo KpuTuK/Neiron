@@ -1,7 +1,7 @@
 <?php
 /**
- * PHP 5.4 framework с открытым иходным кодом
- */
+     * PHP 5.4 framework с открытым иходным кодом
+     */
 namespace Neiron\Components\Http;
 
 use Psr\Http\Message\MessageInterface;
@@ -36,8 +36,8 @@ class Message implements MessageInterface {
      */
     public function __construct(array $serverVars) {
         foreach ($serverVars as $key => $value) {		
-           if (strpos($key, 'HTTP_') !== false) {		
-               $this->headers[substr(strtr($key, '_', '-'), 5)] = $value;		
+            if (strpos($key, 'HTTP_') !== false) {		
+                $this->headers[substr(strtr($key, '_', '-'), 5)] = $value;		
             }		
         }
     }
@@ -68,9 +68,9 @@ class Message implements MessageInterface {
         $headerName = ucfirst($name);
         if ($this->hasHeader($headerName)) {
             if (is_string($this->headers[$headerName])) {
-                return (string)$headerName . ': ' . $this->headers[$headerName];
+                return (string)$headerName.': '.$this->headers[$headerName];
             } else {
-                return (string)$headerName . ': ' .
+                return (string)$headerName.': '.
                 implode(', ', $this->headers[$headerName]);
             }
         }

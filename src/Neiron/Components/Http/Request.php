@@ -1,7 +1,7 @@
 <?php
 /**
- * PHP 5.4 framework с открытым иходным кодом
- */
+     * PHP 5.4 framework с открытым иходным кодом
+     */
 
 namespace Neiron\Components\Http;
 

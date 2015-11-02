@@ -1,7 +1,7 @@
 <?php
 /**
- * PHP 5x framework с открытым иходным кодом
- */
+     * PHP 5x framework с открытым иходным кодом
+     */
 namespace Neiron\Kernel;
 
 use Neiron\Components\DependencyInjection\DependencyInjection;

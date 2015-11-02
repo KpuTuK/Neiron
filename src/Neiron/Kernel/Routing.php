@@ -1,7 +1,7 @@
 <?php
 /**
- * PHP 5x framework с открытым иходным кодом
- */
+     * PHP 5x framework с открытым иходным кодом
+     */
 
 namespace Neiron\Kernel;
 
@@ -70,14 +70,14 @@ class Routing
         if (false === strpos($pattern, '{')) {
             return $pattern;
         }
-        return preg_replace_callback('#\{(\w+):(\w+)\}#', function ($match) {
+        return preg_replace_callback('#\{(\w+):(\w+)\}#', function($match) {
             $patterns = array(
                 'i' => '[0-9]+',
                 's' => '[a-zA-Z\.\-_%]+',
                 'x' => '[a-zA-Z0-9\.\-_%]+',
             );
             list(, $name, $prce) = $match;
-            return '(?<' . $name . '>' . strtr($prce, $patterns) . ')';
+            return '(?<'.$name.'>'.strtr($prce, $patterns).')';
         }, $pattern);
     }
     /**
@@ -118,7 +118,7 @@ class Routing
         }
         $matches = array();
         foreach ($this->routes[$method] as $route) {
-            if (preg_match('#^' . $route['pattern'] . '$#s', $uri, $matches)) {
+            if (preg_match('#^'.$route['pattern'].'$#s', $uri, $matches)) {
                 return array(
                     'handler' => $route['handler'],
                     'params' => $this->getParams($matches)
@@ -137,7 +137,7 @@ class Routing
      */
     protected function getParams($params)
     {
-        return array_filter($params, function ($param) {
+        return array_filter($params, function($param) {
             return ! is_int($param);
         });
     }

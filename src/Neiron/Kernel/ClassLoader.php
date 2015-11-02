@@ -1,7 +1,7 @@
 <?php
 /**
- * PHP 5x framework с открытым иходным кодом
- */
+     * PHP 5x framework с открытым иходным кодом
+     */
 namespace Neiron\Kernel;
 
 /**
@@ -40,7 +40,7 @@ class ClassLoader
      */
     public function withPath($class, $namespace)
     {
-        $this->pathes[(string) $class] = (string) $namespace;
+        $this->pathes[(string)$class] = (string)$namespace;
         return $this;
     }
     /**
@@ -86,7 +86,7 @@ class ClassLoader
      */
     protected function getFilePatch($class)
     {
-        $path = $this->rootDir . $this->preparePatch($class) . '.php';
+        $path = $this->rootDir.$this->preparePatch($class).'.php';
         $file = str_replace('\\', DIRECTORY_SEPARATOR, $path);
         if (file_exists($file)) {
             return $file;
