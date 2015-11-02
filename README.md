@@ -1,5 +1,7 @@
-Neiron
+Neiron 
 ======
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/KpuTuK/Neiron/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/KpuTuK/Neiron/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/KpuTuK/Neiron/badges/build.png?b=master)](https://scrutinizer-ci.com/g/KpuTuK/Neiron/build-status/master)
 
 PHP 5x Micro Framework
 
