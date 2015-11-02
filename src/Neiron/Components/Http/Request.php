@@ -15,8 +15,8 @@ use Psr\Http\Message\UriInterface;
  * @package Neiron framework
  * @category Http-component
  */
-class Request extends ServerRequest implements
-    RequestMethodInterface, RequestInterface 
+class Request extends ServerRequest implements RequestMethodInterface,
+    RequestInterface 
 {
     /**
      * Целевой запрос
