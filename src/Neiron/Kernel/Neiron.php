@@ -4,6 +4,8 @@
  */
 namespace Neiron\Kernel;
 
+use Neiron\Components\DependencyInjection\DependencyInjection;
+use Neiron\Components\Http;
 /**
  * Базовый класс framework'a
  * @author KpuTuK
@@ -35,7 +37,7 @@ class Neiron extends DependencyInjection implements \ArrayAccess
     public function get($name, $pattern, $handler)
     {
         $this['routing']->withRoute(
-            $name, $pattern, $handler, RequestInterface::METH_GET
+            $name, $pattern, $handler, Http\Request::METH_GET
         );
     }
     /**
@@ -47,7 +49,7 @@ class Neiron extends DependencyInjection implements \ArrayAccess
     public function post($name, $pattern, $handler)
     {
         $this['routing']->withRoute(
-            $name, $pattern, $handler, RequestInterface::METH_POST
+            $name, $pattern, $handler, Http\Request::METH_POST
         );
     }
     /**
@@ -59,7 +61,7 @@ class Neiron extends DependencyInjection implements \ArrayAccess
     public function put($name, $pattern, $handler)
     {
         $this['routing']->withRoute(
-                $name, $pattern, $handler, RequestInterface::METH_PUT
+                $name, $pattern, $handler, Http\Request::METH_PUT
         );
     }
     /**
@@ -71,7 +73,7 @@ class Neiron extends DependencyInjection implements \ArrayAccess
     public function delete($name, $pattern, $handler)
     {
         $this['routing']->withRoute(
-                $name, $pattern, $handler, RequestInterface::METH_DELETE
+                $name, $pattern, $handler, Http\Request::METH_DELETE
         );
     }
     /**
@@ -79,6 +81,15 @@ class Neiron extends DependencyInjection implements \ArrayAccess
      */
     public function run()
     {
-        
+        $this['request'] = new Http\Request(
+            '/', 
+            Http\Request::METH_GET,
+            $GLOBALS['_SERVER'], 
+            $GLOBALS['_GET'],
+            $GLOBALS['_POST'],
+            (array)$GLOBALS['_COOKIE'], 
+            (array)$GLOBALS['_FILES']
+        );
+        var_dump($this['request']);
     }
 }

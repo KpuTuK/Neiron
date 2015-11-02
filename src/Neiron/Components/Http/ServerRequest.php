@@ -110,7 +110,6 @@ abstract class ServerRequest extends Message implements ServerRequestInterface {
                 throw new \InvalidArgumentException('');
             }
         }
-        $this->attributes[];
     }
 
     public function withoutAttribute($name) {
