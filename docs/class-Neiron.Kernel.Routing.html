@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class Neiron\Kernel\Routing | ClassLoader</title>
+
+	<script type="text/javascript" src="resources/combined.js?3223022049"></script>
+	<script type="text/javascript" src="elementlist.js?70546983"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Предпросмотр</span></a>
+
+
+		<div id="groups">
+			<h3>Пространства имен</h3>
+			<ul>
+				<li class="active"><a href="namespace-Neiron.html">Neiron<span></span></a>
+						<ul>
+				<li><a href="namespace-Neiron.Components.html">Components<span></span></a>
+						<ul>
+				<li><a href="namespace-Neiron.Components.DependencyInjection.html">DependencyInjection</a>
+						</li>
+				<li><a href="namespace-Neiron.Components.Http.html">Http</a>
+						</li>
+							</ul></li>
+				<li class="active"><a href="namespace-Neiron.Kernel.html">Kernel</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li><a href="namespace-Psr.html">Psr<span></span></a>
+						<ul>
+				<li><a href="namespace-Psr.Http.html">Http<span></span></a>
+						<ul>
+				<li><a href="namespace-Psr.Http.Message.html">Message</a>
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Классы</h3>
+			<ul>
+				<li><a href="class-Neiron.Kernel.ClassLoader.html">ClassLoader</a></li>
+				<li><a href="class-Neiron.Kernel.Neiron.html">Neiron</a></li>
+				<li class="active"><a href="class-Neiron.Kernel.Routing.html">Routing</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Neiron.Kernel.html" title="Summary of Neiron\Kernel"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Routing</h1>
+
+
+	<div class="description">
+	
+<p>Обработчик роутов</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Neiron.html">Neiron</a>\<a href="namespace-Neiron.Kernel.html">Kernel</a><br />
+		<b>Package:</b> Neiron<br />
+
+				<b>Category:</b>
+				Kernel<br />
+				<b>Author:</b>
+				KpuTuK<br />
+				<b>Version:</b>
+				1.0.0<br />
+				<b>Link</b>
+				<br />
+		<b>Located at</b> <a href="source-class-Neiron.Kernel.Routing.html#9-144" title="Go to source code">src/Neiron/Kernel/Routing.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Neiron.Kernel.Routing.html#39-46" title="Go to source code">__construct</a>( <span>array <var>$routes</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Конструктор класса</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Конструктор класса</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$routes</var></dt>
+					<dd><code>array</code><br>$routes Массив роутов</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="withRoute" id="_withRoute">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_withRoute">#</a>
+		<code><a href="source-class-Neiron.Kernel.Routing.html#47-62" title="Go to source code">withRoute</a>( <span>string <var>$name</var></span>, <span>string <var>$pattern</var></span>, <span>mixed <var>$handler</var></span>, <span>string <var>$method</var> = RequestInterface::METH_GET</span> )</code>
+
+		<div class="description short">
+			
+<p>Добавляет роут в обработчик</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Добавляет роут в обработчик</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Имя роута</dd>
+					<dt><var>$pattern</var></dt>
+					<dd><code>string</code><br>$pattern Паттерн обработки</dd>
+					<dt><var>$handler</var></dt>
+					<dd><code>mixed</code><br>$handler Анонимная функция или строка вида
+"пространство имен контроллера@экшен"</dd>
+					<dt><var>$method</var></dt>
+					<dd><code>string</code><br>$method Метод запроса</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="compilePattern" id="_compilePattern">
+
+		<td class="attributes"><code>
+			 protected 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_compilePattern">#</a>
+		<code><a href="source-class-Neiron.Kernel.Routing.html#63-82" title="Go to source code">compilePattern</a>( <span>string <var>$pattern</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Компилирует паттерн из условного
+выражения</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Компилирует паттерн из условного
+выражения</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$pattern</var></dt>
+					<dd><code>string</code><br>$pattern Компилируемый паттерн</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Скомпилированный паттерн<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="withRoutes" id="_withRoutes">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_withRoutes">#</a>
+		<code><a href="source-class-Neiron.Kernel.Routing.html#83-97" title="Go to source code">withRoutes</a>( <span>array <var>$routes</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Добавляет массив роутов в обработчик</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Добавляет массив роутов в обработчик</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$routes</var></dt>
+					<dd><code>array</code><br>$routes Массив роутов</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="match" id="_match">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_match">#</a>
+		<code><a href="source-class-Neiron.Kernel.Routing.html#98-132" title="Go to source code">match</a>( <span>string <var>$uri</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$method</var> = RequestInterface::METH_GET</span> )</code>
+
+		<div class="description short">
+			
+<p>Обрабатывает uri по роуту</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Обрабатывает uri по роуту</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$uri</var></dt>
+					<dd><code>string</code><br>$uri Обрабатываемый uri</dd>
+					<dt><var>$method</var></dt>
+					<dd><code>string</code><br>$method Метод запроса</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>Массив с даныыми контролера<br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-ErrorException.html">ErrorException</a></code></code><br>Исключение выбрасываемое при отсутствии
+роутов<br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getParams" id="_getParams">
+
+		<td class="attributes"><code>
+			 protected 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getParams">#</a>
+		<code><a href="source-class-Neiron.Kernel.Routing.html#133-143" title="Go to source code">getParams</a>( <span>array <var>$params</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Фильтрует и возвращает параметры
+запроса</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Фильтрует и возвращает параметры
+запроса</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$params</var></dt>
+					<dd><code>array</code><br>$params Паараметры запроса</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>Параметры запроса<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="routes" id="$routes">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Neiron.Kernel.Routing.html#19-28" title="Go to source code"><var>$routes</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>(
+    <span class="php-quote">'GET'</span> =&gt; <span class="php-keyword1">array</span>(),
+    <span class="php-quote">'POST'</span> =&gt; <span class="php-keyword1">array</span>(),
+    <span class="php-quote">'PUT'</span> =&gt; <span class="php-keyword1">array</span>(),
+    <span class="php-quote">'DELET'</span> =&gt; <span class="php-keyword1">array</span>()
+)</code></td>
+		<td class="description"><div>
+			<a href="#$routes" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Массив роутов</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Массив роутов</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="patterns" id="$patterns">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Neiron.Kernel.Routing.html#29-38" title="Go to source code"><var>$patterns</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">array</span>(
+    <span class="php-quote">'GET'</span> =&gt; <span class="php-keyword1">array</span>(),
+    <span class="php-quote">'POST'</span> =&gt; <span class="php-keyword1">array</span>(),
+    <span class="php-quote">'PUT'</span> =&gt; <span class="php-keyword1">array</span>(),
+    <span class="php-quote">'DELET'</span> =&gt; <span class="php-keyword1">array</span>()
+)</code></td>
+		<td class="description"><div>
+			<a href="#$patterns" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Массив паттернов и обработчиков</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Массив паттернов и обработчиков</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		ClassLoader API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

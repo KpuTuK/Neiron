@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class Neiron\Components\Http\Message | ClassLoader</title>
+
+	<script type="text/javascript" src="resources/combined.js?3223022049"></script>
+	<script type="text/javascript" src="elementlist.js?70546983"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Предпросмотр</span></a>
+
+
+		<div id="groups">
+			<h3>Пространства имен</h3>
+			<ul>
+				<li class="active"><a href="namespace-Neiron.html">Neiron<span></span></a>
+						<ul>
+				<li class="active"><a href="namespace-Neiron.Components.html">Components<span></span></a>
+						<ul>
+				<li><a href="namespace-Neiron.Components.DependencyInjection.html">DependencyInjection</a>
+						</li>
+				<li class="active"><a href="namespace-Neiron.Components.Http.html">Http</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-Neiron.Kernel.html">Kernel</a>
+						</li>
+							</ul></li>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li><a href="namespace-Psr.html">Psr<span></span></a>
+						<ul>
+				<li><a href="namespace-Psr.Http.html">Http<span></span></a>
+						<ul>
+				<li><a href="namespace-Psr.Http.Message.html">Message</a>
+						</li>
+							</ul></li></ul></li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Классы</h3>
+			<ul>
+				<li class="active"><a href="class-Neiron.Components.Http.Message.html">Message</a></li>
+				<li><a href="class-Neiron.Components.Http.Request.html">Request</a></li>
+				<li><a href="class-Neiron.Components.Http.Response.html">Response</a></li>
+				<li><a href="class-Neiron.Components.Http.ServerRequest.html">ServerRequest</a></li>
+				<li><a href="class-Neiron.Components.Http.Stream.html">Stream</a></li>
+				<li><a href="class-Neiron.Components.Http.Uri.html">Uri</a></li>
+			</ul>
+
+			<h3>Интерфейсы</h3>
+			<ul>
+				<li><a href="class-Neiron.Components.Http.RequestMethodInterface.html">RequestMethodInterface</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Neiron.Components.Http.html" title="Summary of Neiron\Components\Http"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Message</h1>
+
+
+	<div class="description">
+	
+<p>Обработчик сообщений запроса</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+<b><span>Neiron\Components\Http\Message</span></b>			
+			 implements 
+				<a href="class-Psr.Http.Message.MessageInterface.html"><span>Psr\Http\Message\MessageInterface</span></a>
+			
+			
+		</dd>
+	</dl>
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-Neiron.Components.Http.ServerRequest.html">Neiron\Components\Http\ServerRequest</a>
+	</div>
+
+	<div>
+		<h4>Indirect known subclasses</h4>
+			<a href="class-Neiron.Components.Http.Request.html">Neiron\Components\Http\Request</a>
+	</div>
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Neiron.html">Neiron</a>\<a href="namespace-Neiron.Components.html">Components</a>\<a href="namespace-Neiron.Components.Http.html">Http</a><br />
+		<b>Package:</b> Neiron<br />
+
+				<b>Category:</b>
+				Http-component<br />
+				<b>Author:</b>
+				KpuTuK<br />
+				<b>Version:</b>
+				1.0.0<br />
+		<b>Located at</b> <a href="source-class-Neiron.Components.Http.Message.html#10-159" title="Go to source code">src/Neiron/Components/Http/Message.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#33-43" title="Go to source code">__construct</a>( <span>array <var>$serverVars</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Иницилизирует класс с набором заголовков
+из $_SERVER</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Иницилизирует класс с набором заголовков
+из $_SERVER</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$serverVars</var></dt>
+					<dd><code>array</code><br>$serverVars</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getBody" id="_getBody">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-Psr.Http.Message.StreamInterface.html">Psr\Http\Message\StreamInterface</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getBody">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#44-50" title="Go to source code">getBody</a>( )</code>
+
+		<div class="description short">
+			
+<p>Возвращает тело сообщения</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Возвращает тело сообщения</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Psr.Http.Message.StreamInterface.html">Psr\Http\Message\StreamInterface</a></code></code><br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Psr.Http.Message.MessageInterface.html#_getBody">Psr\Http\Message\MessageInterface::getBody()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getHeader" id="_getHeader">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getHeader">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#51-61" title="Go to source code">getHeader</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Возвращает все значения указанного
+заголовка сообщения</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Возвращает все значения указанного
+заголовка сообщения</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Имя заголовка без учета регистра</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Psr.Http.Message.MessageInterface.html#_getHeader">Psr\Http\Message\MessageInterface::getHeader()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getHeaderLine" id="_getHeaderLine">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getHeaderLine">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#62-77" title="Go to source code">getHeaderLine</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Возвращает указанный заголовок в виде
+сторки</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Возвращает указанный заголовок в виде
+сторки</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Имя заголовка без учета регистра</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Заголовок в виде сторки<br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Psr.Http.Message.MessageInterface.html#_getHeaderLine">Psr\Http\Message\MessageInterface::getHeaderLine()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getHeaders" id="_getHeaders">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getHeaders">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#78-84" title="Go to source code">getHeaders</a>( )</code>
+
+		<div class="description short">
+			
+<p>Возвращает все значения заголовков
+сообщения</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Возвращает все значения заголовков
+сообщения</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br>Ассоциативный массив заголовков<br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Psr.Http.Message.MessageInterface.html#_getHeaders">Psr\Http\Message\MessageInterface::getHeaders()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getProtocolVersion" id="_getProtocolVersion">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getProtocolVersion">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#85-91" title="Go to source code">getProtocolVersion</a>( )</code>
+
+		<div class="description short">
+			
+<p>Возвращает версию протокола ввиде
+строки</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Возвращает версию протокола ввиде
+строки</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br>Версия протокола<br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Psr.Http.Message.MessageInterface.html#_getProtocolVersion">Psr\Http\Message\MessageInterface::getProtocolVersion()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="hasHeader" id="_hasHeader">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_hasHeader">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#92-99" title="Go to source code">hasHeader</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Проверяет наличие указанного заголовка</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Проверяет наличие указанного заголовка</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Имя заголовка без учета регистра</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>True если заголовок присутствует или false если
+отсутствует<br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Psr.Http.Message.MessageInterface.html#_hasHeader">Psr\Http\Message\MessageInterface::hasHeader()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="withAddedHeader" id="_withAddedHeader">
+
+		<td class="attributes"><code>
+			 public 
+			Neiron\Kernel\Http\Message
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_withAddedHeader">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#100-114" title="Go to source code">withAddedHeader</a>( <span>string <var>$name</var></span>, <span>array|string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Возвращает клон экземпляра класса с
+заменой значения указанного заголовка</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Возвращает клон экземпляра класса с
+заменой значения указанного заголовка</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Имя заголовка без учета регистра</dd>
+					<dt><var>$value</var></dt>
+					<dd><code>array|string</code><br>$value Значение указанного заголовка</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Neiron\Kernel\Http\Message</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code></code><br>for invalid header names or values.<br />
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Psr.Http.Message.MessageInterface.html#_withAddedHeader">Psr\Http\Message\MessageInterface::withAddedHeader()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="withBody" id="_withBody">
+
+		<td class="attributes"><code>
+			 public 
+			Neiron\Kernel\Http\Message
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_withBody">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#115-124" title="Go to source code">withBody</a>( <span><code><a href="class-Psr.Http.Message.StreamInterface.html">Psr\Http\Message\StreamInterface</a></code> <var>$body</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Возвращает клон экземпляра класса с
+указанным телом сообщения</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Возвращает клон экземпляра класса с
+указанным телом сообщения</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$body</var></dt>
+					<dd><code><code><a href="class-Psr.Http.Message.StreamInterface.html">Psr\Http\Message\StreamInterface</a></code></code><br>$body Тело сообщения</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Neiron\Kernel\Http\Message</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code></code><br>When the body is not valid.<br />
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Psr.Http.Message.MessageInterface.html#_withBody">Psr\Http\Message\MessageInterface::withBody()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="withHeader" id="_withHeader">
+
+		<td class="attributes"><code>
+			 public 
+			Neiron\Kernel\Http\Message
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_withHeader">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#125-135" title="Go to source code">withHeader</a>( <span>string <var>$name</var></span>, <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Возвращает клон экземпляра класса с
+заменой указанного заголовка</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Возвращает клон экземпляра класса с
+заменой указанного заголовка</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Имя заголовка без учета регистра</dd>
+					<dt><var>$value</var></dt>
+					<dd><code>string</code><br>$value Содержимое заголовка</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Neiron\Kernel\Http\Message</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-InvalidArgumentException.html">InvalidArgumentException</a></code></code><br>for invalid header names or values.<br />
+				</div>
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Psr.Http.Message.MessageInterface.html#_withHeader">Psr\Http\Message\MessageInterface::withHeader()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="withProtocolVersion" id="_withProtocolVersion">
+
+		<td class="attributes"><code>
+			 public 
+			Neiron\Kernel\Http\Message
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_withProtocolVersion">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#136-145" title="Go to source code">withProtocolVersion</a>( <span>string <var>$version</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Возвращает клон экземпляра класса с
+заменой указанного протокола</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Возвращает клон экземпляра класса с
+заменой указанного протокола</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$version</var></dt>
+					<dd><code>string</code><br>$version версия HTTP протокола</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Neiron\Kernel\Http\Message</code><br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Psr.Http.Message.MessageInterface.html#_withProtocolVersion">Psr\Http\Message\MessageInterface::withProtocolVersion()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="withoutHeader" id="_withoutHeader">
+
+		<td class="attributes"><code>
+			 public 
+			Neiron\Kernel\Http\Message
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_withoutHeader">#</a>
+		<code><a href="source-class-Neiron.Components.Http.Message.html#146-158" title="Go to source code">withoutHeader</a>( <span>string <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Возвращает клон экземпляра класса без
+указанного заголовка</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Возвращает клон экземпляра класса без
+указанного заголовка</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$name</var></dt>
+					<dd><code>string</code><br>$name Имя заголовка без учета регистра</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Neiron\Kernel\Http\Message</code><br />
+				</div>
+
+
+
+
+				<h4>Implementation of</h4>
+				<div class="list"><code><a href="class-Psr.Http.Message.MessageInterface.html#_withoutHeader">Psr\Http\Message\MessageInterface::withoutHeader()</a></code></div>
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="protocol" id="$protocol">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Neiron.Components.Http.Message.html#18-22" title="Go to source code"><var>$protocol</var></a>
+		</td>
+		<td class="value"><code><span class="php-quote">'1.0'</span></code></td>
+		<td class="description"><div>
+			<a href="#$protocol" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Версия протокола</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Версия протокола</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="headers" id="$headers">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Neiron.Components.Http.Message.html#23-27" title="Go to source code"><var>$headers</var></a>
+		</td>
+		<td class="value"><code>[]</code></td>
+		<td class="description"><div>
+			<a href="#$headers" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Массив заголовков</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Массив заголовков</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="body" id="$body">
+		<td class="attributes"><code>
+			protected  
+			<code><a href="class-Psr.Http.Message.StreamInterface.html">Psr\Http\Message\StreamInterface</a></code>
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Neiron.Components.Http.Message.html#28-32" title="Go to source code"><var>$body</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$body" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Тело сообщения</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Тело сообщения</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		ClassLoader API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>
