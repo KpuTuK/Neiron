@@ -87,8 +87,11 @@ class Routing
     public function withRoutes(array $routes = array())
     {
         foreach ($routes as $route) {
-            $this->addRoute(
-                    $route['name'], $route['pattern'], $route['handler'], $route['method']
+            $this->withRoute(
+                $route['name'],
+                $route['pattern'],
+                $route['handler'],
+                $route['method']
             );
         }
     }
