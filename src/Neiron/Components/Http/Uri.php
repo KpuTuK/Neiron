@@ -50,13 +50,13 @@ class Uri implements UriInterface {
      */
     public function getAuthority() {
         if (($this->parseUri['host'] === '') || 
-                ($this->parseUri['user']=== '')) {
+                ($this->parseUri['user'] === '')) {
             return '';
         }
         $authority = $this->getUserInfo();
         $authority .= '@';
         $authority .= $this->getHost();
-        $authority .= ($this->getPort() !== '') ? ':'. $this->getPort() : '';
+        $authority .= ($this->getPort() !== '') ? ':'.$this->getPort() : '';
         return $authority; 
     }
     /**
@@ -106,7 +106,7 @@ class Uri implements UriInterface {
      * @return string
      */
     public function getUserInfo() {
-        return $this->parseUri['user'] .':'. $this->parseUri['pass'];
+        return $this->parseUri['user'].':'.$this->parseUri['pass'];
     }
     /**
      * Записывает фрагмент

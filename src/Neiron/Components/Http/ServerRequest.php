@@ -98,7 +98,7 @@ abstract class ServerRequest extends Message implements ServerRequestInterface {
         $this->query = array_merge($this->query, $query);
         $queryString = '';
         foreach ($query as $key => $value) {
-            $queryString .= '&'. $key.'='. $value;
+            $queryString .= '&'.$key.'='.$value;
         }
         $this->uri->withQuery($queryString);
         return $this;
