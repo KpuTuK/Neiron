@@ -16,7 +16,8 @@ use Psr\Http\Message\UriInterface;
  * @category Http-component
  */
 class Request extends ServerRequest implements 
-    RequestMethodInterface, RequestInterface 
+    RequestMethodInterface, 
+    RequestInterface 
 {
     /**
      * Целевой запрос
