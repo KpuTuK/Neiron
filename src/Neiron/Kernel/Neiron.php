@@ -29,6 +29,13 @@ class Neiron extends DependencyInjection implements \ArrayAccess
         parent::__construct($options);
     }
     /**
+     * Предоставляет статический доступ к контейнеру
+     * @return \Neiron\Kernel\Neiron
+     */
+    public static function getContainer() {
+        return self;
+    }
+    /**
      * Добавляет обработчик роута по паттерну вызываемого методом GET
      * @param sring $name Имя роута
      * @param string $pattern Паттерн обработки роута
