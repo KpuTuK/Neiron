@@ -26,7 +26,7 @@ class Neiron extends DependencyInjection implements \ArrayAccess
      */
     public function __construct(array $options = [])
     {
-        
+        parent::__construct($options);
     }
     /**
      * Добавляет обработчик роута по паттерну вызываемого методом GET
@@ -90,6 +90,5 @@ class Neiron extends DependencyInjection implements \ArrayAccess
             (array)$GLOBALS['_COOKIE'], 
             (array)$GLOBALS['_FILES']
         );
-        var_dump($this['request']);
     }
 }
