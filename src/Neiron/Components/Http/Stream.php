@@ -82,10 +82,10 @@ class Stream implements StreamInterface {
     }
     /**
      * Закрывает поток и все основные ресурсы
-     * @return void
+     * @return  void
      */
     public function close() {
-        return fclose($this->stream);
+        fclose($this->stream);
     }
     /**
      * Отделяет все ресурсы из потока
