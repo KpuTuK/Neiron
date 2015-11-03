@@ -9,7 +9,7 @@ namespace Neiron\Components\DependencyInjection;
  * @author KpuTuK
  * @version 1.0.0
  * @package Neiron framework
- * @category Kernel
+ * @category Dependency injection
  * @link
  */
 class DependencyInjection implements DependencyInjectionInterface
@@ -50,13 +50,9 @@ class DependencyInjection implements DependencyInjectionInterface
      */
     public function rewind($name, $value)
     {
-        if ($this->offsetExists($name)) {
-            $this->offsetUnset($name);
-            return $this->offsetSet($name, $value);
-        }
-        throw new \InvalidArgumentException(
-            sprintf('Параметр "%s" уже существует!', $name)
-        );
+        $this->exceptionOffsetExists($name, false);
+        $this->offsetUnset($name);
+        return $this->offsetSet($name, $value);
     }
     /**
      * Проверяет наличие параметра в контейнере
@@ -71,54 +67,67 @@ class DependencyInjection implements DependencyInjectionInterface
      * Сохраняет содержимое в контейнер по ключу
      * @param string $offset Ключ
      * @param mixed $value Сохраняемое содержимое
-     * @throws \InvalidArgumentException Исключение выбрасываемое в случае если ключ уже существует в контейнере
+     * @throws \InvalidArgumentException 
      */
     public function offsetSet($offset, $value)
     {
-        if ($this->offsetExists($offset)) {
-            throw new \InvalidArgumentException(
-            sprintf('Параметр "%s" уже существует!', $offset)
-            );
-        }
+        $this->exceptionOffsetExists($offset, true);
         $this->container[$offset] = $value;
     }
     /**
      * Возвращает содержимое контейнера по ключу
      * @param string $offset Ключ содержимого
      * @return mixed Содержимое
-     * @throws \InvalidArgumentException Исключение выбрасываемое в случае отсутствия ключа в контейнере
+     * @throws \InvalidArgumentException 
      */
     public function offsetGet($offset)
     {
-        if ( ! $this->offsetExists($offset)) {
-            throw new \InvalidArgumentException(
-            sprintf('Параметр "%s" не существует!', $offset)
-            );
-        }
+        $this->exceptionOffsetExists($offset, false);
         return $this->container[$offset];
     }
     /**
      * Удаляет содержимое по ключу в контейнере
      * @param string $offset Ключ содержимого
-     * @throws \InvalidArgumentException Исключение выбрасываемое в случае отсутствия ключа в контейнере
+     * @throws \InvalidArgumentException 
      */
     public function offsetUnset($offset)
     {
-        if ( ! $this->offsetExists($offset)) {
-            throw new \InvalidArgumentException(
-            sprintf('Параметр "%s" не существует!', $offset)
-            );
-        }
+        $this->exceptionOffsetExists($offset, false);
         unset($this->container[$offset]);
     }
+    /**
+     * 
+     * @param string $name
+     * @param string $arguments
+     * @return mixed
+     * @throws \InvalidArgumentException
+     */
     public function __call($name, $arguments) {
         if ($this->offsetExists($name) &&
             $this->offsetGet($name) instanceof \Closure) {
             return $this{$name}($arguments);
         }
         throw new \InvalidArgumentException(sprintf(
-            'Параметр "%s" не существует или не являеться анонимной функцией!',
+            'Параметр "%s" не существует или не является анонимной функцией!',
             $name
         ));
+    }
+    /**
+     * Проверяет наличие/отсутствие ключа в контейнере в зависимоси от режима
+     * @param string $offset
+     * @param bool $mode
+     * @throws \InvalidArgumentException
+     */
+    protected function exceptionOffsetExists($offset, $mode = false) {
+        if ((false === $mode) && (false === $this->offsetExists($offset))) {
+            throw new \InvalidArgumentException(
+            sprintf('Параметр "%s" не существует!', $offset)
+            );
+        }
+        if ((true === $mode) && (true === $this->offsetExists($offset))) {
+            throw new \InvalidArgumentException(
+            sprintf('Параметр "%s" уже существует!', $offset)
+            );
+        }
     }
 }
