@@ -62,11 +62,11 @@ class Request extends ServerRequest implements RequestMethodInterface,
         return $this->requestTraget;
     }
     /**
-     * Возвращает URI
-     * @return string
+     * Возвращает обьект класса реализующего \Psr\Http\Message\UriInterface
+     * @return \Psr\Http\Message\UriInterface
      */
     public function getUri() {
-        return (string)$this->uri;
+        return $this->uri;
     }
     /**
      * Возвращает клон класса с указанным методом запроса
