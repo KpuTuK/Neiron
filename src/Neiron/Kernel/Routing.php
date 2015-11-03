@@ -20,27 +20,21 @@ class Routing
      * Массив роутов
      * @var array 
      */
-    protected $routes = array(
-        'GET' => array(),
-        'POST' => array(),
-        'PUT' => array(),
-        'DELET' => array()
-    );
+    protected $routes = [
+        'GET' => [], 'POST' => [], 'PUT' => [], 'DELET' => []
+    ];
     /**
      * Массив паттернов и обработчиков
      * @var array
      */
-    protected $patterns = array(
-        'GET' => array(),
-        'POST' => array(),
-        'PUT' => array(),
-        'DELET' => array()
-    );
+    protected $patterns = [
+        'GET' => [], 'POST' => [], 'PUT' => [], 'DELET' => []
+    ];
     /**
      * Конструктор класса
      * @param array $routes Массив роутов
      */
-    public function __construct(array $routes = array())
+    public function __construct(array $routes = [])
     {
         $this->withRoutes($routes);
     }
@@ -54,10 +48,10 @@ class Routing
     public function withRoute($name, $pattern, $handler, $method = RequestInterface::METH_GET)
     {
         $regex = $this->compilePattern(rtrim($pattern, '/'));
-        $this->routes[$method][$name] = array(
+        $this->routes[$method][$name] = [
             'handler' => $handler,
             'pattern' => $regex
-        );
+        ];
         $this->patterns[$method][$regex] = $handler;
     }
     /**
@@ -71,11 +65,11 @@ class Routing
             return $pattern;
         }
         return preg_replace_callback('#\{(\w+):(\w+)\}#', function($match) {
-            $patterns = array(
+            $patterns = [
                 'i' => '[0-9]+',
                 's' => '[a-zA-Z\.\-_%]+',
                 'x' => '[a-zA-Z0-9\.\-_%]+',
-            );
+            ];
             list(, $name, $prce) = $match;
             return '(?<'.$name.'>'.strtr($prce, $patterns).')';
         }, $pattern);
@@ -84,7 +78,7 @@ class Routing
      * Добавляет массив роутов в обработчик
      * @param array $routes Массив роутов
      */
-    public function withRoutes(array $routes = array())
+    public function withRoutes(array $routes = [])
     {
         foreach ($routes as $route) {
             $this->withRoute(
@@ -111,24 +105,19 @@ class Routing
             throw new \ErrorException('Не указан ни один роут!');
         }
         if (array_key_exists($uri, $this->patterns[$method])) {
-            return array(
-                'handler' => $this->patterns[$method][$uri],
-                'params' => array()
-            );
+            return $this->compareParam($this->patterns[$method][$uri]);
         }
-        $matches = array();
+        $matches = [];
         foreach ($this->routes[$method] as $route) {
             if (preg_match('#^'.$route['pattern'].'$#s', $uri, $matches)) {
-                return array(
-                    'handler' => $route['handler'],
-                    'params' => $this->getParams($matches)
+                return $this->compareParam(
+                    $route['handler'],
+                    $this->getParams($matches)
                 );
             }
         }
-        return array(
-            'handler' => 'Neiron\Kernel\Controller@pageNotFound',
-            'params' => array()
-        );
+        return $this->compareParam();
+        
     }
     /**
      * Фильтрует и возвращает параметры запроса
@@ -140,5 +129,20 @@ class Routing
         return array_filter($params, function($param) {
             return ! is_int($param);
         });
+    }
+    /**
+     * Компонует обработчик роута и параметры в единый массив
+     * @param string $handler
+     * @param array $params
+     * @return type
+     */
+    protected function compareParam($handler = null, array $params = []) {
+        if (null === $handler) {
+            $handler = Neiron::getContainer()['default.controller'];
+        }
+        return [
+            'handler' => $handler,
+            'params' => $params
+        ];
     }
 }
