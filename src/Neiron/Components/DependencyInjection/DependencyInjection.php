@@ -50,7 +50,7 @@ class DependencyInjection implements DependencyInjectionInterface
      */
     public function rewind($name, $value)
     {
-        $this->exceptionOffsetExists($name, false);
+        $this->exceptionOffsetExistsFalse($name);
         $this->offsetUnset($name);
         return $this->offsetSet($name, $value);
     }
@@ -71,7 +71,7 @@ class DependencyInjection implements DependencyInjectionInterface
      */
     public function offsetSet($offset, $value)
     {
-        $this->exceptionOffsetExists($offset, true);
+        $this->exceptionOffsetTrue($offset);
         $this->container[$offset] = $value;
     }
     /**
@@ -82,7 +82,7 @@ class DependencyInjection implements DependencyInjectionInterface
      */
     public function offsetGet($offset)
     {
-        $this->exceptionOffsetExists($offset, false);
+        $this->exceptionOffsetExistsFalse($offset);
         return $this->container[$offset];
     }
     /**
@@ -92,7 +92,7 @@ class DependencyInjection implements DependencyInjectionInterface
      */
     public function offsetUnset($offset)
     {
-        $this->exceptionOffsetExists($offset, false);
+        $this->exceptionOffsetExistsFalse($offset);
         unset($this->container[$offset]);
     }
     /**
@@ -113,20 +113,26 @@ class DependencyInjection implements DependencyInjectionInterface
         ));
     }
     /**
-     * Проверяет наличие/отсутствие ключа в контейнере в зависимоси от режима
+     * Выбрасывает исключение в случае отсутствия ключа в контейнере
      * @param string $offset
-     * @param bool $mode
      * @throws \InvalidArgumentException
      */
-    protected function exceptionOffsetExists($offset, $mode = false) {
-        if ((false === $mode) && (false === $this->offsetExists($offset))) {
+    protected function exceptionOffsetExistsFalse($offset) {
+        if (false === $this->offsetExists($offset)) {
             throw new \InvalidArgumentException(
-            sprintf('Параметр "%s" не существует!', $offset)
+                sprintf('Параметр "%s" не существует!', $offset)
             );
         }
-        if ((true === $mode) && (true === $this->offsetExists($offset))) {
+    }
+    /**
+     * Выбрасывает исключение в случае наличия ключа в контейнере
+     * @param string $offset
+     * @throws \InvalidArgumentException
+     */
+    protected function exceptionOffsetTrue($offset) {
+        if (true === $this->offsetExists($offset)) {
             throw new \InvalidArgumentException(
-            sprintf('Параметр "%s" уже существует!', $offset)
+                sprintf('Параметр "%s" уже существует!', $offset)
             );
         }
     }
