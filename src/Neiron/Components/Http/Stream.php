@@ -106,9 +106,14 @@ class Stream implements StreamInterface {
     /**
      * Возвращает содержимое потока ввиде строки
      * @return string
+     * @throws \RuntimeException
      */
     public function getContents() {
-        return (string)stream_get_contents($this->stream);
+        $result = stream_get_contents($this->stream);
+        if (false === $result) {
+            throw new \RuntimeException('Ошибка чтения потока в строку!');
+        }
+        return (string)$result;
     }
     /**
      * Возвращает ассоциативный массив метаданных или значение по ключу
@@ -150,16 +155,18 @@ class Stream implements StreamInterface {
      * Читает заданное количество байт из потока и возврашает их ввиде строки
      * @param int $length
      * @return string
+     * @throws \RuntimeException
      */
     public function read($length) {
         $result = fread($this->stream, (int)$length);
         if (false === $result) {
             throw new \RuntimeException('Ошибка чтения потока!');
         }
-        return $result;
+        return (string)$result;
     }
     /**
      * Перемещает указатель в начало потока
+     * @throws \RuntimeException
      */
     public function rewind() {
         if (false === rewind($this->stream)) {
@@ -181,6 +188,7 @@ class Stream implements StreamInterface {
     /**
      * Возвращает текущую позицию курсора
      * @return int
+     * @throws \RuntimeException
      */
     public function tell() {
         $result = ftell($this->stream);
