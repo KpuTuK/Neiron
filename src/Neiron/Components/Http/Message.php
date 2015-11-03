@@ -1,7 +1,8 @@
 <?php
 /**
-     * PHP 5.4 framework с открытым иходным кодом
-     */
+* PHP 5.4 framework с открытым иходным кодом
+*/
+
 namespace Neiron\Components\Http;
 
 use Psr\Http\Message\MessageInterface;
@@ -34,7 +35,7 @@ class Message implements MessageInterface {
      * Иницилизирует класс с набором заголовков из $_SERVER
      * @param array $serverVars
      */
-    public function __construct(array $serverVars) {
+    public function __construct(array $serverVars = []) {
         foreach ($serverVars as $key => $value) {		
             if (strpos($key, 'HTTP_') !== false) {		
                 $this->headers[substr(strtr($key, '_', '-'), 5)] = $value;		
