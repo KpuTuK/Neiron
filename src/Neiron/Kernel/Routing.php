@@ -98,10 +98,7 @@ class Routing
      */
     public function match($uri = null, $method = RequestInterface::METH_GET)
     {
-        if (
-            (empty($this->patterns[$method])) &&
-            (empty($this->routes[$method]))
-        ) {
+        if ((empty($this->patterns[$method])) && (empty($this->routes[$method]))) {
             throw new \ErrorException('Не указан ни один роут!');
         }
         if (array_key_exists($uri, $this->patterns[$method])) {
