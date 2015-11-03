@@ -152,13 +152,19 @@ class Stream implements StreamInterface {
      * @return string
      */
     public function read($length) {
-        return fread($this->stream, (int)$length);
+        $result = fread($this->stream, (int)$length);
+        if (false === $result) {
+            throw new \RuntimeException('Ошибка чтения потока!');
+        }
+        return $result;
     }
     /**
      * Перемещает указатель в начало потока
      */
     public function rewind() {
-        rewind($this->stream);
+        if (false === rewind($this->stream)) {
+            throw new \RuntimeException('Ошибка сброса указателя потока!');
+        }
     }
     /**
      * Устанавливает указатель на заданное смещение из опции $whence
@@ -177,7 +183,11 @@ class Stream implements StreamInterface {
      * @return int
      */
     public function tell() {
-        return ftell($this->stream);
+        $result = ftell($this->stream);
+        if (false === $result) {
+            throw new \RuntimeException('Ошибка определения позиции курсора!');
+        }
+        return $result;
     }
     /**
      * Записывает строку в поток и возвращает количество записаных байт
