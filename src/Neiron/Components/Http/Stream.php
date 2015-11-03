@@ -89,7 +89,7 @@ class Stream implements StreamInterface {
     }
     /**
      * Отделяет все ресурсы из потока
-     * @return recourse
+     * @return recourse|null
      */
     public function detach() {
         $return = $this->stream;
@@ -164,10 +164,13 @@ class Stream implements StreamInterface {
      * Устанавливает указатель на заданное смещение из опции $whence
      * @param int $offset
      * @param int $whence Эквивалентна опциям fseek() (SEEK_END, SEEK_CUT, SEEK_SET)
+     * @throws \RuntimeException
      */
     public function seek($offset, $whence = SEEK_SET) {
         $this->seekable = true;
-        fseek($this->stream, (int)$offset, (int)$whence);
+        if (fseek($this->stream, (int)$offset, (int)$whence) === -1) {
+            throw new \RuntimeException('Ошибка смещения указателя потока!');
+        }
     }
     /**
      * Возвращает текущую позицию курсора
@@ -177,11 +180,17 @@ class Stream implements StreamInterface {
         return ftell($this->stream);
     }
     /**
-     * Записывает строку в поток
+     * Записывает строку в поток и возвращает количество записаных байт
      * @param string $string
+     * @return int
+     * @throws \RuntimeException
      */
     public function write($string) {
-        fwrite($this->stream, $string);
+        $result = fwrite($this->stream, $string);
+        if (false === $result) {
+            throw new \RuntimeException('Ошибка записи в поток!');
+        }
+        return $result;
     }
 
 }
