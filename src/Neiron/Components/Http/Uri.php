@@ -11,9 +11,6 @@ use Psr\Http\Message\UriInterface;
  * @version 1.0.0
  * @package Neiron framework
  * @category Kernel
- * @link https://github.com/KpuTuK/Neiron/wiki/Uri-Class
- * @todo Добавить проверки методов with...() 
- *      согласно http://www.php-fig.org/psr/psr-7/
  */
 class Uri implements UriInterface {
     /**
@@ -109,68 +106,75 @@ class Uri implements UriInterface {
         return $this->parseUri['user'].':'.$this->parseUri['pass'];
     }
     /**
-     * Записывает фрагмент
+     * Возвращает экземпляр класса с заданым фрагментом
      * @param string $fragment
      * @return \Neiron\Kernel\Http\Uri
      */
     public function withFragment($fragment) {
-        $this->parseUri['fragment'] = (string)$fragment;
-        return $this;
+        $cloned = clone $this;
+        $cloned->parseUri['fragment'] = (string)$fragment;
+        return $cloned;
     }
     /**
-     * Записывает хост
+     * Возвращает экземпляр класса с заданым хостом
      * @param string $host
      * @return \Neiron\Kernel\Http\Uri
      */
     public function withHost($host) {
-        $this->parseUri['host'] = (string)$host;
-        return $this;
+        $cloned = clone $this;
+        $cloned->parseUri['host'] = (string)$host;
+        return $cloned;
     }
     /**
-     * Записывает путь
+     * Возвращает экземпляр класса с заданым путем
      * @param string $path
      * @return \Neiron\Kernel\Http\Uri
      */
     public function withPath($path) {
-        $this->parseUri['path'] = (string)$path;
-        return $this;
+        $cloned = clone $this;
+        $cloned->parseUri['path'] = (string)$path;
+        return $cloned;
     }
     /**
-     * Записывает порт
+     * Возвращает экземпляр класса с заданым попртом
      * @param string $port
      * @return \Neiron\Kernel\Http\Uri
      */
     public function withPort($port) {
-        $this->parseUri['port'] = (int)$port;
-        return $this;
+        $cloned = clone $this;
+        $cloned->parseUri['port'] = (int)$port;
+        return $cloned;
     }
     /**
-     * Записывает данные запроса (после "?")
+     * Возвращает экземпляр класса с задаными параметрами запроса
      * @param string $query
      * @return \Neiron\Kernel\Http\Uri
      */
     public function withQuery($query) {
-        $this->parseUri['query'] = (string)$query;
-        return $this;
+        $cloned = clone $this;
+        $cloned->parseUri['query'] = (string)$query;
+        return $cloned;
     }
     /**
-     * Записывает схему
+     * Возвращает экземпляр класса с заданой схемой
      * @param string $scheme
      * @return \Neiron\Kernel\Http\Uri
      */
     public function withScheme($scheme) {
-        $this->parseUri['scheme'] = (string)$scheme;
-        return $this;
+        $cloned = clone $this;
+        $cloned->parseUri['scheme'] = (string)$scheme;
+        return $cloned;
     }
     /**
-     * Записывает логи и пароль авторизации
+     * Возвращает экземпляр класса с задаными логином и паролем
      * @param string $user Логин
      * @param string $password Пароль
      * @return \Neiron\Kernel\Http\Uri
      */
     public function withUserInfo($user, $password = null) {
-        $this->parseUri['user'] = (string)$user;
-        $this->parseUri['pass'] = (string)$password;
-        return $this;
+        $cloned = clone $this;
+        $cloned->parseUri['user'] = (string)$user;
+        $cloned->parseUri['pass'] = (string)$password;
+        return $cloned;
     }
 }
