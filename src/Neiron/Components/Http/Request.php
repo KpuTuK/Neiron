@@ -9,7 +9,6 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
 /**
  * Обработчик запросов к HTTP серверу
- *
  * @author KpuTuK
  * @version 1.0.0
  * @package Neiron framework
