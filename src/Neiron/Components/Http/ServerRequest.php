@@ -21,11 +21,7 @@ abstract class ServerRequest extends Message implements ServerRequestInterface {
     protected $query = [];
     protected $files = [];
     protected $parsedBody = [];
-    /**
-     *
-     * @var \Psr\Http\Message\UriInterface
-     */
-    protected $uri;
+    
     /**
      * 
      * @param type $uri
@@ -43,8 +39,7 @@ abstract class ServerRequest extends Message implements ServerRequestInterface {
         array $cookies = [],
         array $files = []
     ) {
-        parent::__construct($server);
-        $this->uri = new Uri($uri);
+        parent::__construct($uri, $server);
         $this->server = $server;
         $this->query = $query;
         $this->parsedBody = $parsedBody;
