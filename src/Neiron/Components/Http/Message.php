@@ -32,10 +32,17 @@ class Message implements MessageInterface {
      */
     protected $body;
     /**
+     * Обработчик uri
+     * @var \Psr\Http\Message\UriInterface
+     */
+    protected $uri;
+    /**
      * Иницилизирует класс с набором заголовков из $_SERVER
      * @param array $serverVars
      */
-    public function __construct(array $serverVars = []) {
+    public function __construct($uri, array $serverVars = []) {
+        $this->body = new Stream();
+        $this->uri = new Uri($uri);
         foreach ($serverVars as $key => $value) {		
             if (strpos($key, 'HTTP_') !== false) {		
                 $this->headers[substr(strtr($key, '_', '-'), 5)] = $value;		
@@ -115,7 +122,7 @@ class Message implements MessageInterface {
     }
     /**
      * Возвращает клон экземпляра класса с указанным телом сообщения
-     * @param StreamInterface $body Тело сообщения
+     * @param \Psr\Http\Message\StreamInterface $body Тело сообщения
      * @return \Neiron\Kernel\Http\Message
      */
     public function withBody(StreamInterface $body) {
