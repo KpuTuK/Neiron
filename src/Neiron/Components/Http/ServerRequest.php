@@ -44,7 +44,11 @@ abstract class ServerRequest extends Message implements ServerRequestInterface {
         $this->query = $query;
         $this->parsedBody = $parsedBody;
         $this->cookies = $cookies;
-        $this->files = $files;
+        if ( ! empty($files)) {
+            foreach ($files as $key => $value) {
+                $this->files[$key] = new UploadedFile($value);
+            }
+        }
     }
     public function getAttribute($name, $default = null) {
         if (array_key_exists($name, $this->attributes)) {
