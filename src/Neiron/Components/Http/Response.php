@@ -90,6 +90,20 @@ class Response extends Message implements ResponseInterface {
         511 => 'Network Authentication Required',                             // RFC6585
     ];
     /**
+     * Иницилизирует класс класс с указанным кодом и статусом
+     * @param int $code
+     * @param string $reasonPhrase
+     * @param array $serverVars
+     */
+    public function __construct(
+        $code = 200,
+        $reasonPhrase = '',
+        array $serverVars = array()
+    ) {
+        parent::__construct($serverVars);
+        $this->withStatus($code, $reasonPhrase);
+    }
+    /**
      * Возвращает статус состояния
      * @return string
      */
