@@ -101,7 +101,7 @@ class Response extends Message implements ResponseInterface {
         $code = 200,
         $reasonPhrase = ''
     ) {
-        parent::__construct($request->getUri(), $request->getServer());
+        parent::__construct($request->getUri(), $request->getServerParams());
         $this->withStatus($code, $reasonPhrase);
     }
     /**
