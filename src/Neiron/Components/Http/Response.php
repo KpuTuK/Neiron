@@ -98,7 +98,7 @@ class Response extends Message implements ResponseInterface {
     public function __construct(
         $code = 200,
         $reasonPhrase = '',
-        array $serverVars = array()
+        array $serverVars = []
     ) {
         parent::__construct($serverVars);
         $this->withStatus($code, $reasonPhrase);
