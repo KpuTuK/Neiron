@@ -51,10 +51,10 @@ class UploadedFile implements UploadedFileInterface {
             throw new \InvalidArgumentException('Путь не существует!');
         }
         if (
-            ( ! is_uploaded_file($this->tempName))  &&
+            ( ! is_uploaded_file($this->tempName)) &&
             ( ! move_uploaded_file(
                 $this->tempName, 
-                $targetPath . $this->clientFileName
+                $targetPath.$this->clientFileName
             ))
         ) {
             throw new \RuntimeException('Ошибка перемещения файла!');
