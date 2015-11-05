@@ -1,17 +1,17 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/**
+* PHP 5.4 framework с открытым иходным кодом
+*/
 
 namespace Neiron\Components\Http;
+
 use Psr\Http\Message\UploadedFileInterface;
 /**
- * Description of UploadedFile
- *
+ * Класс представляющий файл загруженный через HTTP запрос
  * @author KpuTuK
+ * @version 1.0.0
+ * @package Neiron framework
+ * @category http
  */
 class UploadedFile implements UploadedFileInterface {
     protected $tempName;
@@ -26,26 +26,47 @@ class UploadedFile implements UploadedFileInterface {
         $this->error = $data['error'];
         $this->size = $data['size'];
     }
+    /**
+     * Возвращает имя файла на клиенте
+     * @return string
+     */
     public function getClientFilename() {
         return $this->clientFileName;
     }
-
+    /**
+     * Возвращает MIME тип файла
+     * @return string
+     */
     public function getClientMediaType() {
         return $this->clientMediaType;
     }
-
+    /**
+     * Возвращает код ошибки
+     * @return int
+     */
     public function getError() {
         return $this->error;
     }
-
+    /**
+     * Возвращает размер файла
+     * @return int
+     */
     public function getSize() {
         return $this->size;
     }
-
+    /**
+     * Возвращает обьект потока файла
+     * @return \Neiron\Components\Http\Stream
+     */
     public function getStream() {
         return new Stream($this->tempName);
     }
-
+    /**
+     * Перемещает файл по указанному пути
+     * @param string $targetPath
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     */
     public function moveTo($targetPath) {
         if ( ! is_dir($targetPath)) {
             throw new \InvalidArgumentException('Путь не существует!');
