@@ -44,17 +44,6 @@ class ClassLoader
         return $this;
     }
     /**
-     * Добавляет класс и генерирует путь к нему согласно psr0
-     * @deprecated Данный способ по состоянию на 21 октября 2014 года PSR-0 был помечен как устаревший
-     * @param sring $class Имя класса
-     * @return \Neiron\Kernel\ClassLoader
-     */
-    public function withPathPsr0($class)
-    {
-        $this->pathes[$class] = strtr($class, '_', '/');
-        return $this;
-    }
-    /**
      * Добавляет массив классов и пространств имен к ним
      * @param array $pathes Массив классов и пространств имен к ним
      * @return \Neiron\Kernel\ClassLoader
@@ -87,7 +76,7 @@ class ClassLoader
     protected function getFilePatch($class)
     {
         $path = $this->rootDir.$this->preparePatch($class).'.php';
-        $file = str_replace('\\', DIRECTORY_SEPARATOR, $path);
+        $file = str_replace(['\\', '_'], DIRECTORY_SEPARATOR, $path);
         if (file_exists($file)) {
             return $file;
         } else {
