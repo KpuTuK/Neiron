@@ -93,7 +93,7 @@ class Stream implements StreamInterface {
     }
     /**
      * Отделяет все ресурсы из потока
-     * @return mixed
+     * @return resource
      */
     public function detach() {
         $return = $this->stream;
