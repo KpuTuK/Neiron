@@ -22,7 +22,7 @@ class Stream implements StreamInterface {
     protected $options = [];
     /**
      * Поток
-     * @var recourse 
+     * @var resource 
      */
     protected $stream;
     /**
