@@ -31,7 +31,7 @@ class Uri implements UriInterface {
      * Создает новый экземпляр класса с указанным uri 
      * @param string $uri Строка uri
      */
-    public function __construct($uri) {
+    public function __construct($uri = '') {
         $this->parseUri = array_replace($this->parseUri, parse_url($uri));
     }
     /**
