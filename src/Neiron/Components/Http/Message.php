@@ -43,7 +43,7 @@ class Message implements MessageInterface {
      */
     public function __construct($uri, array $serverVars = []) {
         if ($uri instanceof UriInterface) {
-            $this->uri  = $uri;
+            $this->uri = $uri;
         } else {
             $this->uri = new Uri($uri);
         }
