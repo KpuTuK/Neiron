@@ -79,9 +79,8 @@ class ClassLoader
         $file = str_replace(['\\', '_'], DIRECTORY_SEPARATOR, $path);
         if (file_exists($file)) {
             return $file;
-        } else {
-            throw new \ErrorException(sprintf('Класс {"%s"} не найден!', $file));
         }
+        throw new \ErrorException(sprintf('Класс {"%s"} не найден!', $file));
     }
     /**
      * Подключает класс
