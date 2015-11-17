@@ -7,6 +7,7 @@ namespace Neiron\Components\Http;
 
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * Обработчик сообщений запроса
@@ -41,8 +42,11 @@ class Message implements MessageInterface {
      * @param array $serverVars
      */
     public function __construct($uri, array $serverVars = []) {
-        $this->body = new Stream();
-        $this->uri = new Uri($uri);
+        if ($uri instanceof UriInterface) {
+            $this->uri  = $uri;
+        } else {
+            $this->uri = new Uri($uri);
+        }
         foreach ($serverVars as $key => $value) {		
             if (strpos($key, 'HTTP_') !== false) {		
                 $this->headers[substr(strtr($key, '_', '-'), 5)] = $value;		
@@ -60,28 +64,35 @@ class Message implements MessageInterface {
      * Возвращает все значения указанного заголовка сообщения
      * @param string $name Имя заголовка без учета регистра
      * @return string
+     * @throws \InvalidArgumentException
      */
     public function getHeader($name) {
         $headerName = ucfirst($name);
         if ($this->hasHeader($headerName)) {
             return $this->headers[$headerName];
         }
+        throw new \InvalidArgumentException(vsprintf(
+            'Заголовок "%s" не найден! ', $headerName
+        ));
     }
     /**
      * Возвращает указанный заголовок в виде сторки
      * @param string $name Имя заголовка без учета регистра
      * @return string Заголовок в виде сторки
+     * @throws \InvalidArgumentException
      */
     public function getHeaderLine($name) {
         $headerName = ucfirst($name);
         if ($this->hasHeader($headerName)) {
             if (is_string($this->headers[$headerName])) {
                 return (string)$headerName.': '.$this->headers[$headerName];
-            } else {
-                return (string)$headerName.': '.
-                implode(', ', $this->headers[$headerName]);
             }
+            return (string)$headerName.': '.
+            implode(', ', $this->headers[$headerName]);
         }
+        throw new \InvalidArgumentException(vsprintf(
+            'Заголовок "%s" не найден! ', $headerName
+        ));
     }
     /**
      * Возвращает все значения заголовков сообщения
@@ -109,21 +120,25 @@ class Message implements MessageInterface {
      * Возвращает клон экземпляра класса с заменой значения указанного заголовка
      * @param string $name Имя заголовка без учета регистра
      * @param array|string $value Значение указанного заголовка
-     * @return \Neiron\Kernel\Http\Message
+     * @return \Neiron\Components\Http\Message
+     * @throws \InvalidArgumentException
      */
     public function withAddedHeader($name, $value) {
         $headerName = ucfirst($name);
         $cloned = clone $this;
         if ($cloned->hasHeader($headerName)) {
             $cloned->headers[$headerName] = $value;
+            unset($cloned->headers[$headerName]);
+            return $cloned;
         }
-        unset($cloned->headers[$headerName]);
-        return $cloned;
+        throw new \InvalidArgumentException(vsprintf(
+            'Заголовок "%s" не найден! ', $headerName
+        ));
     }
     /**
      * Возвращает клон экземпляра класса с указанным телом сообщения
      * @param \Psr\Http\Message\StreamInterface $body Тело сообщения
-     * @return \Neiron\Kernel\Http\Message
+     * @return \Neiron\Components\Http\Message
      */
     public function withBody(StreamInterface $body) {
         $cloned = clone $this;
@@ -134,7 +149,7 @@ class Message implements MessageInterface {
      * Возвращает клон экземпляра класса с заменой указанного заголовка
      * @param string $name Имя заголовка без учета регистра
      * @param string $value Содержимое заголовка
-     * @return \Neiron\Kernel\Http\Message
+     * @return \Neiron\Components\Http\Message
      */
     public function withHeader($name, $value) {
         $cloned = clone $this;
@@ -144,7 +159,7 @@ class Message implements MessageInterface {
     /**
      * Возвращает клон экземпляра класса с заменой указанного протокола
      * @param string $version версия HTTP протокола
-     * @return \Neiron\Kernel\Http\Message
+     * @return \Neiron\Components\Http\Message
      */
     public function withProtocolVersion($version) {
         $cloned = clone $this;
@@ -154,14 +169,18 @@ class Message implements MessageInterface {
     /**
      * Возвращает клон экземпляра класса без указанного заголовка
      * @param string $name Имя заголовка без учета регистра
-     * @return \Neiron\Kernel\Http\Message
+     * @return \Neiron\Components\Http\Message
+     * @throws \InvalidArgumentException
      */
     public function withoutHeader($name) {
         $headerName = ucfirst($name);
         $cloned = clone $this;
         if ($cloned->hasHeader($headerName)) {
             unset($cloned->headers[$headerName]);
+            return $cloned;
         }
-        return $cloned;
+        throw new \InvalidArgumentException(vsprintf(
+            'Заголовок "%s" не найден! ', $headerName
+        ));
     }
 }
