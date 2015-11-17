@@ -55,8 +55,12 @@ class Stream implements StreamInterface {
      */
     public function __construct($stream = 'php://input', array $options = []) {
         $this->withOptions($options);
-        if (is_string($stream)) {
-            $stream = fopen($stream, 'r+');
+        if ( ! is_object($stream)) {
+            if ( ! is_file($stream)) {
+                $stream = $this->valueToStream($stream);
+            } else {
+                $stream = fopen($stream, 'r+');
+            }
         }
         $this->stream = $stream;
         $mode = $this->getMetadata('mode');
@@ -89,7 +93,7 @@ class Stream implements StreamInterface {
     }
     /**
      * Отделяет все ресурсы из потока
-     * @return resource|null
+     * @return mixed
      */
     public function detach() {
         $return = $this->stream;
@@ -210,5 +214,10 @@ class Stream implements StreamInterface {
         }
         return $result;
     }
-
+    protected function valueToStream($value) {
+        $stream = new self('php://tmp');
+        $stream->write((string)$value);
+        $stream->close();
+        return new self('php://tmp');
+    }
 }
