@@ -8,4 +8,6 @@ engines:
         enabled: false
       Generic Files LineLength TooLong:
         enabled: false
+      Squiz WhiteSpace SuperfluousWhitespace EndLine:
+        enabled: false
 # ... CONFIG CONTENT ...
