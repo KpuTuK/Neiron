@@ -22,7 +22,7 @@ class Stream implements StreamInterface {
     protected $options = [];
     /**
      * Поток
-     * @var resource 
+     * @var resource
      */
     protected $stream;
     /**
@@ -30,17 +30,17 @@ class Stream implements StreamInterface {
      * @var array
      */
     protected $modes = [
-        'read' => ['r+', 'r', 'w+', 'a+', 'x+', 'c+'], 
+        'read' => ['r+', 'r', 'w+', 'a+', 'x+', 'c+'],
         'write' => ['w', 'w+', 'r+', 'a', 'a+', 'x', 'x+', 'c', 'c+'],
     ];
     /**
      * Доступен ли поток для чтения
-     * @var bool 
+     * @var bool
      */
     protected $readable = false;
     /**
      * Доступен ли поток для записи
-     * @var bool 
+     * @var bool
      */
     protected $writable = false;
     /**
