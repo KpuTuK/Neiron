@@ -17,7 +17,7 @@ use Psr\Http\Message\StreamInterface;
 class Stream implements StreamInterface {
     /**
      * Опции потока
-     * @var array 
+     * @var array
      */
     protected $options = [];
     /**
@@ -45,7 +45,7 @@ class Stream implements StreamInterface {
     protected $writable = false;
     /**
      * Доступен ли поток для поиска
-     * @var bool 
+     * @var bool
      */
     protected $seekable = false;
     /**
