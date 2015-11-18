@@ -10,4 +10,8 @@ engines:
         enabled: false
       Squiz WhiteSpace SuperfluousWhitespace EndLine:
         enabled: false
+      Controversial/Superglobals:
+        enabled: false
+      Design/TooManyMethods:
+        enabled: false
 # ... CONFIG CONTENT ...
