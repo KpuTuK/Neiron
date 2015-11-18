@@ -88,42 +88,42 @@ abstract class ServerRequest extends Message implements ServerRequestInterface {
     }
     /**
      * Возвращает массив с атрибутами запроса
-     * @return /ArrayObject
+     * @return /ArrayObject|array
      */
     public function getAttributes() {
         return $this->attributes;
     }
     /**
      * Возвращает массив с COOKIES запроса
-     * @return /ArrayObject
+     * @return /ArrayObject|array
      */
     public function getCookieParams() {
         return $this->cookies;
     }
     /**
      * Возвращает массив с POST данными запроса
-     * @return /ArrayObject
+     * @return /ArrayObject|array
      */
     public function getParsedBody() {
         return $this->parsedBody;
     }
     /**
      * Возвращает массив с GET данными запроса
-     * @return /ArrayObject
+     * @return /ArrayObject|array
      */
     public function getQueryParams() {
         return $this->query;
     }
     /**
      * Возвращает переменные SERVER
-     * @return /ArrayObject
+     * @return /ArrayObject|array
      */
     public function getServerParams() {
         return $this->server;
     }
     /**
      * Вовращает загруженные файлы
-     * @return /ArrayObject
+     * @return /ArrayObject|array
      */
     public function getUploadedFiles() {
         return $this->files;
