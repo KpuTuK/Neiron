@@ -188,8 +188,8 @@ abstract class ServerRequest extends Message implements ServerRequestInterface {
         $cloned = $this; 
         foreach ($uploadedFiles as $file) {
             if (
-                !is_object($file) || 
-                (! $file instanceof \Psr\Http\Message\UploadedFileInterface)
+                ! is_object($file) || 
+                ( ! $file instanceof \Psr\Http\Message\UploadedFileInterface)
             ) {
                 throw new \InvalidArgumentException(
                     'Недопустимый тип файла!'
