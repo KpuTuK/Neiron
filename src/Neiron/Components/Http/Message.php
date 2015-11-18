@@ -71,9 +71,7 @@ class Message implements MessageInterface {
         if ($this->hasHeader($headerName)) {
             return $this->headers[$headerName];
         }
-        throw new \InvalidArgumentException(vsprintf(
-            'Заголовок "%s" не найден! ', $headerName
-        ));
+        $this->headerNotExists($headerName);
     }
     /**
      * Возвращает указанный заголовок в виде сторки
@@ -90,9 +88,7 @@ class Message implements MessageInterface {
             return (string)$headerName.': '.
             implode(', ', $this->headers[$headerName]);
         }
-        throw new \InvalidArgumentException(vsprintf(
-            'Заголовок "%s" не найден! ', $headerName
-        ));
+        $this->headerNotExists($headerName);
     }
     /**
      * Возвращает все значения заголовков сообщения
@@ -131,9 +127,7 @@ class Message implements MessageInterface {
             unset($cloned->headers[$headerName]);
             return $cloned;
         }
-        throw new \InvalidArgumentException(vsprintf(
-            'Заголовок "%s" не найден! ', $headerName
-        ));
+        $this->headerNotExists($headerName);
     }
     /**
      * Возвращает клон экземпляра класса с указанным телом сообщения
@@ -179,8 +173,11 @@ class Message implements MessageInterface {
             unset($cloned->headers[$headerName]);
             return $cloned;
         }
+        $this->headerNotExists($headerName);
+    }
+    protected function headerNotExists($name) {
         throw new \InvalidArgumentException(vsprintf(
-            'Заголовок "%s" не найден! ', $headerName
+            'Заголовок "%s" не найден! ', $name
         ));
     }
 }
