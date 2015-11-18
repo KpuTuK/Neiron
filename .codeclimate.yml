@@ -14,4 +14,6 @@ engines:
         enabled: false
       Design/TooManyMethods:
         enabled: false
+      CleanCode/BooleanArgumentFlag:
+        enabled: false
 # ... CONFIG CONTENT ...
