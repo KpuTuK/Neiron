@@ -6,4 +6,6 @@ engines:
     checks:
       Controversial/Superglobals:
         enabled: false
+      Generic Files LineLength TooLong:
+        enabled: false
 # ... CONFIG CONTENT ...
