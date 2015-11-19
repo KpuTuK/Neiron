@@ -23,4 +23,6 @@ engines:
     checks:
       Generic Files LineLength TooLong:
         enabled: false
+      PSR2 Classes ClassDeclaration OpenBraceNewLine:
+        enabled: false
 # ... CONFIG CONTENT ...
