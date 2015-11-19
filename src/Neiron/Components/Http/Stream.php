@@ -58,9 +58,8 @@ class Stream implements StreamInterface {
         if ( ! is_object($stream)) {
             if ( ! is_file($stream)) {
                 $stream = $this->valueToStream($stream);
-            } else {
-                $stream = fopen($stream, 'r+');
             }
+            $stream = fopen($stream, 'r+');
         }
         $this->stream = $stream;
         $mode = $this->getMetadata('mode');
