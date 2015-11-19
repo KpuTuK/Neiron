@@ -25,4 +25,6 @@ engines:
         enabled: false
       PSR2 Classes ClassDeclaration OpenBraceNewLine:
         enabled: false
+      Generic Files LineEndings InvalidEOLChar:
+        enabled: false
 # ... CONFIG CONTENT ...
