@@ -131,9 +131,6 @@ class Routing
      * @return type
      */
     protected function compareParam($handler = null, array $params = []) {
-        if (null === $handler) {
-            $handler = Neiron::getContainer()['default.controller'];
-        }
         return [
             'handler' => $handler,
             'params' => $params
