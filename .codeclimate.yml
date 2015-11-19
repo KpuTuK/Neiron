@@ -16,6 +16,11 @@ engines:
         enabled: false
       CleanCode/BooleanArgumentFlag:
         enabled: false
+        # ... CONFIG CONTENT ...
   phpcodesniffer:
     enabled: true
+    # ... CONFIG CONTENT ...
+    checks:
+      Generic Files LineLength TooLong:
+        enabled: false
 # ... CONFIG CONTENT ...
