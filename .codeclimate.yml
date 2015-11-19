@@ -16,4 +16,6 @@ engines:
         enabled: false
       CleanCode/BooleanArgumentFlag:
         enabled: false
+  phpcodesniffer:
+    enabled: true
 # ... CONFIG CONTENT ...
