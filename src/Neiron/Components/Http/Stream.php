@@ -50,16 +50,19 @@ class Stream implements StreamInterface {
     protected $seekable = false;
     /**
      * Иницилизирует класс
-     * @param mixed $stream Открытый поток или путь к файлу
+     * @param mixed $stream Открытый поток, путь к файлу или строка
      * @param array $options Опции потока
      */
-    public function __construct($stream = 'php://input', array $options = []) {
+    public function __construct($stream = '', array $options = []) {
         $this->withOptions($options);
-        if ( ! is_object($stream)) {
+        if ( ! is_resource($stream)) {
             if ( ! is_file($stream)) {
-                $stream = $this->valueToStream($stream);
+                $string = (string)$stream;
+                $stream  = tmpfile();
+                fwrite($stream, $string);
+                fseek($stream, 0);
             } else {
-                $stream = fopen($stream, 'r+');
+                $stream = fopen($stream, 'w+');
             }
         }
         $this->stream = $stream;
@@ -90,6 +93,7 @@ class Stream implements StreamInterface {
      */
     public function close() {
         fclose($this->stream);
+        $this->stream = null;
     }
     /**
      * Отделяет все ресурсы из потока
@@ -214,10 +218,9 @@ class Stream implements StreamInterface {
         }
         return $result;
     }
-    protected function valueToStream($value) {
-        $stream = new self('php://tmp');
-        $stream->write((string)$value);
-        $stream->close();
-        return new self('php://tmp');
+    public function __destruct() {
+        if (is_resource($this->stream)){
+            $this->close();
+        }  
     }
 }
