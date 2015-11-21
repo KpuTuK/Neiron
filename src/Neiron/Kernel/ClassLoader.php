@@ -1,7 +1,7 @@
 <?php
 /**
-     * PHP 5x framework с открытым иходным кодом
-     */
+* PHP 5.4 framework с открытым иходным кодом
+*/
 namespace Neiron\Kernel;
 
 /**
@@ -30,7 +30,7 @@ class ClassLoader
      */
     public function __construct($rootDir = null)
     {
-        $this->rootDir = $rootDir;
+        $this->rootDir = $rootDir . DIRECTORY_SEPARATOR;
     }
     /**
      * Доавляет класс и пространство имен в массив
