@@ -42,11 +42,10 @@ class Message implements MessageInterface {
      * @param array $serverVars
      */
     public function __construct($uri, array $serverVars = []) {
-        if ($uri instanceof UriInterface) {
-            $this->uri = $uri;
-        } else {
-            $this->uri = new Uri($uri);
+        if (is_string($uri)) {
+            $uri = new Uri($uri);
         }
+         $this->uri = $uri;
         foreach ($serverVars as $key => $value) {		
             if (strpos($key, 'HTTP_') !== false) {		
                 $this->headers[substr(strtr($key, '_', '-'), 5)] = $value;		

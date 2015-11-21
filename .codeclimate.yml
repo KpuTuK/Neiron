@@ -1,0 +1,30 @@
+engines:
+  # ... CONFIG CONTENT ...
+  phpmd:
+    enabled: true
+    # ... CONFIG CONTENT ...
+    checks:
+      Controversial/Superglobals:
+        enabled: false
+      Generic Files LineLength TooLong:
+        enabled: false
+      Squiz WhiteSpace SuperfluousWhitespace EndLine:
+        enabled: false
+      Controversial/Superglobals:
+        enabled: false
+      Design/TooManyMethods:
+        enabled: false
+      CleanCode/BooleanArgumentFlag:
+        enabled: false
+        # ... CONFIG CONTENT ...
+  phpcodesniffer:
+    enabled: true
+    # ... CONFIG CONTENT ...
+    checks:
+      Generic Files LineLength TooLong:
+        enabled: false
+      PSR2 Classes ClassDeclaration OpenBraceNewLine:
+        enabled: false
+      Generic Files LineEndings InvalidEOLChar:
+        enabled: false
+# ... CONFIG CONTENT ...

@@ -1,8 +1,7 @@
 <?php
 /**
-     * PHP 5x framework с открытым иходным кодом
-     */
-
+* PHP 5.4 framework с открытым иходным кодом
+*/
 namespace Neiron\Kernel;
 
 
@@ -131,9 +130,6 @@ class Routing
      * @return type
      */
     protected function compareParam($handler = null, array $params = []) {
-        if (null === $handler) {
-            $handler = Neiron::getContainer()['default.controller'];
-        }
         return [
             'handler' => $handler,
             'params' => $params
