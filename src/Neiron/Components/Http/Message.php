@@ -31,7 +31,7 @@ class Message implements MessageInterface {
      * Тело сообщения
      * @var \Psr\Http\Message\StreamInterface 
      */
-    protected $body;
+    protected $body = null;
     /**
      * Обработчик uri
      * @var \Psr\Http\Message\UriInterface
@@ -137,7 +137,7 @@ class Message implements MessageInterface {
     public function withBody(StreamInterface $body) {
         $cloned = clone $this;
         $cloned->body = $body;
-        return $this;
+        return $cloned;
     }
     /**
      * Возвращает клон экземпляра класса с заменой указанного заголовка
