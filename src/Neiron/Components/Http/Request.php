@@ -32,18 +32,26 @@ class Request extends ServerRequest implements
      * @param array $parsedBody Массив имитирующий $_POST
      * @param array $cookies Массив имитирующий $_COOKIE
      * @param array $files Массив имитирующий $_FILES
+     * @param array $attributes Аттрибуты запроса
      */
     public function __construct(
         $uri = '/',
-        $method = Request::METH_GET,
-        array $server = array(), 
-        array $query = array(), 
-        array $parsedBody = array(), 
-        array $cookies = array(), 
-        array $files = array()
+        $method = RequestMethodInterface::METH_GET,
+        array $server = [], 
+        array $query = [], 
+        array $parsedBody = [], 
+        array $cookies = [], 
+        array $files = [],
+        array $attributes = []
     ) {
         parent::__construct(
-            $uri, $server, $query, $parsedBody, $cookies, $files
+            $uri,
+            $server,
+            $query,
+            $parsedBody,
+            $cookies,
+            $files,
+            $attributes
         );
         $this->withMethod($method);
     }
