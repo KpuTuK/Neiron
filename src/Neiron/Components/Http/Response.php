@@ -6,7 +6,6 @@
 namespace Neiron\Components\Http;
 
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 /**
  * Обработчик ответов HTTP сервера
  * @author KpuTuK
@@ -92,16 +91,15 @@ class Response extends Message implements ResponseInterface {
     ];
     /**
      * Иницилизирует класс класс с указанным кодом и статусом
-     * @param \Psr\Http\Message\ServerRequestInterface
      * @param int $code
      * @param string $reasonPhrase
      */
     public function __construct(
-        ServerRequestInterface $request,
         $code = 200,
-        $reasonPhrase = ''
+        $reasonPhrase = '',
+        array $headers = []
     ) {
-        parent::__construct($request->getUri(), $request->getServerParams());
+        parent::__construct(null, $headers);
         $this->withStatus($code, $reasonPhrase);
     }
     /**
